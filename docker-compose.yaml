@@ -1,0 +1,46 @@
+name: Soil-Assessment-Tool
+services:
+  # Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    # command: npm run ${CMD:-dev}
+    container_name: sat-api
+    # depends_on:
+    #   database:
+    #     condition: service_healthy
+    develop:
+      watch:
+        - action: sync
+          path: ./backend/
+          target: app
+          ignore: [node_modules]
+    environment:
+      LOG_LEVEL: info
+      PORT: 3000
+    healthcheck:
+      test: curl localhost:3000/api/health | grep 'SAT API is healthy and ready!'
+    ports: [3000:3000]
+
+  # Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    # command: npm run ${CMD:-dev}
+    container_name: sat-frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend
+          target: /app
+          ignore: [node_modules]
+    environment:
+      VITE_BACKEND_URL: http://localhost:3000/api
+    healthcheck:
+      test: curl --fail http://localhost:5173 || exit 1
+    ports: [5173:5173]
