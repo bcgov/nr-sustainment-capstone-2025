@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "build": "tsc && vite build",
+    "serve": "vite serve",
+    "preview": "vite preview",
+    "test": "vitest --watch=false"
   },
   "dependencies": {
     "react": "^19.1.0",

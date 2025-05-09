@@ -1,11 +1,12 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.ts",
   "scripts": {
-    "build": "tsc -p .",
-    "start": "node ./dist/server.js",
-    "dev": "nodemon server.ts"
+    "start": "ts-node ./server.ts",
+    "build": "tsc",
+    "serve": "node dist/server.js",
+    "dev": "nodemon ./server.ts"
   },
   "keywords": [],
   "author": "",
