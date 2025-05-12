@@ -1,0 +1,17 @@
+/**
+ * @summary This is the styling page for the Categories web page
+ */
+
+body {
+    overflow-x: hidden;
+    display: contents;
+}
+
+h2 {
+    margin-top: 5em;
+}
+
+.clear {
+    clear: both;
+    height: 5em;
+}
