@@ -3,6 +3,6 @@ import {addReport} from '../controllers/report-controller';
 
 const router = express.Router();
 
-router.route('/add').get(addReport);
+router.route('/add-report').get(addReport);
 
 export default router;
