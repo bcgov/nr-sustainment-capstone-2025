@@ -8,6 +8,7 @@ app.use(express.json());
 
 app.use('/api', [
   routers.healthRouter,
+  routers.dataRouter
 ]);
 
 export default app;
