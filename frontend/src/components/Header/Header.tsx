@@ -16,7 +16,7 @@ export default function Header() {
           />
         </StyledLink>
         <StyledLinkHeading href="/">
-          <Heading>InField Soil Health</Heading>
+          <Heading>Soil Assessment Tool</Heading>
         </StyledLinkHeading>
       </Banner>
     </HeaderWrapper>

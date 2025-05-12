@@ -49,7 +49,6 @@ export default function Footer() {
               id="footer-copyright"
               href="http://gov.bc.ca/copyright"
             >
-              
               Copyright
             </StyledLink>
             <StyledLink href="https://www2.gov.bc.ca/gov/content/home/contact-us">
