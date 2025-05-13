@@ -1,37 +1,16 @@
 import './App.css'
-import Footer from './components/Footer/Footer.tsx'
-import Header from './components/Header/Header.tsx'
-import{ Button } from './components/Button/Button.tsx'
-import { useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Categories from './Categories.tsx'
+import Home from './Home.tsx'
 
-type AppProps = {
-  userClick: string
-}
-
-function App({
-  userClick
-}: AppProps) {
-  const navigate = useNavigate();
-
-  const handleCreateDataClick = () => {
-    navigate("/categories");
-    userClick = "CreateData";
-  }
-  
-  const handleCompareDataClick = () => {
-    navigate("/categories");
-    userClick = "CompareData";
-  }
-
-  return (
-    <>
-      <Header />
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Button size={'lg'} variant={'primary'} disabled={false} text={'Create Data'} handleClick={handleCreateDataClick}/>
-        <Button size={'lg'} variant={'primary'} disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
-      </div>
-      <Footer />
-    </>
+function App() {
+  return(
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/categories" element={<Categories />} />
+      </Routes>
+    </Router>
   )
 }
 

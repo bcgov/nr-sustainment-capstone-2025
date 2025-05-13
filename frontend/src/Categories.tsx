@@ -1,13 +1,7 @@
-type CategoriesProps = {
-  userClick: string;
-}
-
-function Categories({
-  userClick
-}: CategoriesProps) {
+function Categories() {
   return (
     <>
-      <h1>Dummy page</h1>{console.log(userClick)}
+      <h1>Dummy page</h1>
     </>
   )
 }

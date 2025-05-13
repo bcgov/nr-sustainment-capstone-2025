@@ -1,0 +1,29 @@
+import Footer from './components/Footer/Footer.tsx'
+import Header from './components/Header/Header.tsx'
+import { Button } from './components/Button/Button.tsx'
+import { useNavigate } from 'react-router-dom';
+
+function Home() {
+    const navigate = useNavigate();
+
+    const handleCreateDataClick = () => {
+        navigate("/categories");
+    }
+
+    const handleCompareDataClick = () => {
+        navigate("/categories");
+    }
+
+    return (
+        <>
+        <Header />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Button size={'lg'} variant={'primary'} disabled={false} text={'Create Data'} handleClick={handleCreateDataClick}/>
+            <Button size={'lg'} variant={'primary'} disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
+        </div>
+        <Footer />
+        </>
+    )
+}
+
+export default Home
