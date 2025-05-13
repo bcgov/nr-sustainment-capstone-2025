@@ -9,7 +9,7 @@ function Categories(){
             <Header />
                 <title>Pick a category:</title>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                    <div>
+                    <div className="clear">
                         <h2>Pick a category:</h2>
                     </div>
                     <div>
