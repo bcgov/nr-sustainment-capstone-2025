@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "react-router-dom": "^7.6.0",
     "typography": "^0.16.24"
+  },
+  "devDependencies": {
+    "eslint": "^9.26.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.1.0",
+    "typescript-eslint": "^8.32.1"
   }
 }
