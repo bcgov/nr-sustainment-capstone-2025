@@ -2,7 +2,7 @@
  * @summary This is the styling page for the common button component.
  */
 import styled from '@emotion/styled';
-import typography from '../../typography';
+import typography from '../../../typography';
 
 type ButtonProps = {
   variant: string;
