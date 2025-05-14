@@ -1,4 +1,4 @@
-import {useLocation, useNavigate} from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Footer from '../common/Footer/Footer.tsx';
 import Header from '../common/Header/Header.tsx';
 import { Button } from '../common/Button/Button.tsx';
@@ -17,6 +17,7 @@ function Categories(){
             navigate("/soil-coverage-compare");
         }
     }
+
     return(
         <>
             <Header />
