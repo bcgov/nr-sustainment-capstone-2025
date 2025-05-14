@@ -1,19 +1,15 @@
-import Footer from './components/Footer/Footer.tsx';
-import Header from './components/Header/Header.tsx';
-import { Button } from './components/Button/Button.tsx';
-import '../src/components/Categories/categories.styles.css';
+import Footer from '../Footer/Footer.tsx';
+import Header from '../Header/Header.tsx';
+import { Button } from '../Button/Button.tsx';
+import '../Categories/categories.styles.css';
 
 function Categories(){
     return(
         <>
             <Header />
-                <title>Pick a category:</title>
+                <h2>Pick a category:</h2>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                    <div className="clear">
-                        <h2>Pick a category:</h2>
-                    </div>
                     <div>
-                        
                         <Button size={'lg'} variant='primary' disabled={false} text={'Ponding'} ></Button>
                         <Button size={'lg'} variant='primary' disabled={false} text={'Surface Crusting'} ></Button>
                     </div>
@@ -32,4 +28,4 @@ function Categories(){
     )
 }
 
-export default Categories
+export default Categories;
