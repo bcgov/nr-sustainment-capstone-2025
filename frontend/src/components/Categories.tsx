@@ -5,7 +5,7 @@ function Categories() {
 
   return (
     <>
-      <h1>{location.state.name}</h1>
+      <h1>{location.state.page}</h1>
     </>
   )
 }

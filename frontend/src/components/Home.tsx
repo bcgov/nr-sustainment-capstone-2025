@@ -6,19 +6,19 @@ import { useNavigate } from 'react-router-dom';
 function Home() {
     const navigate = useNavigate();
 
-    const handleCreateDataClick = () => {
-        navigate("/categories", {state:{name:'Create'}});
+    const handleCaptureDataClick = () => {
+        navigate("/categories", {state:{page:'Capture'}});
     }
 
     const handleCompareDataClick = () => {
-        navigate("/categories", {state:{name:'Compare'}});
+        navigate("/categories", {state:{page:'Compare'}});
     }
 
     return (
         <>
         <Header />
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Button size={'lg'} variant={'primary'} disabled={false} text={'Create Data'} handleClick={handleCreateDataClick}/>
+            <Button size={'lg'} variant={'primary'} disabled={false} text={'Capture Data'} handleClick={handleCaptureDataClick}/>
             <Button size={'lg'} variant={'primary'} disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
         </div>
         <Footer />
