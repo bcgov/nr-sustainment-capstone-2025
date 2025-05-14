@@ -7,11 +7,11 @@ function Home() {
     const navigate = useNavigate();
 
     const handleCreateDataClick = () => {
-        navigate("/categories");
+        navigate("/categories", {state:{name:'Create'}});
     }
 
     const handleCompareDataClick = () => {
-        navigate("/categories");
+        navigate("/categories", {state:{name:'Compare'}});
     }
 
     return (

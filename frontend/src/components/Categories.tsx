@@ -1,7 +1,11 @@
+import {useLocation} from 'react-router-dom';
+
 function Categories() {
+  const location = useLocation();
+
   return (
     <>
-      <h1>Dummy page</h1>
+      <h1>{location.state.name}</h1>
     </>
   )
 }
