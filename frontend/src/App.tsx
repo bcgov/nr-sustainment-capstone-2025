@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Categories from './components/Categories.tsx';
+import Categories from './components/Categories/Categories.tsx';
 import Home from './components/Home.tsx';
 import './App.css';
 
