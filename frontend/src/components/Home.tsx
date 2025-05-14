@@ -1,6 +1,6 @@
-import Footer from './components/Footer/Footer.tsx'
-import Header from './components/Header/Header.tsx'
-import { Button } from './components/Button/Button.tsx'
+import Footer from './Footer/Footer.tsx'
+import Header from './Header/Header.tsx'
+import { Button } from './Button/Button.tsx'
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
