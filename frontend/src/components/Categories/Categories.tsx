@@ -1,6 +1,6 @@
-import Footer from '../Footer/Footer.tsx';
-import Header from '../Header/Header.tsx';
-import { Button } from '../Button/Button.tsx';
+import Footer from '../common/Footer/Footer.tsx';
+import Header from '../common/Header/Header.tsx';
+import { Button } from '../common/Button/Button.tsx';
 import '../Categories/categories.styles.css';
 
 function Categories(){

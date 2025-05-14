@@ -1,7 +1,7 @@
 import './App.css'
-import Footer from './components/Footer/Footer.tsx'
-import Header from './components/Header/Header.tsx'
-import{ Button } from './components/Button/Button.tsx'
+import Footer from './components/common/Footer/Footer.tsx'
+import Header from './components/common/Header/Header.tsx'
+import{ Button } from './components/common/Button/Button.tsx'
 
 function App() {
   return (
