@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Categories from './components/Categories/Categories.tsx';
-import SoilCoverageCapture from './components/DummyFiles/Soil-Coverage-Capture.tsx';
+import SoilCoverageCapture from './components/Soil-Coverage-Capture.tsx';
 import SoilCoverageCompare from './components/Soil-Coverage-Compare.tsx';
 import Home from './components/Home.tsx';
 import './App.css';
