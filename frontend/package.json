@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.14.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.0",
     "typography": "^0.16.24"
   },
   "devDependencies": {
