@@ -42,6 +42,7 @@ function SoilCoverageCapture(){
                             <img 
                                 src="/dummy_coverage_image.jpg" 
                                 alt="Example" 
+                                className='dummy-image'
                             />
                         </div>
                     )}
