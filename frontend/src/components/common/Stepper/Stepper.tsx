@@ -1,16 +1,35 @@
-import { Input } from './stepper.styles.ts';
+import { Input, Image, Text } from './stepper.styles.ts';
 import { useState } from 'react';
 
 function Stepper() {
-    const [value, setValue] = useState(1);
+    const [value, setValue] = useState(0);
+    const [imgSource, setImgSource] = useState("Soil_Coverage_0.png");
 
-    const onInput = (event: any) => {
+    const onChange = (event: any) => {
         setValue(event.target.value);
+
+        if (event.target.value == 0) {
+            setImgSource("Soil_Coverage_0.png");
+        }
+        else if (event.target.value == 25) {
+            setImgSource("Soil_Coverage_25.png");
+        }
+        else if (event.target.value == 50) {
+            setImgSource("Soil_Coverage_50.png");
+        }
+        else if (event.target.value == 75) {
+            setImgSource("Soil_Coverage_75.png");
+        }
+        else if (event.target.value == 100) {
+            setImgSource("Soil_Coverage_100.png");
+        }
     }
 
     return (
         <>
-            <Input id="slider" type="range" min="1" max="5" defaultValue="1" step="1" onInput={onInput}/>
+            <Image src={imgSource}/>
+            <Input type="range" min="0" max="100" defaultValue="0" step="25" onInput={onChange}/>
+            <Text>{value}%</Text>
         </>
     )
 }
