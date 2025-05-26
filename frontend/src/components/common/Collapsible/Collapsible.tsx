@@ -1,5 +1,12 @@
 import { useState } from "react";
 
+/**
+ * @summary -this component places a child component in a collapse with the 
+ *          button located at the bottom of the page. This will be used for the
+ *          footer       
+ * @param param0 -the child element that will collapse on button click
+ * @returns -either the child will be viewable or not
+ */
 
 function Collapsible({ children }) {
     const [isOpen, setIsOpen] = useState(false);
