@@ -41,7 +41,34 @@
   color: #888;
 }
 
+/* remove this when it is no longer needed */
 .dummy-image {
   width: 10vh;
   height: 10vh;
 }
+
+.collapse-footer-open {
+  position: absolute;
+  top: 78%;
+  left: 85%;
+  border: none !important;
+  background:none;
+  outline: none;
+}
+.collapse-footer-open:focus {
+  outline: none;
+}
+
+.collapse-footer-closed {
+  position: absolute;
+  top: 93%;
+  left: 85%;
+  border: none !important;
+  background:none;
+  outline: none;
+}
+
+.collapse-footer-closed:focus {
+  outline: none;
+}
+

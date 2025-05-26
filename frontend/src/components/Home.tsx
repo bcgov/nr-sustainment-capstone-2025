@@ -1,5 +1,6 @@
 import Footer from './common/Footer/Footer.tsx';
 import Header from './common/Header/Header.tsx';
+import Collapsible from './common/Collapsible/Collapsible.tsx';
 import { Button } from './common/Button/Button.tsx';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,7 +22,7 @@ function Home() {
                 <Button size={'lg'} variant={'primary'} disabled={false} text={'Capture Data'} handleClick={handleCaptureDataClick}/>
                 <Button size={'lg'} variant={'primary'} disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
             </div>
-            <Footer />
+            <Collapsible children={<Footer/>}/>
         </>
     )
 }
