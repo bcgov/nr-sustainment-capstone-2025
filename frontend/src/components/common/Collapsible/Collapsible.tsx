@@ -8,7 +8,7 @@ import { useState } from "react";
  * @returns -either the child will be viewable or not
  */
 
-function Collapsible({ children }) {
+function Collapsible({ children } : any) {
     const [isOpen, setIsOpen] = useState(false);
   
     const toggleCollapsible = () => {
