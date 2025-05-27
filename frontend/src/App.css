@@ -55,9 +55,6 @@
   background:none;
   outline: none;
 }
-.collapse-footer-open:focus {
-  outline: none;
-}
 
 .collapse-footer-closed {
   position: absolute;
@@ -68,7 +65,11 @@
   outline: none;
 }
 
-.collapse-footer-closed:focus {
+.collapse-footer-closed:focus,.collapse-footer-open:focus {
   outline: none;
+}
+
+.collapse-footer-closed:active,.collapse-footer-open:active {
+  -webkit-tap-highlight-color: transparent;
 }
 
