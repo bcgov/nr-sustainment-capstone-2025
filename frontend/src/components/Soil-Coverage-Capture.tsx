@@ -1,5 +1,6 @@
 import Footer from './common/Footer/Footer.tsx';
 import Header from './common/Header/Header.tsx';
+import Collapsible from './common/Collapsible/Collapsible.tsx';
 import { Button } from './common/Button/Button.tsx';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -50,7 +51,7 @@ function SoilCoverageCapture(){
                     <Button size={'md'} variant='primary' disabled={false} text={'Input Another Category'} handleClick={handleCaptureDataClick} />
                     <Button size={'md'} variant='primary' disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
                 </div>
-            <Footer />
+            <Collapsible children={<Footer/>}/>
         </>
     )
 }

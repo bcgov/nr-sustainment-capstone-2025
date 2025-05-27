@@ -1,7 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import Footer from '../common/Footer/Footer.tsx';
 import Header from '../common/Header/Header.tsx';
+import Collapsible from '../common/Collapsible/Collapsible.tsx';
 import { Button } from '../common/Button/Button.tsx';
+
 import '../Categories/categories.styles.css';
 
 function Categories(){
@@ -25,7 +27,7 @@ function Categories(){
                     <div className="button-container">
                             <Button size={'md'} variant='primary' disabled={false} text={'Soil Coverage'} handleClick={handleSoilCoverageClick}></Button>
                     </div>
-            <Footer />
+            <Collapsible children={<Footer/>}/>
         </>
     )
 }
