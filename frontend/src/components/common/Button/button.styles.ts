@@ -16,8 +16,8 @@ const StyledButton = styled.button<ButtonProps>`
   height: ${(props) => (props.size === 'sm' ? '35px' : props.size === 'md' ? '70px' : '100px')};
   border: none;
   border-radius: 8px;
-  padding: ${(props) => (props.size === 'sm' ? '6pt 2pt' : '12px 32px')};
-  margin: 1em;
+  padding: ${(props) => (props.size == '6pt 2pt')};
+  margin: 0.25em;
   text-align: center;
   text-decoration: none;
   font-size: ${(props) => (props.size === 'sm' ? '14px' : '18px')};
