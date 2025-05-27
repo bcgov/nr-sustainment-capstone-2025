@@ -11,7 +11,7 @@ h2 {
     flex-wrap: wrap;
     justify-content: center;
     max-width: 800px; 
-    margin: 0 auto;
+    margin: 0;
 }
 
 .button-container .Button {
@@ -30,6 +30,6 @@ h2 {
     }
 
     h2 {
-        margin-top: 0.25em;
+        margin-top: 1em;
     }
 }

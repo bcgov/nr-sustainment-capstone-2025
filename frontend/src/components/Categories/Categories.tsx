@@ -3,8 +3,8 @@ import Footer from '../common/Footer/Footer.tsx';
 import Header from '../common/Header/Header.tsx';
 import Collapsible from '../common/Collapsible/Collapsible.tsx';
 import { Button } from '../common/Button/Button.tsx';
-
 import '../Categories/categories.styles.css';
+import BackNavButton from '../common/BackNavButton/BackNavButton.tsx';
 
 function Categories(){
     const location = useLocation();
@@ -23,9 +23,10 @@ function Categories(){
     return(
         <>
             <Header />
+            <BackNavButton />
                 <h2>Select an Assessment:</h2>
                     <div className="button-container">
-                            <Button size={'md'} variant='primary' disabled={false} text={'Soil Coverage'} handleClick={handleSoilCoverageClick}></Button>
+                        <Button size={'md'} variant='primary' disabled={false} text={'Soil Coverage'} handleClick={handleSoilCoverageClick}></Button>
                     </div>
             <Collapsible children={<Footer/>}/>
         </>

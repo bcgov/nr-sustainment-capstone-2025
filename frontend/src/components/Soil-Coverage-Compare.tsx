@@ -3,6 +3,7 @@ import Header from './common/Header/Header.tsx';
 import Collapsible from './common/Collapsible/Collapsible.tsx';
 import { Button } from './common/Button/Button.tsx';
 import { useNavigate } from 'react-router-dom';
+import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 
 function CoverageCompare(){
     const navigate = useNavigate();
@@ -21,7 +22,8 @@ function CoverageCompare(){
     return(
         <>
             <Header />
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            <BackNavButton />
+                <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <Button size={'md'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
                     <Button size={'md'} variant='primary' disabled={false} text={'Input Another Category'} handleClick={handleCaptureDataClick}/>
                     <Button size={'md'} variant='primary' disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
