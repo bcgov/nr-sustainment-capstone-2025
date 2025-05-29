@@ -18,7 +18,7 @@ const StyledButton = styled.button<ButtonProps>`
   border: none;
   border-radius: 8px;
   padding: 2px;
-  margin: 0.15em;
+  margin: ${(props) => (props.size === 'sm' ? '0.15em' : props.size === 'md' ? '0.15em' : '1em')};
   text-align: center;
   text-decoration: none;
   font-size: ${(props) => (props.size === 'sm' ? '14px' : '15px')};
