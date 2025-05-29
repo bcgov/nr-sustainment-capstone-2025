@@ -1,5 +1,5 @@
 /**
- * @summary Styles for reusable Stepper component
+ * @summary Styles for reusable Slider component
  */
 import styled from '@emotion/styled';
 import screenSizes from '../../../constants/screenSizes';

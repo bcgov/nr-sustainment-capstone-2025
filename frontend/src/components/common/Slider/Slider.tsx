@@ -1,7 +1,7 @@
-import { Input, Image, Text } from './stepper.styles.ts';
+import { Input, Image, Text } from './slider.styles.ts';
 import { useState } from 'react';
 
-function Stepper() {
+function Slider() {
     const [value, setValue] = useState(0);
     const [imgSource, setImgSource] = useState("Soil_Coverage_0.png");
 
@@ -34,4 +34,4 @@ function Stepper() {
     )
 }
 
-export default Stepper;
+export default Slider;
