@@ -6,22 +6,19 @@ export function UploadButton() {
     const [images, setImages] = React.useState([]);
     const maxNumber = 1;
 
-    const onChange = (
-    imageList: ImageListType,
-    addUpdateIndex: number[] | undefined
-    ) => {
-    // data for submit
-    console.log(imageList, addUpdateIndex);
-    setImages(imageList as never[]);
+    const onChange = (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
+        // data for submit
+        console.log(imageList, addUpdateIndex);
+        setImages(imageList as never[]);
     };
 
     return (
-    <div className="UploadButton">
+        <div className="UploadButton">
         <ImageUploading
-        multiple={false}
-        value={images}
-        onChange={onChange}
-        maxNumber={maxNumber}
+            multiple={false}
+            value={images}
+            onChange={onChange}
+            maxNumber={maxNumber}
         >
         {({
             imageList,
@@ -31,7 +28,7 @@ export function UploadButton() {
             isDragging,
             dragProps,
         }) => (
-            <div>
+        <div>
             {/* Hides the button if an image is uploaded */}
             {images.length === 0 && (
             <button className="customUploadButton"
@@ -42,19 +39,18 @@ export function UploadButton() {
                 Upload Image
             </button>
             )}
-            &nbsp;
             {imageList.map((image, index) => (
                 <div key={index} className="image-item">
-                <img className="uploadedImg" src={image.dataURL} alt="" width="100" />
-                <div className="image-item__btn-wrapper">
-                    <button className="customUpdateButton" onClick={() => onImageUpdate(index)}>Update</button>
-                    <button className="customRemoveButton" onClick={() => onImageRemove(index)}>Remove</button>
-                </div>
+                    <img className="uploadedImg" src={image.dataURL} alt="" width="100" />
+                    <div className="image-item__btn-wrapper">
+                        <button className="customUpdateButton" onClick={() => onImageUpdate(index)}>Update</button>
+                        <button className="customRemoveButton" onClick={() => onImageRemove(index)}>Remove</button>
+                    </div>
                 </div>
             ))}
-            </div>
-        )}
-        </ImageUploading>
-    </div>
+        </div>
+            )}
+            </ImageUploading>
+        </div>
     );
 }
