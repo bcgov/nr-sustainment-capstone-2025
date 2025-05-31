@@ -13,7 +13,7 @@ export const StyledBackButton = styled.button`
     font-size: 1rem;
     color: #333;
     position: absolute;
-    left: 5vh;
+    left: 2vh;
     top: 11vh;
     align-items: center;
     justify-content: center;

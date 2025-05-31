@@ -8,21 +8,22 @@ type ButtonProps = {
   variant: string;
   size: string;
   disabled: boolean;
+  className?: "";
 };
 
 const StyledButton = styled.button<ButtonProps>`
   ${typography.toString()}
-  width: ${(props) => (props.size === 'sm' ? '125px' : props.size === 'md' ? '200px' : '300px')};
-  height: ${(props) => (props.size === 'sm' ? '35px' : props.size === 'md' ? '70px' : '100px')};
+  width: ${(props) => (props.size === 'sm' ? '125px' : props.size === 'md' ? '175px' : '300px')};
+  height: ${(props) => (props.size === 'sm' ? '35px' : props.size === 'md' ? '50px' : '100px')};
   border: none;
   border-radius: 8px;
-  padding: ${(props) => (props.size == '6pt 2pt')};
-  margin: 0.25em;
+  padding: 2px;
+  margin: ${(props) => (props.size === 'sm' ? '0.15em' : props.size === 'md' ? '0.15em' : '1em')};
   text-align: center;
   text-decoration: none;
-  font-size: ${(props) => (props.size === 'sm' ? '14px' : '18px')};
+  font-size: ${(props) => (props.size === 'sm' ? '14px' : '15px')};
   font-weight: 500;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   cursor: pointer;
   background-color: ${(props) =>
     props.variant === 'primary'
