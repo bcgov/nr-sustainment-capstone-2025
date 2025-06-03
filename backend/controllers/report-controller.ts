@@ -8,6 +8,7 @@ const prisma = new PrismaClient();
  *          we can add other reports ie - addSurfaceCoverageReport 
  */ 
 const addReport = (req: Request, res: Response) => {
+  console.log(req);
   res.status(200).send('Add report is working');
 };
 
