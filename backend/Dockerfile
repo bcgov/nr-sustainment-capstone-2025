@@ -3,7 +3,7 @@ FROM node:20.19.2-alpine3.21
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY  . ./
 
 RUN npm ci
 
