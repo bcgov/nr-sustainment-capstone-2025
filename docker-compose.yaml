@@ -57,6 +57,7 @@ services:
     healthcheck:
       test: curl localhost:3000/api/health | grep 'SAT API is healthy and ready!'
     ports: ["3000:3000"]
+    volumes: ["./backend:/app", "/app/node_modules"]
     # For debugging
     stdin_open: true
     tty: true
@@ -81,3 +82,4 @@ services:
     healthcheck:
       test: curl --fail http://localhost:5173 || exit 1
     ports: ["5173:5173"]
+    volumes: ["./frontend:/app", "/app/node_modules"]

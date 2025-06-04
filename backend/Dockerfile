@@ -1,9 +1,13 @@
 # Base image for the container
-FROM node:20.17.0
+FROM node:20.19.2-alpine3.21
 
 # Copy files and install dependencies
 WORKDIR /app/
 COPY . ./
+
+# Add curl for health checks
+RUN apk --no-cache add curl
+
 RUN npm ci && \
   npm run build
 
