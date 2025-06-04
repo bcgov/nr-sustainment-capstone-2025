@@ -6,7 +6,8 @@
     "start": "ts-node ./server.ts",
     "build": "tsc",
     "serve": "node dist/server.js",
-    "dev": "nodemon ./server.ts"
+    "dev": "nodemon ./server.ts",
+    "db:deploy": "npx prisma generate && npx prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
