@@ -2,8 +2,8 @@
  * @summary Styles for reusable Footer component
  */
 import styled from '@emotion/styled';
-import screenSizes from '../../constants/screenSizes';
-import typography from '../../typography';
+import screenSizes from '../../../constants/screenSizes';
+import typography from '../../../typography';
 
 export const FooterWrapper = styled.footer`
   background-color: #036;

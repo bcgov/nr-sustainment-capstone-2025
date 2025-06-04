@@ -14,7 +14,10 @@
     "@bcgov/design-system-react-components": "^0.5.1",
     "@emotion/styled": "^11.14.0",
     "react": "^19.1.0",
+    "react-collapse": "^5.1.1",
     "react-dom": "^19.1.0",
+    "react-images-uploading": "^3.1.7",
+    "react-router-dom": "^7.6.0",
     "typography": "^0.16.24"
   },
   "devDependencies": {

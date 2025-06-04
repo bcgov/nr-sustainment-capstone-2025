@@ -2,8 +2,8 @@
  * @summary Styles for reusable Header component
  */
 import styled from '@emotion/styled';
-import screenSizes from '../../constants/screenSizes';
-import typography from '../../typography';
+import screenSizes from '../../../constants/screenSizes';
+import typography from '../../../typography';
 
 export const HeaderWrapper = styled.header`
   background-color: #036;
@@ -19,10 +19,14 @@ export const HeaderWrapper = styled.header`
   position: fixed;
   left: 0;
   top: 0;
-  height: 15vh;
+  height: 10vh;
+  padding-left: 0.7em;
   @media (min-width: ${screenSizes.tablet}) {
     justify-content: flex-start;
     padding-left: 2em;
+  }
+  @media (max-width: 450px) {
+    height: 8vh;
   }
   z-index: 2000;
 `;
@@ -38,6 +42,12 @@ export const Heading = styled.h2`
   position: absolute;
   right: 10px;
   margin-right: 2em;
+  @media (max-width: 360px) {
+    font-size: 12pt;
+  }
+  @media (max-width: 280px) {
+    font-size: 9pt;
+  }
 `;
 
 export const Banner = styled.div`
@@ -68,7 +78,7 @@ export const Image = styled.img`
   position: relative;
   height: 100%;
   padding-right: 10px;
-  @media (max-width: ${screenSizes.mobile}) {
+  @media (max-width: 450px) {
     width: 100px;
     padding-right: 5px;
   }
@@ -83,4 +93,7 @@ export const StyledLinkHeading = styled.a`
   position: absolute;
   right: 10px;
   margin-right: 2em;
+  @media (max-width: 450px) {
+    margin-right: 0.4em;
+  }
 `;
