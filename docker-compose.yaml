@@ -24,6 +24,8 @@ services:
     ports: [5432:5432]
     healthcheck:
       test: ["CMD", "pg_isready", "-U", *POSTGRES_USER]
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   # PGAdmin
   pgadmin:
@@ -48,14 +50,18 @@ services:
      watch:
        - action: sync
          path: ./backend/
-         target: app
+         target: /app
          ignore: [node_modules]
     environment:
       LOG_LEVEL: info
       PORT: 3000
       <<: *postgres-vars
     healthcheck:
-      test: curl localhost:3000/api/health | grep 'SAT API is healthy and ready!'
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     ports: ["3000:3000"]
     volumes: ["./backend:/app", "/app/node_modules"]
     # For debugging
@@ -83,3 +89,6 @@ services:
       test: curl --fail http://localhost:5173 || exit 1
     ports: ["5173:5173"]
     volumes: ["./frontend:/app", "/app/node_modules"]
+
+volumes:
+  postgres_data:

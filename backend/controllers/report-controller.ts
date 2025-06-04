@@ -1,7 +1,7 @@
 import { Response, Request } from 'express';
-// import { PrismaClient } from '../generated/prisma/client';
+import { PrismaClient } from "@prisma/client";
 
-// const prisma = new PrismaClient();
+const prisma = new PrismaClient();
 
 /**
  * @summary Add report is the main adding report page and from there
@@ -22,7 +22,6 @@ const addReport = (req: Request, res: Response) => {
  */
 
 const test = async (req: Request, res: Response)=> {
-  /*
   // add test
   const testAdd = await prisma.user.create({
     data: {
@@ -52,7 +51,6 @@ const test = async (req: Request, res: Response)=> {
   });
 
   console.log(testDelete);
-  */
 
   res.status(200).send('this is a test');
 }

@@ -1,15 +1,18 @@
 # Base image for the container
 FROM node:20.19.2-alpine3.21
 
-# Copy files and install dependencies
-WORKDIR /app/
-COPY . ./
+WORKDIR /app
 
-# Add curl for health checks
+COPY  . ./
+
+RUN npm ci
+
+COPY . .
+
 RUN apk --no-cache add curl
 
-RUN npm ci && \
-  npm run build
+# Install OpenSSL for Prisma and generate client
+RUN apk add --no-cache openssl && \
+    npx prisma generate
 
-# Run in dev mode, `npm run serve` for production
-CMD ["npm", "run", "serve", "--no-update-notifier", "--max-old-space-size=50"]
+CMD ["sh", "-c", "npm run db:deploy && npm run dev"]
