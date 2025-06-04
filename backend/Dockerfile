@@ -1,5 +1,5 @@
 # Base image for the container
-FROM node:20.17.0
+FROM node:20.19.2-alpine3.21
 
 # Copy files and install dependencies
 WORKDIR /app/
