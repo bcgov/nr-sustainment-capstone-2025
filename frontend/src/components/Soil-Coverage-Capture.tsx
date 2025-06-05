@@ -56,7 +56,7 @@ function SoilCoverageCapture(){
             <BackNavButton />
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <UploadButton sendUploadData={handleUploadData} />
-                    <Slider sendSilderData={handleSliderData} />
+                    <Slider sendSliderData={handleSliderData} />
                     <Button size={'md'} variant='secondary' disabled={false} text={'test'} handleClick={testPost}/>
                     <Button size={'md'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
                     <Button size={'md'} variant='primary' disabled={false} text={'Input Another Category'} handleClick={handleCaptureDataClick} />
