@@ -17,12 +17,9 @@ export const Input = styled.input`
 `;
 
 export const Image = styled.img`
-    height: 12em;
-    width: 13em;
-    @media (min-width: ${screenSizes.tablet}) {
-        height: 15em;
-        width: 16em;
-    }
+    height: 8em;
+    width: 8em;
+    border-radius: 5%;
 `;
 
 export const Text = styled.p`
