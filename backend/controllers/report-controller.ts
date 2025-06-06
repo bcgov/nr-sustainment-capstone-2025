@@ -7,8 +7,26 @@ const prisma = new PrismaClient();
  * @summary Add report is the main adding report page and from there
  *          we can add other reports ie - addSurfaceCoverageReport 
  */ 
-const addReport = (req: Request, res: Response) => {
+const addCoverageReport = async (req: Request, res: Response) => {
   console.log(req.body);
+  const addData = req.body;
+
+  const user = await prisma.user.findMany({
+    where: {
+      name: addData.userId
+    }
+  });
+  console.log(user)
+
+  const coverageReport = await prisma.coverage_Report.create({
+    data: {
+      userId: user[0].id,
+      coverage_picture: addData.img,
+      coverage_percentage: addData.num
+    }
+  });
+
+  console.log(coverageReport);
   res.status(200).send('Add report is working');
 };
 
@@ -26,7 +44,6 @@ const test = async (req: Request, res: Response)=> {
   // add test
   const testAdd = await prisma.user.create({
     data: {
-      email: 'test@test.com',
       name: 'test'
     }
   });
@@ -36,7 +53,6 @@ const test = async (req: Request, res: Response)=> {
   // find test
   const testFind = await prisma.user.findMany({
     where: {
-      email: 'test@test.com',
       name: 'test'
     }
   });
@@ -46,7 +62,6 @@ const test = async (req: Request, res: Response)=> {
   // delete test
   const testDelete = await prisma.user.delete({
     where: {
-      email: 'test@test.com',
       name: 'test'
     }
   });
@@ -56,4 +71,30 @@ const test = async (req: Request, res: Response)=> {
   res.status(200).send('this is a test');
 }
 
-export {addReport, test};
+/**
+ * This function will only be used to create a testing User one time
+ * After this has been done this endpoint will return in a 400 error
+ * @param req 
+ * @param res 
+ */
+const testingUser = async (req: Request, res: Response)=> {
+  const findJosh = await prisma.user.findMany({
+    where: {
+      name: 'josh'
+    }
+  });
+
+  if(findJosh.length == 0){
+    // add user josh to the database
+    const joshAdd = await prisma.user.create({
+      data: {
+        name: 'josh'
+      }
+    });
+    res.status(200).send("josh created")
+  } else {
+    res.status(400).send("get outta here you already have a josh")
+  }
+  console.log(findJosh);
+}
+export {addCoverageReport, test, testingUser};
