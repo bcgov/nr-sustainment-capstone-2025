@@ -15,4 +15,4 @@ RUN apk --no-cache add curl
 RUN apk add --no-cache openssl && \
     npx prisma generate
 
-CMD ["sh", "-c", "npm run db:deploy && npm run dev"]
+CMD ["sh", "-c", "npm run watch-background && npm run db:deploy && npm run dev"]
