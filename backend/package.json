@@ -5,6 +5,7 @@
   "scripts": {
     "start": "ts-node ./server.ts",
     "build": "tsc",
+    "watch-background": "tsc -w &",
     "serve": "node dist/server.js",
     "dev": "nodemon ./server.ts",
     "db:deploy": "npx prisma generate && npx prisma migrate deploy"
