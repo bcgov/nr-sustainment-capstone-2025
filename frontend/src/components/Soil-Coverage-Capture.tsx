@@ -12,7 +12,7 @@ import { UploadButton } from './common/UploadButton/UploadButton.tsx';
 let sendData = {
     img: null,
     num: 0,
-    userId: null
+    user: null
 }
 
 function SoilCoverageCapture(){
@@ -36,7 +36,7 @@ function SoilCoverageCapture(){
     const [imageStatus, setImageStatus] = useState(false);
 
     // update the user here when that functionality is added 
-    sendData.userId = 'josh'
+    sendData.user = 'josh'
 
     // this function posts data to the add-coverage-report endpoint
     // currently nothing will happen after the data is added to the 
@@ -81,8 +81,8 @@ function SoilCoverageCapture(){
                     <UploadButton sendUploadData={handleUploadData} />
                     <Slider sendSliderData={handleSliderData} />
                     { imageStatus ? 
-                        <Button size={'md'} variant='secondary' disabled={false} text={'test'} handleClick={postSoilCoverage}/>
-                        :<Button size={'md'} variant='secondary' disabled={true} text={'test'} handleClick={postSoilCoverage}/>}
+                        <Button size={'md'} variant='tertiary' disabled={false} text={'Save'} handleClick={postSoilCoverage}/>
+                        :<Button size={'md'} variant='tertiary' disabled={true} text={'Save'} handleClick={postSoilCoverage}/>}
                     <Button size={'md'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
                     <Button size={'md'} variant='primary' disabled={false} text={'Input Another Category'} handleClick={handleCaptureDataClick} />
                     <Button size={'md'} variant='primary' disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>

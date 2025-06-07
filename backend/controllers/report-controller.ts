@@ -1,33 +1,41 @@
 import { Response, Request } from 'express';
 import { PrismaClient } from "@prisma/client";
+import { error } from 'console';
 
 const prisma = new PrismaClient();
 
 /**
- * @summary Add report is the main adding report page and from there
- *          we can add other reports ie - addSurfaceCoverageReport 
+ * @summary - addSurfaceCoverageReport will add to the coverage_report
+ *            table using information sent from the soil coverage page.
+ *            user ids are found by looking up the name sent in the 
+ *            request body on the user table
  */ 
 const addCoverageReport = async (req: Request, res: Response) => {
   console.log(req.body);
   const addData = req.body;
 
-  const user = await prisma.user.findMany({
+  const user = await prisma.user.findUnique({
     where: {
-      name: addData.userId
-    }
-  });
-  console.log(user)
-
-  const coverageReport = await prisma.coverage_Report.create({
-    data: {
-      userId: user[0].id,
-      coverage_picture: addData.img,
-      coverage_percentage: addData.num
-    }
+      name: addData.user
+    },
+    select: {
+      id: true,
+    },
   });
 
-  console.log(coverageReport);
-  res.status(200).send('Add report is working');
+  if(user){
+    const coverageReport = await prisma.coverage_Report.create({
+      data: {
+        userId: user.id,
+        coverage_picture: addData.img,
+        coverage_percentage: addData.num
+      }
+    });
+  
+    res.status(200).send('Add report is working');
+  } else {
+    res.status(404).send('error this user doesnt exist');
+  }
 };
 
 
@@ -74,6 +82,7 @@ const test = async (req: Request, res: Response)=> {
 /**
  * This function will only be used to create a testing User one time
  * After this has been done this endpoint will return in a 400 error
+ * This can be deleted as soon as the login page is working correctly
  * @param req 
  * @param res 
  */
@@ -97,4 +106,21 @@ const testingUser = async (req: Request, res: Response)=> {
   }
   console.log(findJosh);
 }
-export {addCoverageReport, test, testingUser};
+
+
+
+const checkUsersTable = async (req: Request, res: Response)=> {
+  const findUsers = await prisma.user.findMany();
+  console.log(findUsers);
+  res.status(200).send("table in console")
+}
+
+const checkCoverageTable = async (req: Request, res: Response)=> {
+  const findReports = await prisma.coverage_Report.findMany();
+  console.log(findReports);
+  //console.log(findReports.coverage_picture.toString('utf-8'));
+  res.status(200).send("table in console");
+}
+
+
+export {addCoverageReport, test, testingUser, checkUsersTable, checkCoverageTable};

@@ -25,6 +25,6 @@ model Coverage_Report {
   createdAt           DateTime @default(now())
   User                User?    @relation(fields: [userId], references: [id])
   coverage_percentage Int?
-  coverage_picture    String?
+  coverage_picture    String?   @db.Text
   userId              Int?
 }
