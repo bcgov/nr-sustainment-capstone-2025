@@ -2,6 +2,7 @@ import Footer from './common/Footer/Footer.tsx';
 import Header from './common/Header/Header.tsx';
 import Collapsible from './common/Collapsible/Collapsible.tsx';
 import { Button } from './common/Button/Button.tsx';
+import LogoutButton from './common/LogoutButton/LogoutButton.tsx';
 import Slider from './common/Slider/Slider.tsx';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -9,14 +10,14 @@ import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 import { UploadButton } from './common/UploadButton/UploadButton.tsx';
 
 // keep this out of the function so it is only changed when needed 
-let sendData = {
+const sendData = {
     img: null,
     num: 0,
     user: null
 }
 
-function SoilCoverageCapture(){
-
+function SoilCoverageCapture({handleLogoutClick}: any){
+  
     const navigate = useNavigate();
 
     const handleReturnHomeClick = () => {
@@ -77,6 +78,7 @@ function SoilCoverageCapture(){
         <>
             <Header />
             <BackNavButton />
+            <LogoutButton handleLogoutClick={handleLogoutClick} />
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <UploadButton sendUploadData={handleUploadData} />
                     <Slider sendSliderData={handleSliderData} />
