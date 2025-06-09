@@ -14,11 +14,9 @@ function Login({ setIsAuthenticated }: any) {
     const handleLoginClick = () => {
         navigate("/");
         setIsAuthenticated(true);
-        console.log(name);
     }
 
     const handleInputChange = (event: any) => {
-        console.log(event.target.value)
         setName(event.target.value);
     }
 
@@ -26,8 +24,8 @@ function Login({ setIsAuthenticated }: any) {
         <>
             <Header />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <InputField label={'First Name:'} type={'text'} name={'name'} value={''} onChange={handleInputChange}/>
-                <Button size={'md'} variant={'primary'} disabled={false} text={'Login'} handleClick={handleLoginClick}/>
+                <InputField label={'First Name:'} type={'text'} name={'name'} value={name} onChange={handleInputChange}/>
+                <Button size={'md'} variant={'primary'} disabled={name == "" ? true : false} text={'Login'} handleClick={handleLoginClick}/>
             </div>
             <Collapsible children={<Footer/>}/>
         </>

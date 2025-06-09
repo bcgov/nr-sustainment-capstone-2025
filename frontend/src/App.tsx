@@ -11,25 +11,29 @@ import { useState } from 'react'
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  const handleLogoutClick = () => {
+    setIsAuthenticated(false);
+  }
+
   return(
     <Router>
       <Routes>
         <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={
           <PrivateRoute isAuthenticated={isAuthenticated}>
-            <Home />
+            <Home handleLogoutClick={handleLogoutClick} />
           </PrivateRoute>} />
         <Route path="/categories" element={
           <PrivateRoute isAuthenticated={isAuthenticated}>
-            <Categories />
+            <Categories handleLogoutClick={handleLogoutClick} />
           </PrivateRoute>} />
         <Route path="/soil-coverage-capture" element={
           <PrivateRoute isAuthenticated={isAuthenticated}>
-            <SoilCoverageCapture />
+            <SoilCoverageCapture handleLogoutClick={handleLogoutClick} />
           </PrivateRoute>} />
         <Route path="/soil-coverage-compare" element={
           <PrivateRoute isAuthenticated={isAuthenticated}>
-            <SoilCoverageCompare />
+            <SoilCoverageCompare handleLogoutClick={handleLogoutClick} />
           </PrivateRoute>} />
       </Routes>
     </Router>

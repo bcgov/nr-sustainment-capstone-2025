@@ -1,0 +1,10 @@
+/**
+ * @summary This is the styling page for the Logout Button
+ */
+
+#logout {
+    width: 90px;
+    position: absolute;
+    right: 2vh;
+    top: 11vh;
+}
