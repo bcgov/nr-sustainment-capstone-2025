@@ -8,9 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 import { UploadButton } from './common/UploadButton/UploadButton.tsx';
 
-
 function SoilCoverageCapture({handleLogoutClick}: any){
-
+  
     const navigate = useNavigate();
 
     const handleReturnHomeClick = () => {
