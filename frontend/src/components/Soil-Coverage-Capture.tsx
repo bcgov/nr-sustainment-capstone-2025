@@ -27,7 +27,7 @@ function SoilCoverageCapture({handleLogoutClick}: any){
     }
 
     const [imageData, setImageData] = useState<string | null>(null);
-    const [sliderData, setSliderData] = useState<number | null>(null);
+    const [sliderData, setSliderData] = useState(0);
 
     // update the user here when that functionality is added 
     const userData = 'josh'
@@ -41,11 +41,6 @@ function SoilCoverageCapture({handleLogoutClick}: any){
             img: imageData,
             num: sliderData,
             user: userData
-        }
-
-        // check to see if num is null just incase
-        if(!sendData.num){
-            sendData.num = 0;
         }
 
         console.log(sendData)
@@ -83,9 +78,7 @@ function SoilCoverageCapture({handleLogoutClick}: any){
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <UploadButton sendUploadData={handleUploadData} />
                     <Slider sendSliderData={handleSliderData} />
-                    { imageData ? 
-                        <Button size={'md'} variant='tertiary' disabled={false} text={'Save'} handleClick={postSoilCoverage}/>
-                        :<Button size={'md'} variant='tertiary' disabled={true} text={'Save'} handleClick={postSoilCoverage}/>}
+                        <Button size={'md'} variant='tertiary' disabled={imageData == null ? true : false} text={'Save'} handleClick={postSoilCoverage}/>
                     <Button size={'md'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
                     <Button size={'md'} variant='primary' disabled={false} text={'Input Another Category'} handleClick={handleCaptureDataClick} />
                     <Button size={'md'} variant='primary' disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
