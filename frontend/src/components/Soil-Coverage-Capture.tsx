@@ -9,22 +9,9 @@ import { useState } from 'react';
 import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 import { UploadButton } from './common/UploadButton/UploadButton.tsx';
 
-// keep this out of the function so it is only changed when needed 
-let sendData = {
-    img: null,
-    num: 0,
-    user: null
-}
-
-// keep this out of the function so it is only changed when needed 
-let sendData = {
-    img: null,
-    num: 0,
-    user: null
-}
 
 function SoilCoverageCapture({handleLogoutClick}: any){
-  
+
     const navigate = useNavigate();
 
     const handleReturnHomeClick = () => {
@@ -39,17 +26,28 @@ function SoilCoverageCapture({handleLogoutClick}: any){
         navigate("/categories", {state:{page:'compare'}});
     }
 
-    // this useState is to check if the image has been uploaded
-    // there will be one for the label as well in future updates
-    const [imageStatus, setImageStatus] = useState(false);
+    const [imageData, setImageData] = useState<string | null>(null);
+    const [sliderData, setSliderData] = useState<number | null>(null);
 
     // update the user here when that functionality is added 
-    sendData.user = 'josh'
+    const userData = 'josh'
 
     // this function posts data to the add-coverage-report endpoint
     // currently nothing will happen after the data is added to the 
     // database
     const postSoilCoverage = () => {
+
+        let sendData = {
+            img: imageData,
+            num: sliderData,
+            user: userData
+        }
+
+        // check to see if num is null just incase
+        if(!sendData.num){
+            sendData.num = 0;
+        }
+
         console.log(sendData)
         fetch("http://localhost:3000/api/add-coverage-report", {
             method: "POST",
@@ -66,19 +64,15 @@ function SoilCoverageCapture({handleLogoutClick}: any){
     // this function updates the image status and will update the
     // image to either null or the dataURL for the current image
     function handleUploadData(data :string) {
-        if(data != null){
-            setImageStatus(true);
-        } else {
-            setImageStatus(false);
-        }
-        sendData.img = data;
-        console.log(sendData)
+        setImageData(data);
+        // remove this after testing compare page
+        console.log(imageData)
     }
     
     // this function simply updates with the slider number
     function handleSliderData(data: any) {
         const parsedData = parseInt(data);
-        sendData.num = parsedData;
+        setSliderData(parsedData);
     }
 
     return(
@@ -89,7 +83,7 @@ function SoilCoverageCapture({handleLogoutClick}: any){
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <UploadButton sendUploadData={handleUploadData} />
                     <Slider sendSliderData={handleSliderData} />
-                    { imageStatus ? 
+                    { imageData ? 
                         <Button size={'md'} variant='tertiary' disabled={false} text={'Save'} handleClick={postSoilCoverage}/>
                         :<Button size={'md'} variant='tertiary' disabled={true} text={'Save'} handleClick={postSoilCoverage}/>}
                     <Button size={'md'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>

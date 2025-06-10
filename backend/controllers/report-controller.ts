@@ -9,6 +9,8 @@ const prisma = new PrismaClient();
  *            table using information sent from the soil coverage page.
  *            user ids are found by looking up the name sent in the 
  *            request body on the user table
+ * @param req - the incoming request 
+ * @param res - the outgoing response
  */ 
 const addCoverageReport = async (req: Request, res: Response) => {
   console.log(req.body);
@@ -34,7 +36,7 @@ const addCoverageReport = async (req: Request, res: Response) => {
   
     res.status(200).send('Add report is working');
   } else {
-    res.status(404).send('error this user doesnt exist');
+    res.status(401).send('error this user doesnt exist');
   }
 };
 
