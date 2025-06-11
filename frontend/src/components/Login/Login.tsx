@@ -27,7 +27,7 @@ function Login({ setIsAuthenticated }: any) {
         // .then(data => console.log("Success:", data))  
         .catch(error => console.error("Error:", error));
 
-        navigate("/");
+        navigate("/", {state:{name: name}});
         setIsAuthenticated(true);
     }
 
