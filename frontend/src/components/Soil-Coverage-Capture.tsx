@@ -29,10 +29,7 @@ function SoilCoverageCapture({handleLogoutClick}: any){
 
     const [imageData, setImageData] = useState<string | null>(null);
     const [sliderData, setSliderData] = useState(0);
-
-    // update the user here when that functionality is added 
-    const userData = 'josh'
-
+    
     // this function posts data to the add-coverage-report endpoint
     // currently nothing will happen after the data is added to the 
     // database
@@ -41,7 +38,7 @@ function SoilCoverageCapture({handleLogoutClick}: any){
         let sendData = {
             img: imageData,
             num: sliderData,
-            user: userData
+            user: name
         }
 
         console.log(sendData)
