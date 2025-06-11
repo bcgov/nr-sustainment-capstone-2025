@@ -18,6 +18,7 @@ model User {
   id              Int               @id @default(autoincrement())
   name            String?           @unique
   cov_reports     Coverage_Report[]
+  labels          Label[]
 }
 
 model Coverage_Report {
@@ -27,4 +28,11 @@ model Coverage_Report {
   coverage_percentage Int?
   coverage_picture    String?   @db.Text
   userId              Int?
+}
+
+model Label {
+  id              Int           @id @default(autoincrement())
+  name            String?       @unique
+  userId          Int?
+  User            User?         @relation(fields: [userId], references: [id])
 }

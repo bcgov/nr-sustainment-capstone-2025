@@ -12,8 +12,11 @@ interface InputFieldProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onInput?: React.FormEventHandler<HTMLInputElement>;
   flex?: string;
+  dir?: string;
+  size?: string;
   maxLength?: number;
   required?: true;
+  className?: string;
 }
 
 function InputField({
@@ -24,20 +27,24 @@ function InputField({
   onChange,
   onInput,
   flex,
+  dir,
   maxLength,
   required,
+  className
 }: InputFieldProps) {
   return (
-    <InputWrapper flex={flex}>
-      <StyledLabel htmlFor={name}>{label}</StyledLabel>
+    <InputWrapper flex={flex} dir={dir}>
+      <StyledLabel dir={dir} htmlFor={name}>{label}</StyledLabel>
       <StyledInput
         type={type}
         name={name}
+        dir={dir}
         value={value}
         onChange={onChange}
         onInput={onInput}
         maxLength={maxLength}
         required={required}
+        className={className}
       />
     </InputWrapper>
   );

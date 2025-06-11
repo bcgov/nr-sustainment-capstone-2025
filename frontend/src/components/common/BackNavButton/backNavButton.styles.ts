@@ -14,7 +14,7 @@ export const StyledBackButton = styled.button`
     color: #333;
     position: absolute;
     left: 2vh;
-    top: 11vh;
+    top: 10.7vh;
     align-items: center;
     justify-content: center;
     margin: 0;

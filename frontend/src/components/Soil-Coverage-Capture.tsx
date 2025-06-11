@@ -75,14 +75,20 @@ function SoilCoverageCapture({handleLogoutClick}: any){
             <Header />
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                    <UploadButton sendUploadData={handleUploadData} />
-                    <Slider sendSliderData={handleSliderData} />
-                        <Button size={'md'} variant='tertiary' disabled={imageData == null ? true : false} text={'Save'} handleClick={postSoilCoverage}/>
-                    <Button size={'md'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
-                    <Button size={'md'} variant='primary' disabled={false} text={'Input Another Category'} handleClick={handleCaptureDataClick} />
-                    <Button size={'md'} variant='primary' disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <UploadButton sendUploadData={handleUploadData} />
+                <Slider sendSliderData={handleSliderData} />
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                        <Button size={'nav'} variant='tertiary' disabled={imageData == null ? true : false} text={'Save'} handleClick={postSoilCoverage}/>
+                        <Button size={'nav'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                        <Button size={'nav'} variant='primary' disabled={false} text={'Input Another Category'} handleClick={handleCaptureDataClick} />
+                        <Button size={'nav'} variant='primary' disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
+                    </div>
                 </div>
+            </div>
             <Collapsible children={<Footer/>}/>
         </>
     )
