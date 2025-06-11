@@ -13,7 +13,6 @@ const prisma = new PrismaClient();
  * @param res - the outgoing response
  */ 
 const addCoverageReport = async (req: Request, res: Response) => {
-  console.log(req.body);
   const addData = req.body;
 
   const user = await prisma.user.findUnique({
