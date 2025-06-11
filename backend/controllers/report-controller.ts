@@ -89,10 +89,10 @@ const test = async (req: Request, res: Response)=> {
  * @param res 
  */
 const addingUser = async (req: Request, res: Response)=> {
-  const name = req.body;
+  const addUser = req.body;
   const findUser = await prisma.user.findMany({
     where: {
-      name: name
+      name: addUser.userName
     }
   });
 
@@ -100,7 +100,7 @@ const addingUser = async (req: Request, res: Response)=> {
     // add user to the database
     const userAdd = await prisma.user.create({
       data: {
-        name: name
+        name: addUser.userName
       }
     });
     res.status(200).send("User created")

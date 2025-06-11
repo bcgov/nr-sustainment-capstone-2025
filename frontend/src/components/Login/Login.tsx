@@ -12,12 +12,16 @@ function Login({ setIsAuthenticated }: any) {
     const navigate = useNavigate();
 
     const handleLoginClick = () => {
+        let sendData = {
+            userName: name
+        }
+
         fetch("http://localhost:3000/api/add-user", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(name)
+            body: JSON.stringify(sendData)
         })
         // .then(response => response.json())
         // .then(data => console.log("Success:", data))  
