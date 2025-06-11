@@ -14,9 +14,9 @@ interface TabsProps {
   clickable?: boolean;
 }
 
-export function TabOptions({ tabs, activeTab, setActiveTab, clickable = true }: TabsProps) {
+export function TabOptions({ tabs, activeTab, setActiveTab , clickable = true }: TabsProps) {
   return (
-    <TabsWrapper>
+    <TabsWrapper style={{marginRight: "175px"}}>
       <div>
         {tabs.map((tab, index) => (
           <Tab
