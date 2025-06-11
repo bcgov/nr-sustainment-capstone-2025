@@ -88,25 +88,26 @@ const test = async (req: Request, res: Response)=> {
  * @param req 
  * @param res 
  */
-const testingUser = async (req: Request, res: Response)=> {
-  const findJosh = await prisma.user.findMany({
+const addingUser = async (req: Request, res: Response)=> {
+  const name = req.body;
+  const findUser = await prisma.user.findMany({
     where: {
-      name: 'josh'
+      name: name
     }
   });
 
-  if(findJosh.length == 0){
-    // add user josh to the database
-    const joshAdd = await prisma.user.create({
+  if(findUser.length == 0){
+    // add user to the database
+    const userAdd = await prisma.user.create({
       data: {
-        name: 'josh'
+        name: name
       }
     });
-    res.status(200).send("josh created")
+    res.status(200).send("User created")
   } else {
-    res.status(400).send("get outta here you already have a josh")
+    res.status(401).send("Already have user in database")
   }
-  console.log(findJosh);
+  console.log(findUser);
 }
 
 
@@ -125,4 +126,4 @@ const checkCoverageTable = async (req: Request, res: Response)=> {
 }
 
 
-export {addCoverageReport, test, testingUser, checkUsersTable, checkCoverageTable};
+export {addCoverageReport, test, addingUser, checkUsersTable, checkCoverageTable};
