@@ -5,6 +5,7 @@ import { Button } from './common/Button/Button.tsx';
 import LogoutButton from './common/LogoutButton/LogoutButton.tsx';
 import { useNavigate } from 'react-router-dom';
 import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
+import { Chart } from './common/Chart/Chart.tsx';
 
 function CoverageCompare({handleLogoutClick}: any){
     const navigate = useNavigate();
@@ -25,6 +26,7 @@ function CoverageCompare({handleLogoutClick}: any){
             <Header />
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
+            <Chart />
                 <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <Button size={'md'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
                     <Button size={'md'} variant='primary' disabled={false} text={'Input Another Category'} handleClick={handleCaptureDataClick}/>
