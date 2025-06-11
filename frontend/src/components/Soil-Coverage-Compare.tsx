@@ -4,7 +4,7 @@ import Collapsible from './common/Collapsible/Collapsible.tsx';
 import { Button } from './common/Button/Button.tsx';
 import LogoutButton from './common/LogoutButton/LogoutButton.tsx';
 import { useState } from 'react';
-import { data, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 import { Chart } from './common/Chart/Chart.tsx';
 import { Carousel } from './common/Carousel/Carousel.tsx';
