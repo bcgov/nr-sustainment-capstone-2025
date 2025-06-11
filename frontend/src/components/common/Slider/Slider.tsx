@@ -1,7 +1,7 @@
 import { Input, Image, Text } from './slider.styles.ts';
 import { useState } from 'react';
 
-function Slider() {
+function Slider({sendSliderData}) {
     const [value, setValue] = useState(0);
     const [imgSource, setImgSource] = useState("Soil_Coverage_0.png");
 
@@ -23,6 +23,8 @@ function Slider() {
         else if (event.target.value == 100) {
             setImgSource("Soil_Coverage_100.png");
         }
+
+        sendSliderData(event.target.value)
     }
 
     return (

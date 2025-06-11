@@ -2,7 +2,7 @@ import React from "react";
 import ImageUploading, { type ImageListType } from "react-images-uploading";
 import './uploadButton.styles.css';
 
-export function UploadButton() {
+export function UploadButton({sendUploadData}: any) {
     const [images, setImages] = React.useState([]);
     const maxNumber = 1;
 
@@ -10,6 +10,12 @@ export function UploadButton() {
         // data for submit
         console.log(imageList, addUpdateIndex);
         setImages(imageList as never[]);
+        // send the dataUrl only if there is one
+        if(imageList.length == 1){
+            sendUploadData(imageList[0].dataURL);
+        } else {
+            sendUploadData(null)
+        }
     };
 
     return (
