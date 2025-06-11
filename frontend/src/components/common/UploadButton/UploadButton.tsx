@@ -2,7 +2,7 @@ import React from "react";
 import ImageUploading, { type ImageListType } from "react-images-uploading";
 import './uploadButton.styles.css';
 
-export function UploadButton({sendUploadData}) {
+export function UploadButton({sendUploadData}: any) {
     const [images, setImages] = React.useState([]);
     const maxNumber = 1;
 
