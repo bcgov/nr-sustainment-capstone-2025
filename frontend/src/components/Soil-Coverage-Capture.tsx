@@ -69,7 +69,7 @@ function SoilCoverageCapture({handleLogoutClick}: any){
     }
 
     return(
-        <> {console.log("Capture: " + name)}
+        <>
             <Header />
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />

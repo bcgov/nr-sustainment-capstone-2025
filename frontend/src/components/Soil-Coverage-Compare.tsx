@@ -24,7 +24,7 @@ function CoverageCompare({handleLogoutClick}: any){
         navigate("/categories", {state:{page:'compare', name: name}});
     }
     return(
-        <> {console.log("Compare: " + name)}
+        <>
             <Header />
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
