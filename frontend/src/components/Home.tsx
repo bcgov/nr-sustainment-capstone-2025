@@ -3,17 +3,19 @@ import Header from './common/Header/Header.tsx';
 import Collapsible from './common/Collapsible/Collapsible.tsx';
 import { Button } from './common/Button/Button.tsx';
 import LogoutButton from './common/LogoutButton/LogoutButton.tsx';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Home({handleLogoutClick}: any) {
     const navigate = useNavigate();
+    const location = useLocation();
+    const name = location.state.name;
 
     const handleCaptureDataClick = () => {
-        navigate("/categories", {state:{page:'capture'}});
+        navigate("/categories", {state:{page:'capture', name: name}});
     }
 
     const handleCompareDataClick = () => {
-        navigate("/categories", {state:{page:'compare'}});
+        navigate("/categories", {state:{page:'compare', name: name}});
     }
 
     return (
