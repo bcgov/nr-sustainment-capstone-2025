@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 export const InputWrapper = styled.div<{ flex?: string, dir?: string}>`
   display: flex;
   flex-direction: ${({dir}) => dir === 'row' ? 'row' : 'column'};
-  margin-bottom: 16px;
+  margin-bottom: ${({dir}) => dir === 'row' ? 'none' : '16px'};
   flex: ${({ flex }) => flex || '1'};
 `;
 
@@ -14,6 +14,7 @@ export const StyledLabel = styled.label<{dir?: string}>`
   margin: ${({dir}) => dir === 'row' ? '8px' : '0px'};
   font-size: 14px;
   text-align: left;
+  ${({dir}) => dir === 'row' ? 'display: flex; align-items: center;' : '' }
 `;
 
 export const StyledInput = styled.input<{dir?: string}>`

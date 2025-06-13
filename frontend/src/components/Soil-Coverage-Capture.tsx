@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 import { UploadButton } from './common/UploadButton/UploadButton.tsx';
+import InputField from './common/InputField/InputField.tsx';
 
 
 function SoilCoverageCapture({handleLogoutClick}: any){
@@ -28,6 +29,7 @@ function SoilCoverageCapture({handleLogoutClick}: any){
 
     const [imageData, setImageData] = useState<string | null>(null);
     const [sliderData, setSliderData] = useState(0);
+    const [labelData, setLabelData] = useState("");
 
     // update the user here when that functionality is added 
     const userData = 'josh'
@@ -70,6 +72,15 @@ function SoilCoverageCapture({handleLogoutClick}: any){
         setSliderData(parsedData);
     }
 
+    function handleInputChange(event: any) {
+        // do something
+        setLabelData(event.target.value)
+    }
+
+    function handleCreateClick() {
+        // do something
+    }
+
     return(
         <>
             <Header />
@@ -78,6 +89,10 @@ function SoilCoverageCapture({handleLogoutClick}: any){
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <UploadButton sendUploadData={handleUploadData} />
                 <Slider sendSliderData={handleSliderData} />
+                <div style={{marginBottom: '10px'}}>
+                    <InputField className={'md-input'} dir={'row'} label={'Label'} type={'text'} name={'label'} value={labelData} onChange={handleInputChange}/>
+                    <Button size={'sm'} variant={'primary'} disabled={false} text={'Create'} handleClick={handleCreateClick}/>
+                </div>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                         <Button size={'nav'} variant='tertiary' disabled={imageData == null ? true : false} text={'Save'} handleClick={postSoilCoverage}/>

@@ -74,8 +74,14 @@
 
 .sm-input {
   width: 30vw;
+  height: 35px;
 }
 
 .md-input {
   width: 45vw;
+  height: 35px;
+  margin-top: 10px;
+  margin-bottom: 10px;;
+  display: flex;
+  align-items: center;
 }
