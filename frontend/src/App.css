@@ -85,3 +85,7 @@
   display: flex;
   align-items: center;
 }
+
+.login {
+  margin-bottom: 16px;
+}

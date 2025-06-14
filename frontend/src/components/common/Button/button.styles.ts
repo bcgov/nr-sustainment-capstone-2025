@@ -13,8 +13,8 @@ type ButtonProps = {
 
 const StyledButton = styled.button<ButtonProps>`
   ${typography.toString()}
-  width: ${(props) => (props.size === 'sm' ? '125px' : props.size === 'md' ? '175px' : props.size === 'nav'? '150px' : '300px')};
-  height: ${(props) => (props.size === 'sm' ? '35px' : props.size === 'md' ? '50px' : props.size === 'nav'? '70px' :'100px')};
+  width: ${(props) => (props.size === 'sm' || props.size === 'tall' ? '125px' : props.size === 'md' ? '175px' : props.size === 'nav'? '150px' : '300px')};
+  height: ${(props) => (props.size === 'sm' ? '35px' : props.size === 'md' ? '50px' : props.size === 'nav' || props.size === 'tall' ? '70px' :'100px')};
   border: none;
   border-radius: 8px;
   padding: 2px;

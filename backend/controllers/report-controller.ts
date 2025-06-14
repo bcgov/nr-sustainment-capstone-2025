@@ -13,33 +13,37 @@ const prisma = new PrismaClient();
  * @param res - the outgoing response
  */ 
 const addCoverageReport = async (req: Request, res: Response) => {
-  console.log(req.body);
   const addData = req.body;
 
-  const user = await prisma.user.findUnique({
-    where: {
-      name: addData.user
-    },
-    select: {
-      id: true,
-    },
+  const coverageReport = await prisma.coverage_Report.create({
+    data: {
+      userId: addData.user,
+      labelId: addData.label,
+      coverage_picture: addData.img,
+      coverage_percentage: addData.num,
+    }
   });
-
-  if(user){
-    const coverageReport = await prisma.coverage_Report.create({
-      data: {
-        userId: user.id,
-        coverage_picture: addData.img,
-        coverage_percentage: addData.num
-      }
-    });
-  
-    res.status(200).send('Add report is working');
-  } else {
-    res.status(401).send('error this user doesnt exist');
-  }
+  res.status(200).send('Add report is working');
 };
 
+
+/**
+ * 
+ * @param req 
+ * @param res 
+ */
+const addLabel =async (req: Request, res: Response) => {
+
+  const addData = req.body;
+  const addLabel = await prisma.label.create({
+    data: {
+      label: addData.label,
+      userId: addData.userId
+    }
+  });
+  console.log(addLabel);
+  res.status(200).send(addLabel);
+}
 
 /**
  * @summary     Test is just as it says a test page. For now it is just
@@ -125,4 +129,4 @@ const checkCoverageTable = async (req: Request, res: Response)=> {
 }
 
 
-export {addCoverageReport, test, testingUser, checkUsersTable, checkCoverageTable};
+export {addCoverageReport, addLabel, test, testingUser, checkUsersTable, checkCoverageTable};

@@ -29,10 +29,12 @@ function SoilCoverageCapture({handleLogoutClick}: any){
 
     const [imageData, setImageData] = useState<string | null>(null);
     const [sliderData, setSliderData] = useState(0);
-    const [labelData, setLabelData] = useState("");
+    const [label, setLabel] = useState('');
+    const [labelData, setLabelData] = useState<string | null>(null);
 
     // update the user here when that functionality is added 
-    const userData = 'josh'
+    // this should be the id of the user to make things a lot easier
+    const userData = 1
 
     // this function posts data to the add-coverage-report endpoint
     // currently nothing will happen after the data is added to the 
@@ -42,10 +44,11 @@ function SoilCoverageCapture({handleLogoutClick}: any){
         let sendData = {
             img: imageData,
             num: sliderData,
-            user: userData
+            user: userData,
+            label: labelData
         }
 
-        console.log(sendData)
+        //console.log(sendData)
         fetch("http://localhost:3000/api/add-coverage-report", {
             method: "POST",
             headers: {
@@ -74,11 +77,29 @@ function SoilCoverageCapture({handleLogoutClick}: any){
 
     function handleInputChange(event: any) {
         // do something
-        setLabelData(event.target.value)
+        setLabel(event.target.value)
     }
 
     function handleCreateClick() {
-        // do something
+        const sendData = {
+            label: label,
+            userId: userData
+        }
+        
+        fetch("http://localhost:3000/api/add-label", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(sendData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            setLabelData(data.id);
+        })  
+        .catch(error => console.error("Error:", error));
+
+        setLabelData(label);
     }
 
     return(
@@ -89,13 +110,13 @@ function SoilCoverageCapture({handleLogoutClick}: any){
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <UploadButton sendUploadData={handleUploadData} />
                 <Slider sendSliderData={handleSliderData} />
-                <div style={{marginBottom: '10px'}}>
-                    <InputField className={'md-input'} dir={'row'} label={'Label'} type={'text'} name={'label'} value={labelData} onChange={handleInputChange}/>
-                    <Button size={'sm'} variant={'primary'} disabled={false} text={'Create'} handleClick={handleCreateClick}/>
+                <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                    <InputField className={'md-input'} dir={'col'} label={'Label'} type={'text'} name={'label'} value={label} onChange={handleInputChange}/>
+                    <Button size={'tall'} variant={'primary'} disabled={false} text={'Create'} handleClick={handleCreateClick}/>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                        <Button size={'nav'} variant='tertiary' disabled={imageData == null ? true : false} text={'Save'} handleClick={postSoilCoverage}/>
+                        <Button size={'nav'} variant='tertiary' disabled={imageData == null || labelData == null ? true : false} text={'Save'} handleClick={postSoilCoverage}/>
                         <Button size={'nav'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
