@@ -28,9 +28,11 @@ const addCoverageReport = async (req: Request, res: Response) => {
 
 
 /**
- * 
- * @param req 
- * @param res 
+ * @summary   - addLabel adds a label to the database. You will need to pass
+ *              a userId and a label to create a label and you will need to 
+ *              have at least one label before you can add a coverage report
+ * @param req -
+ * @param res -
  */
 const addLabel =async (req: Request, res: Response) => {
 
