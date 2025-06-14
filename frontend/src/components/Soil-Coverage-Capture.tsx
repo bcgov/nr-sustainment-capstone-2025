@@ -14,28 +14,24 @@ import InputField from './common/InputField/InputField.tsx';
 function SoilCoverageCapture({handleLogoutClick}: any){
     const location = useLocation();
     const navigate = useNavigate();
-    const name = location.state.name;
+    const userData = location.state.id;
 
     const handleReturnHomeClick = () => {
-        navigate("/", {state:{name: name}});
+        navigate("/", {state:{id: userData}});
     }
 
     const handleCaptureDataClick = () => {
-        navigate("/categories", {state:{page:'capture', name: name}});
+        navigate("/categories", {state:{page:'capture', id: userData}});
     }
 
     const handleCompareDataClick = () => {
-        navigate("/categories", {state:{page:'compare', name: name}});
+        navigate("/categories", {state:{page:'compare', id: userData}});
     }
 
     const [imageData, setImageData] = useState<string | null>(null);
     const [sliderData, setSliderData] = useState(0);
     const [label, setLabel] = useState('');
     const [labelData, setLabelData] = useState<string | null>(null);
-
-    // update the user here when that functionality is added 
-    // this should be the id of the user to make things a lot easier
-    const userData = 1
 
     // this function posts data to the add-coverage-report endpoint
     // currently nothing will happen after the data is added to the 

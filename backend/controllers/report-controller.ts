@@ -96,24 +96,26 @@ const test = async (req: Request, res: Response)=> {
  */
 const addingUser = async (req: Request, res: Response)=> {
   const addUser = req.body;
-  const findUser = await prisma.user.findMany({
+  const findUser = await prisma.user.findUnique({
     where: {
       name: addUser.userName
+    },select : {
+      id: true
     }
   });
 
-  if(findUser.length == 0){
+  if(findUser){
+    res.status(401).send("Already have user in database")
+  } else {
     // add user to the database
     const userAdd = await prisma.user.create({
       data: {
         name: addUser.userName
       }
     });
-    res.status(200).send("User created")
-  } else {
-    res.status(401).send("Already have user in database")
-  }
-  console.log(findUser);
+    console.log(userAdd)
+    res.status(200).send(userAdd)
+  };
 }
 
 

@@ -23,12 +23,13 @@ function Login({ setIsAuthenticated }: any) {
             },
             body: JSON.stringify(sendData)
         })
-        // .then(response => response.json())
-        // .then(data => console.log("Success:", data))  
+        .then(response => response.json())
+        .then(data => {
+            setIsAuthenticated(true);
+            navigate("/", {state:{id: data.id}});}
+            )
         .catch(error => console.error("Error:", error));
 
-        navigate("/", {state:{name: name}});
-        setIsAuthenticated(true);
     }
 
     const handleInputChange = (event: any) => {
