@@ -6,17 +6,17 @@ export const Carousel = () => {
         {
             "id": 0,
             "src": "Soil_Coverage_50.png",
-            "label": "Front Left",
+            "date": "6/11/25",
         },
         {
             "id": 1,
             "src": "Soil_Coverage_25.png",
-            "label": "Front Right",
+            "date": "6/12/25",
         },
         {
             "id": 2,
             "src": "Soil_Coverage_100.png",
-            "label": "Back Left",
+            "date": "6/10/25",
         }
     ];
 
@@ -39,11 +39,11 @@ export const Carousel = () => {
                 <img style={{width: '3em', height: '3em', marginBottom: '50px'}} src={"carousel-left.png"} onClick={onClickLeft}/>
                 <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginRight: '4px'}}>
                     <Image src={data[index].src}/>
-                    <p>{data[index].label}</p>
+                    <p>{data[index].date}</p>
                 </div>
                 <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginLeft: '4px'}}>
                     <Image src={data[secondIndex].src}/>
-                    <p>{data[secondIndex].label}</p>
+                    <p>{data[secondIndex].date}</p>
                 </div>
                 <img style={{width: '3em', height: '3em', marginBottom: '50px'}} src={"carousel-right.png"} onClick={onClickRight}/>
             </div>
