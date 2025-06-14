@@ -12,7 +12,22 @@ function Login({ setIsAuthenticated }: any) {
     const navigate = useNavigate();
 
     const handleLoginClick = () => {
-        navigate("/");
+        let sendData = {
+            userName: name
+        }
+
+        fetch("http://localhost:3000/api/add-user", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(sendData)
+        })
+        // .then(response => response.json())
+        // .then(data => console.log("Success:", data))  
+        .catch(error => console.error("Error:", error));
+
+        navigate("/", {state:{name: name}});
         setIsAuthenticated(true);
     }
 

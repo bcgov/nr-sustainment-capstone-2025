@@ -5,6 +5,7 @@ import './uploadButton.styles.css';
 export function UploadButton({sendUploadData}: any) {
     const [images, setImages] = React.useState([]);
     const maxNumber = 1;
+    const instructionText = "In 10-15 randomly selected areas of the field, take a photo of an approximately 1 ft by 1 ft (30 by 30 cm) square of the soil surface.";
 
     const onChange = (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
         // data for submit
@@ -39,17 +40,23 @@ export function UploadButton({sendUploadData}: any) {
             {images.length === 0 && (
             <button className="customUploadButton"
                 style={isDragging ? { color: "red" } : undefined}
-                onClick={onImageUpload}
+                onClick={() => {
+                    alert(instructionText);
+                    onImageUpload();
+                }}
                 {...dragProps}
             >
-                Upload Image
+                Add Image
             </button>
             )}
             {imageList.map((image, index) => (
                 <div key={index} className="image-item">
                     <img className="uploadedImg" src={image.dataURL} alt="" width="100" />
                     <div className="image-item__btn-wrapper">
-                        <button className="customUpdateButton" onClick={() => onImageUpdate(index)}>Update</button>
+                        <button className="customUpdateButton" onClick={() => {
+                            alert(instructionText);
+                            onImageUpdate(index);
+                        }}>Update</button>
                         <button className="customRemoveButton" onClick={() => onImageRemove(index)}>Remove</button>
                     </div>
                 </div>

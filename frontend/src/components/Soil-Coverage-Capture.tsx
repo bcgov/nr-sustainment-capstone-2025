@@ -4,7 +4,7 @@ import Collapsible from './common/Collapsible/Collapsible.tsx';
 import { Button } from './common/Button/Button.tsx';
 import LogoutButton from './common/LogoutButton/LogoutButton.tsx';
 import Slider from './common/Slider/Slider.tsx';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 import { UploadButton } from './common/UploadButton/UploadButton.tsx';
@@ -12,19 +12,20 @@ import InputField from './common/InputField/InputField.tsx';
 
 
 function SoilCoverageCapture({handleLogoutClick}: any){
-
+    const location = useLocation();
     const navigate = useNavigate();
+    const name = location.state.name;
 
     const handleReturnHomeClick = () => {
-        navigate("/");
+        navigate("/", {state:{name: name}});
     }
 
     const handleCaptureDataClick = () => {
-        navigate("/categories", {state:{page:'capture'}});
+        navigate("/categories", {state:{page:'capture', name: name}});
     }
 
     const handleCompareDataClick = () => {
-        navigate("/categories", {state:{page:'compare'}});
+        navigate("/categories", {state:{page:'compare', name: name}});
     }
 
     const [imageData, setImageData] = useState<string | null>(null);
