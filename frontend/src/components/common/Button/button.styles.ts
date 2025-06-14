@@ -13,15 +13,15 @@ type ButtonProps = {
 
 const StyledButton = styled.button<ButtonProps>`
   ${typography.toString()}
-  width: ${(props) => (props.size === 'sm' ? '125px' : props.size === 'md' ? '175px' : '300px')};
-  height: ${(props) => (props.size === 'sm' ? '35px' : props.size === 'md' ? '50px' : '100px')};
+  width: ${(props) => (props.size === 'sm' || props.size === 'tall' ? '125px' : props.size === 'md' ? '175px' : props.size === 'nav'? '150px' : '300px')};
+  height: ${(props) => (props.size === 'sm' ? '35px' : props.size === 'md' ? '50px' : props.size === 'nav' || props.size === 'tall' ? '70px' :'100px')};
   border: none;
   border-radius: 8px;
   padding: 2px;
-  margin: ${(props) => (props.size === 'sm' ? '0.15em' : props.size === 'md' ? '0.15em' : '1em')};
+  margin: ${(props) => (props.size === 'sm' || props.size === 'nav' ? '0.15em' : props.size === 'md' ? '0.15em' : '1em')};
   text-align: center;
   text-decoration: none;
-  font-size: ${(props) => (props.size === 'sm' ? '14px' : '15px')};
+  font-size: ${(props) => (props.size === 'sm' || props.size === 'nav' ? '14px' : '15px')};
   font-weight: 500;
   letter-spacing: 0.5px;
   cursor: pointer;

@@ -11,14 +11,14 @@ function Categories({handleLogoutClick}: any){
     const location = useLocation();
     const navigate = useNavigate();
     const userClick = location.state.page;
-    const name = location.state.name;
+    const id = location.state.id;
 
     const handleSoilCoverageClick = () => {
         if (userClick === "capture") {
-            navigate("/soil-coverage-capture", {state:{name: name}});
+            navigate("/soil-coverage-capture", {state:{id: id}});
         }
         else if (userClick === "compare") {
-            navigate("/soil-coverage-compare", {state:{name: name}});
+            navigate("/soil-coverage-compare", {state:{id: id}});
         }
     }
 

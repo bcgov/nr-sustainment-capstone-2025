@@ -11,7 +11,7 @@
 import StyledButton from './button.styles.ts';
 
 export type ButtonVariants = 'default' | 'primary' | 'secondary' | 'tertiary';
-export type ButtonSizes = 'sm' | 'md' | 'lg';
+export type ButtonSizes = 'sm' | 'md' | 'nav' | 'lg' | 'tall';
 
 export type ButtonProps = {
   handleClick?: () => void;
