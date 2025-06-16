@@ -121,7 +121,7 @@ const checkCoverageTable = async (req: Request, res: Response)=> {
   const findReports = await prisma.coverage_Report.findMany();
   console.log(findReports);
   //console.log(findReports.coverage_picture.toString('utf-8'));
-  res.status(200).send("table in console");
+  res.status(200).send(findReports);
 }
 
 
