@@ -105,7 +105,7 @@ const addingUser = async (req: Request, res: Response)=> {
   });
 
   if(findUser){
-    res.status(401).send("Already have user in database")
+    res.status(200).send(findUser)
   } else {
     // add user to the database
     const userAdd = await prisma.user.create({
