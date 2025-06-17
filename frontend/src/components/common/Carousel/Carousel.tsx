@@ -47,12 +47,12 @@ export const Carousel = () => {
                 <img style={{width: '3em', height: '3em', marginBottom: '50px'}} src={"carousel-left.png"} onClick={onClickLeft}/>
                 <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginRight: '4px'}}>
                     <Image src={data[index].coverage_picture}/>
-                    <p>{data[index].createdAt}</p> 
+                    <p>{data[index].createdAt.slice(0,10)}</p> 
                 </div>
                 { data.length > 1 &&
                 <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginLeft: '4px'}}>
                     <Image src={data[secondIndex].coverage_picture}/>
-                    <p>{data[secondIndex].createdAt}</p>
+                    <p>{data[secondIndex].createdAt.slice(0,10)}</p>
                 </div> }
                 <img style={{width: '3em', height: '3em', marginBottom: '50px'}} src={"carousel-right.png"} onClick={onClickRight}/>
             </div> }
