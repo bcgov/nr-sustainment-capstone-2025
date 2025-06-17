@@ -8,14 +8,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 function Home({handleLogoutClick}: any) {
     const navigate = useNavigate();
     const location = useLocation();
-    const name = location.state.name;
+    const id = location.state.id;
 
     const handleCaptureDataClick = () => {
-        navigate("/categories", {state:{page:'capture', name: name}});
+        navigate("/categories", {state:{page:'capture', id: id}});
     }
 
     const handleCompareDataClick = () => {
-        navigate("/categories", {state:{page:'compare', name: name}});
+        navigate("/categories", {state:{page:'compare', id: id}});
     }
 
     return (

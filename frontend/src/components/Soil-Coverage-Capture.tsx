@@ -8,27 +8,30 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 import { UploadButton } from './common/UploadButton/UploadButton.tsx';
+import InputField from './common/InputField/InputField.tsx';
 
 function SoilCoverageCapture({handleLogoutClick}: any){
     const location = useLocation();
     const navigate = useNavigate();
-    const name = location.state.name;
+    const userData = location.state.id;
 
     const handleReturnHomeClick = () => {
-        navigate("/", {state:{name: name}});
+        navigate("/", {state:{id: userData}});
     }
 
     const handleCaptureDataClick = () => {
-        navigate("/categories", {state:{page:'capture', name: name}});
+        navigate("/categories", {state:{page:'capture', id: userData}});
     }
 
     const handleCompareDataClick = () => {
-        navigate("/categories", {state:{page:'compare', name: name}});
+        navigate("/categories", {state:{page:'compare', id: userData}});
     }
 
     const [imageData, setImageData] = useState<string | null>(null);
     const [sliderData, setSliderData] = useState(0);
-    
+    const [label, setLabel] = useState('');
+    const [labelData, setLabelData] = useState<string | null>(null);
+
     // this function posts data to the add-coverage-report endpoint
     // currently nothing will happen after the data is added to the 
     // database
@@ -37,10 +40,11 @@ function SoilCoverageCapture({handleLogoutClick}: any){
         let sendData = {
             img: imageData,
             num: sliderData,
-            user: name
+            user: userData,
+            label: labelData
         }
 
-        console.log(sendData)
+        //console.log(sendData)
         fetch("http://localhost:3000/api/add-coverage-report", {
             method: "POST",
             headers: {
@@ -67,19 +71,56 @@ function SoilCoverageCapture({handleLogoutClick}: any){
         setSliderData(parsedData);
     }
 
+    function handleInputChange(event: any) {
+        // do something
+        setLabel(event.target.value)
+    }
+
+    function handleCreateClick() {
+        const sendData = {
+            label: label,
+            userId: userData
+        }
+        
+        fetch("http://localhost:3000/api/add-label", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(sendData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            setLabelData(data.id);
+        })  
+        .catch(error => console.error("Error:", error));
+
+        setLabelData(label);
+    }
+
     return(
         <>
             <Header />
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                    <UploadButton sendUploadData={handleUploadData} />
-                    <Slider sendSliderData={handleSliderData} />
-                        <Button size={'md'} variant='tertiary' disabled={imageData == null ? true : false} text={'Save'} handleClick={postSoilCoverage}/>
-                    <Button size={'md'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
-                    <Button size={'md'} variant='primary' disabled={false} text={'Input Another Category'} handleClick={handleCaptureDataClick} />
-                    <Button size={'md'} variant='primary' disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <UploadButton sendUploadData={handleUploadData} />
+                <Slider sendSliderData={handleSliderData} />
+                <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                    <InputField className={'md-input'} dir={'col'} label={'Label'} type={'text'} name={'label'} value={label} onChange={handleInputChange}/>
+                    <Button size={'tall'} variant={'primary'} disabled={false} text={'Create'} handleClick={handleCreateClick}/>
                 </div>
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                        <Button size={'nav'} variant='tertiary' disabled={imageData == null || labelData == null ? true : false} text={'Save'} handleClick={postSoilCoverage}/>
+                        <Button size={'nav'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                        <Button size={'nav'} variant='primary' disabled={false} text={'Input Another Category'} handleClick={handleCaptureDataClick} />
+                        <Button size={'nav'} variant='primary' disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
+                    </div>
+                </div>
+            </div>
             <Collapsible children={<Footer/>}/>
         </>
     )

@@ -48,7 +48,7 @@
 
 .collapse-footer-open {
   position: absolute;
-  top: 78%;
+  top: 80%;
   left: 85%;
   border: none !important;
   background:none;
@@ -72,3 +72,20 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+.sm-input {
+  width: 30vw;
+  height: 35px;
+}
+
+.md-input {
+  width: 45vw;
+  height: 35px;
+  margin-top: 10px;
+  margin-bottom: 10px;;
+  display: flex;
+  align-items: center;
+}
+
+.login {
+  margin-bottom: 16px;
+}
