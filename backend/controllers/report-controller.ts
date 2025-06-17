@@ -15,30 +15,37 @@ const prisma = new PrismaClient();
 const addCoverageReport = async (req: Request, res: Response) => {
   const addData = req.body;
 
-  const user = await prisma.user.findUnique({
-    where: {
-      name: addData.user
-    },
-    select: {
-      id: true,
-    },
+  const coverageReport = await prisma.coverage_Report.create({
+    data: {
+      userId: addData.user,
+      labelId: addData.label,
+      coverage_picture: addData.img,
+      coverage_percentage: addData.num,
+    }
   });
-
-  if(user){
-    const coverageReport = await prisma.coverage_Report.create({
-      data: {
-        userId: user.id,
-        coverage_picture: addData.img,
-        coverage_percentage: addData.num
-      }
-    });
-  
-    res.status(200).send('Add report is working');
-  } else {
-    res.status(401).send('error this user doesnt exist');
-  }
+  res.status(200).send('Add report is working');
 };
 
+
+/**
+ * @summary   - addLabel adds a label to the database. You will need to pass
+ *              a userId and a label to create a label and you will need to 
+ *              have at least one label before you can add a coverage report
+ * @param req -
+ * @param res -
+ */
+const addLabel =async (req: Request, res: Response) => {
+
+  const addData = req.body;
+  const addLabel = await prisma.label.create({
+    data: {
+      label: addData.label,
+      userId: addData.userId
+    }
+  });
+  console.log(addLabel);
+  res.status(200).send(addLabel);
+}
 
 /**
  * @summary     Test is just as it says a test page. For now it is just
@@ -89,24 +96,26 @@ const test = async (req: Request, res: Response)=> {
  */
 const addingUser = async (req: Request, res: Response)=> {
   const addUser = req.body;
-  const findUser = await prisma.user.findMany({
+  const findUser = await prisma.user.findUnique({
     where: {
       name: addUser.userName
+    },select : {
+      id: true
     }
   });
 
-  if(findUser.length == 0){
+  if(findUser){
+    res.status(200).send(findUser)
+  } else {
     // add user to the database
     const userAdd = await prisma.user.create({
       data: {
         name: addUser.userName
       }
     });
-    res.status(200).send("User created")
-  } else {
-    res.status(401).send("Already have user in database")
-  }
-  console.log(findUser);
+    console.log(userAdd)
+    res.status(200).send(userAdd)
+  };
 }
 
 
@@ -125,4 +134,4 @@ const checkCoverageTable = async (req: Request, res: Response)=> {
 }
 
 
-export {addCoverageReport, test, addingUser, checkUsersTable, checkCoverageTable};
+export {addCoverageReport, addLabel, test, addingUser, checkUsersTable, checkCoverageTable};
