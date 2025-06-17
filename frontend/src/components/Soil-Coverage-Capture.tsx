@@ -9,6 +9,7 @@ import { useState } from 'react';
 import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 import { UploadButton } from './common/UploadButton/UploadButton.tsx';
 import InputField from './common/InputField/InputField.tsx';
+import { Select } from "@bcgov/design-system-react-components";
 
 
 function SoilCoverageCapture({handleLogoutClick}: any){
@@ -107,6 +108,7 @@ function SoilCoverageCapture({handleLogoutClick}: any){
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <UploadButton sendUploadData={handleUploadData} />
                 <Slider sendSliderData={handleSliderData} />
+                <Select placeholder='please choose a label or create a new label below'/>
                 <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <InputField className={'md-input'} dir={'col'} label={'Label'} type={'text'} name={'label'} value={label} onChange={handleInputChange}/>
                     <Button size={'tall'} variant={'primary'} disabled={false} text={'Create'} handleClick={handleCreateClick}/>
