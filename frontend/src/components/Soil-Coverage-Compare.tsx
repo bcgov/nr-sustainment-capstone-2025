@@ -13,31 +13,31 @@ import { TabOptions, TabContentDisplay } from './common/Tabs/Tabs.tsx';
 function CoverageCompare({handleLogoutClick}: any){
     const navigate = useNavigate();
     const location = useLocation();
-    const name = location.state.name;
+    const userData = location.state.id;
 
     const handleReturnHomeClick = () => {
-        navigate("/",  {state:{name: name}});
+        navigate("/",  {state:{id: userData}});
     }
 
     const handleCaptureDataClick = () => {
-        navigate("/categories", {state:{page:'capture', name: name}});
+        navigate("/categories", {state:{page:'capture', id: userData}});
     }
 
     const handleCompareDataClick = () => {
-        navigate("/categories", {state:{page:'compare', name: name}});
+        navigate("/categories", {state:{page:'compare', id: userData}});
     }
 
     const [activeTab, setActiveTab] = useState(1);
 
     const dataTab = {
         label: "Data",
-        content: <Chart />,
+        content: <Chart userData={userData}/>,
         id: "0"
     }
 
     const visualsTab = {
         label: "Visuals",
-        content: <Carousel />,
+        content: <Carousel userData={userData}/>,
         id: "1"
     }
 
