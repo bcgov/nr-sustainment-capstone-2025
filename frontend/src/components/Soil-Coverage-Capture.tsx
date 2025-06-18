@@ -5,11 +5,12 @@ import { Button } from './common/Button/Button.tsx';
 import LogoutButton from './common/LogoutButton/LogoutButton.tsx';
 import Slider from './common/Slider/Slider.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 import { UploadButton } from './common/UploadButton/UploadButton.tsx';
 import InputField from './common/InputField/InputField.tsx';
 import { Select } from "@bcgov/design-system-react-components";
+
 
 
 function SoilCoverageCapture({handleLogoutClick}: any){
@@ -32,6 +33,7 @@ function SoilCoverageCapture({handleLogoutClick}: any){
     const [imageData, setImageData] = useState<string | null>(null);
     const [sliderData, setSliderData] = useState(0);
     const [label, setLabel] = useState('');
+    const [selectLabel, setSelectLabel] = useState<string[]>([])
     const [labelData, setLabelData] = useState<string | null>(null);
 
     // this function posts data to the add-coverage-report endpoint
@@ -96,9 +98,56 @@ function SoilCoverageCapture({handleLogoutClick}: any){
             setLabelData(data.id);
         })  
         .catch(error => console.error("Error:", error));
-
+        //updateSelectList();
         setLabelData(label);
     }
+
+    function updateSelectList() {
+
+        const sendData = {
+            id: userData
+        }
+
+        fetch("http://localhost:3000/api/pull-labels", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(sendData)
+        })
+        .then(response => response.json()
+        .then (data => {
+            // const pulledData: string[] = [];
+
+            // for(let i = 0; i < data.length; i++){
+            //     pulledData.push(data[i].label)
+            // }
+
+            const pulledData = data.map((label: string, id: string) => ({
+                label,
+                id
+            }))
+
+            console.log(pulledData);
+            setSelectLabel(pulledData);
+            // data.array.forEach(element => {
+            //     pulledData.push(element.label);
+            // });
+            // for(let i = 0; i < data.length; i++){
+            //     pulledData.push(data[i].label);
+            //     selectLabel.push()
+            // }
+        })) 
+        .catch(error => console.error("Error:", error));
+
+        //setSelectLabel([]);
+        //setLabelData(label);
+    }
+
+
+    useEffect(() => {
+        updateSelectList();
+    }, []);
 
     return(
         <>
@@ -108,7 +157,7 @@ function SoilCoverageCapture({handleLogoutClick}: any){
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <UploadButton sendUploadData={handleUploadData} />
                 <Slider sendSliderData={handleSliderData} />
-                <Select placeholder='please choose a label or create a new label below'/>
+                <Select placeholder='Please Choose A Label Or Create A New Label Below' items={selectLabel}/>
                 <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <InputField className={'md-input'} dir={'col'} label={'Label'} type={'text'} name={'label'} value={label} onChange={handleInputChange}/>
                     <Button size={'tall'} variant={'primary'} disabled={false} text={'Create'} handleClick={handleCreateClick}/>

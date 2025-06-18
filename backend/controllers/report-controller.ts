@@ -118,7 +118,17 @@ const addingUser = async (req: Request, res: Response)=> {
   };
 }
 
-
+const pullLabels =async (req: Request, res: Response) => {
+  const findLabels = await prisma.label.findMany({
+    where: {
+      userId: req.body.id
+    },
+    select: {
+      label: true,
+    }
+  });
+  res.status(200).send(findLabels);
+}
 
 const checkUsersTable = async (req: Request, res: Response)=> {
   const findUsers = await prisma.user.findMany();
@@ -128,10 +138,12 @@ const checkUsersTable = async (req: Request, res: Response)=> {
 
 const checkCoverageTable = async (req: Request, res: Response)=> {
   const findReports = await prisma.coverage_Report.findMany();
-  console.log(findReports);
-  //console.log(findReports.coverage_picture.toString('utf-8'));
   res.status(200).send(findReports);
 }
 
+const checkLabelsTable = async (req: Request, res: Response)=> {
+  const findLabels = await prisma.label.findMany();
+  res.status(200).send(findLabels);
+}
 
-export {addCoverageReport, addLabel, test, addingUser, checkUsersTable, checkCoverageTable};
+export {addCoverageReport, addLabel, test, addingUser, pullLabels, checkUsersTable, checkCoverageTable, checkLabelsTable};
