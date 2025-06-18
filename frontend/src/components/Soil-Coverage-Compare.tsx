@@ -31,7 +31,7 @@ function CoverageCompare({handleLogoutClick}: any){
 
     const dataTab = {
         label: "Data",
-        content: <Chart />,
+        content: <div className='chart-container'><Chart /></div>,
         id: "0"
     }
 
