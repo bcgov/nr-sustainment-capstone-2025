@@ -88,7 +88,6 @@ export const Chart = ({ userId }: { userId: number }) => {
             },
             y: {
                 autoSkip: false,
-                padding: 3,
                 min: 0,
                 max: 100,
                 title: {
