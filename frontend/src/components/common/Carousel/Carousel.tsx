@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Image } from '../Slider/slider.styles';
 
-export const Carousel = ({userData}) => {
+export const Carousel = ({userData}: any) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -43,8 +43,8 @@ export const Carousel = ({userData}) => {
     }
     
     if (data) {
-        userNameData = data.map((data) => {if (data.userId == userData) return data});
-        userNameData = userNameData.filter((element) => {
+        userNameData = data.map((data: any) => {if (data.userId == userData) return data});
+        userNameData = userNameData.filter((element: any) => {
             return element !== undefined;
         });
     }

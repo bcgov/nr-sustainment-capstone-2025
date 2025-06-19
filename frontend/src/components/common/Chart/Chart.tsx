@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import {
     Chart as ChartJS,
     LineElement,
@@ -7,7 +8,7 @@ import {
     CategoryScale,
     Tooltip,
     Legend,
-    defaults
+    plugins
 } from 'chart.js';
 
 ChartJS.register(
@@ -18,33 +19,54 @@ ChartJS.register(
     CategoryScale,
     Tooltip,
     Legend,
+    plugins
 );
 import { Line } from 'react-chartjs-2';
-import { useState, useEffect } from 'react';
 
-defaults.responsive = true;
-
-export const Chart = ({userData}) => {
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-    const [data, setData] = useState(null);
+export const Chart = ({userData}: any) => {
+    // State holds array initialized as empty
+    const [chartData, setChartData] = useState<number[]>([]);
     const [loading, setLoading] = useState(true);
 
-     useEffect(() => {
+    const labels = [
+        'January', 'February', 'March', 'April',
+        'May', 'June', 'July', 'August',
+        'September', 'October', 'November', 'December'
+    ];
+
+    useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/check-coverage-report');
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const result = await response.json();
-                setData(result);
+                fetch('http://localhost:3000/api/check-coverage-report')
+                    .then(res => res.json())
+                    .then(data => {
+                        // Initialize array with 12 months
+                        const monthlyData = new Array(12).fill(0);
+                        // Track entries per month for now
+                        const monthlyCounts = new Array(12).fill(0);
+                        data.forEach((entry: any) => {
+                            const date = new Date(entry.createdAt);
+                            // Index goes from 0 (Jan) to 11 (Dec)
+                            const monthIndex = date.getMonth();
+
+                            // Only add if coverage_percentage is valid
+                            if (entry.coverage_percentage !== null && entry.coverage_percentage >= 0 && entry.coverage_percentage <= 100 && entry.userId == userData) {
+                                monthlyData[monthIndex] += entry.coverage_percentage;
+                                monthlyCounts[monthIndex] += 1;
+                            }
+                        });
+                        // Calculate average coverage per month
+                        const averagedData = monthlyData.map((sum, index) => {
+                            return monthlyCounts[index] > 0 ? sum / monthlyCounts[index] : 0;
+                        });
+                    setChartData(averagedData);
+                })
             } catch (err) {
                 console.log("Error", err)
             } finally {
                 setLoading(false);
             }
-        };
+        }
 
         fetchData();
     }, []);
@@ -53,35 +75,71 @@ export const Chart = ({userData}) => {
         return <p>Loading...</p>;
     }
 
-    let chartData;
-    if (data) {
-        const chartDataObj = data.map((dataPoint) => {if (dataPoint.userId == userData) return dataPoint.coverage_percentage});
-        chartData = Object.values(chartDataObj);
-        chartData = chartData.filter((element) => {
-            return element !== undefined;
-        });
-    }
-
-    if (chartData.length == 0) {
+    const isAllZero = (currentValue: number) => currentValue == 0;
+     if (chartData.every(isAllZero)) {
         return <p>No Data...</p>;
     }
 
+    const options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Monthly Soil Coverage Trend',
+            },
+        },
+        scales: {
+            x: {
+                grace: 5,
+                title: {
+                    display: true,
+                    align: 'center',
+                    text: 'Month',
+                    color: 'black',
+                },
+                ticks: {
+                    autoSkip: false,
+                    beginAtZero: true,
+                    stepSize: 1,
+                }
+            },
+            y: {
+                autoSkip: false,
+                min: 0,
+                max: 100,
+                title: {
+                    display: true,
+                    align: 'center',
+                    text: 'Coverage Percentage',
+                    color: 'black',
+                },
+                ticks: {
+                    grace: 5,
+                    beginAtZero: true,
+                    stepSize: 25
+                }
+            }
+        }
+    };
+
     return(
-        <>
-            { data && 
-            <Line 
-                data={{
-                    labels,
-                    datasets: [{
-                        label: 'Soil Coverage Monthly Trend',
-                        data: chartData,
-                        fill: false,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
-                        tension: 0.1
-                    }]
-                }}
-            /> }
-        </>
+        <Line 
+            data={{
+                labels,
+                datasets: [{
+                    label: 'Soil Coverage Monthly Trend',
+                    data: chartData,
+                    fill: false,
+                    borderColor: 'rgb(75, 94, 115)',
+                    backgroundColor: 'rgb(75, 94, 115)',
+                    tension: 0.1
+                }]
+            }}
+            options={options}
+        />
     )
-}
+};
+
+export default Chart;
