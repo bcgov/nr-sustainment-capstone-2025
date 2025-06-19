@@ -10,7 +10,6 @@ import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 import { UploadButton } from './common/UploadButton/UploadButton.tsx';
 import InputField from './common/InputField/InputField.tsx';
 
-
 function SoilCoverageCapture({handleLogoutClick}: any){
     const location = useLocation();
     const navigate = useNavigate();
