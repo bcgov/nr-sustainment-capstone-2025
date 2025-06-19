@@ -18,7 +18,7 @@ const addCoverageReport = async (req: Request, res: Response) => {
   const coverageReport = await prisma.coverage_Report.create({
     data: {
       userId: addData.user,
-      labelId: addData.label,
+      noteId: addData.label,
       coverage_picture: addData.img,
       coverage_percentage: addData.num,
     }
@@ -37,9 +37,9 @@ const addCoverageReport = async (req: Request, res: Response) => {
 const addLabel =async (req: Request, res: Response) => {
 
   const addData = req.body;
-  const addLabel = await prisma.label.create({
+  const addLabel = await prisma.note.create({
     data: {
-      label: addData.label,
+      note: addData.label,
       userId: addData.userId
     }
   });

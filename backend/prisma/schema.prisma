@@ -16,31 +16,31 @@ datasource db {
 
 model User {
   id              Int               @id @default(autoincrement())
-  name            String?           @unique
+  name            String            @unique
 
   cov_reports     Coverage_Report[]
-  labels          Label[]
+  notes           Note[]
 }
 
 model Coverage_Report {
   id                  Int      @id @default(autoincrement())
   createdAt           DateTime @default(now())
-  coverage_percentage Int?
-  coverage_picture    String?   @db.Text
+  coverage_percentage Int
+  coverage_picture    String   @db.Text
 
-  User                User?    @relation(fields: [userId], references: [id])
-  Label               Label?   @relation(fields: [labelId], references: [id])
+  User                User     @relation(fields: [userId], references: [id])
+  Note                Note?    @relation(fields: [noteId], references: [id])
 
-  userId              Int?
-  labelId             Int?
+  userId              Int
+  noteId              Int?
 }
 
-model Label {
+model Note {
   id              Int           @id @default(autoincrement())
-  label           String? 
+  note            String? 
       
-  userId          Int?
+  userId          Int
 
-  User            User?         @relation(fields: [userId], references: [id])
+  User            User          @relation(fields: [userId], references: [id])
   cov_reports     Coverage_Report[]
 }

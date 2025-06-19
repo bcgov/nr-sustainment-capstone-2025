@@ -61,8 +61,6 @@ function SoilCoverageCapture({handleLogoutClick}: any){
     // image to either null or the dataURL for the current image
     function handleUploadData(data :string) {
         setImageData(data);
-        // remove this after testing compare page
-        console.log(imageData)
     }
     
     // this function simply updates with the slider number
@@ -107,12 +105,12 @@ function SoilCoverageCapture({handleLogoutClick}: any){
                 <UploadButton sendUploadData={handleUploadData} />
                 <Slider sendSliderData={handleSliderData} />
                 <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    <InputField className={'md-input'} dir={'col'} label={'Label'} type={'text'} name={'label'} value={label} onChange={handleInputChange}/>
+                    <InputField className={'md-input'} dir={'col'} label={'Notes'} type={'text'} name={'notes'} value={label} onChange={handleInputChange}/>
                     <Button size={'tall'} variant={'primary'} disabled={false} text={'Create'} handleClick={handleCreateClick}/>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                        <Button size={'nav'} variant='tertiary' disabled={imageData == null || labelData == null ? true : false} text={'Save'} handleClick={postSoilCoverage}/>
+                        <Button size={'nav'} variant='tertiary' disabled={imageData == null ? true : false} text={'Save'} handleClick={postSoilCoverage}/>
                         <Button size={'nav'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
