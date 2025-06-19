@@ -65,11 +65,6 @@ export const Chart = ({userData}: any) => {
         return <p>Loading...</p>;
     }
 
-    const isAllZero = (currentValue: number) => currentValue == 0;
-     if (chartData.every(isAllZero)) {
-        return <p>No Data...</p>;
-    }
-
     const options = {
         responsive: true,
         maintainAspectRatio: false,
