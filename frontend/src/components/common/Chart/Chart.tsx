@@ -26,7 +26,6 @@ import { Line } from 'react-chartjs-2';
 export const Chart = ({userData}: any) => {
     // State holds array initialized as empty
     const [chartData, setChartData] = useState<number[]>([]);
-    const [loading, setLoading] = useState(true);
 
     const labels = [
         'January', 'February', 'March', 'April',
@@ -35,43 +34,34 @@ export const Chart = ({userData}: any) => {
     ];
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                fetch('http://localhost:3000/api/check-coverage-report')
-                    .then(res => res.json())
-                    .then(data => {
-                        // Initialize array with 12 months
-                        const monthlyData = new Array(12).fill(0);
-                        // Track entries per month for now
-                        const monthlyCounts = new Array(12).fill(0);
-                        data.forEach((entry: any) => {
-                            const date = new Date(entry.createdAt);
-                            // Index goes from 0 (Jan) to 11 (Dec)
-                            const monthIndex = date.getMonth();
+        fetch('http://localhost:3000/api/check-coverage-report')
+            .then(res => res.json())
+            .then(data => {
+                // Initialize array with 12 months
+                const monthlyData = new Array(12).fill(0);
+                // Track entries per month for now
+                const monthlyCounts = new Array(12).fill(0);
+                data.forEach((entry: any) => {
+                    const date = new Date(entry.createdAt);
+                    // Index goes from 0 (Jan) to 11 (Dec)
+                    const monthIndex = date.getMonth();
 
-                            // Only add if coverage_percentage is valid
-                            if (entry.coverage_percentage !== null && entry.coverage_percentage >= 0 && entry.coverage_percentage <= 100 && entry.userId == userData) {
-                                monthlyData[monthIndex] += entry.coverage_percentage;
-                                monthlyCounts[monthIndex] += 1;
-                            }
-                        });
-                        // Calculate average coverage per month
-                        const averagedData = monthlyData.map((sum, index) => {
-                            return monthlyCounts[index] > 0 ? sum / monthlyCounts[index] : 0;
-                        });
-                    setChartData(averagedData);
-                })
-            } catch (err) {
-                console.log("Error", err)
-            } finally {
-                setLoading(false);
-            }
-        }
+                    // Only add if coverage_percentage is valid
+                    if (entry.coverage_percentage !== null && entry.coverage_percentage >= 0 && entry.coverage_percentage <= 100 && entry.userId == userData) {
+                        monthlyData[monthIndex] += entry.coverage_percentage;
+                        monthlyCounts[monthIndex] += 1;
+                    }
+                });
+                // Calculate average coverage per month
+                const averagedData = monthlyData.map((sum, index) => {
+                    return monthlyCounts[index] > 0 ? sum / monthlyCounts[index] : 0;
+                });
+                setChartData(averagedData);
+            })
+            .catch(err => console.error('Failed to fetch data:', err));
+    }, [userData]);
 
-        fetchData();
-    }, []);
-
-    if (loading) {
+    if (chartData.length == 0) {
         return <p>Loading...</p>;
     }
 
