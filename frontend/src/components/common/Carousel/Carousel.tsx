@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Image } from '../Slider/slider.styles';
 
-export const Carousel = () => {
+export const Carousel = ({userData}: any) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -26,33 +26,45 @@ export const Carousel = () => {
 
     const [index, setIndex] = useState(0);
     const [secondIndex, setSecondIndex] = useState(1);
+    let userNameData;
 
     const onClickRight = () => {
-        index === data.length-1 ? setIndex(0) : setIndex(index+1);
-        secondIndex === data.length-1 ? setSecondIndex(0) : setSecondIndex(secondIndex+1);
+        index === userNameData.length-1 ? setIndex(0) : setIndex(index+1);
+        secondIndex === userNameData.length-1 ? setSecondIndex(0) : setSecondIndex(secondIndex+1);
     }
 
     const onClickLeft = () => {
-        index === 0 ? setIndex(data.length-1) : setIndex(index-1);
-        secondIndex === 0 ? setSecondIndex(data.length-1) : setSecondIndex(secondIndex-1);
+        index === 0 ? setIndex(userNameData.length-1) : setIndex(index-1);
+        secondIndex === 0 ? setSecondIndex(userNameData.length-1) : setSecondIndex(secondIndex-1);
     }
 
     if (loading) {
         return <p>Loading...</p>;
     }
+    
+    if (data) {
+        userNameData = data.map((data: any) => {if (data.userId == userData) return data});
+        userNameData = userNameData.filter((element: any) => {
+            return element !== undefined;
+        });
+    }
+
+    if (userNameData.length == 0) {
+        return <p>No Data...</p>;
+    }
 
     return(
         <>
-            { data && data.length > 0 && <div className='' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+            { userNameData && userNameData.length > 0 && <div className='' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                 <img style={{width: '3em', height: '3em', marginBottom: '50px'}} src={"carousel-left.png"} onClick={onClickLeft}/>
                 <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginRight: '4px'}}>
-                    <Image src={data[index].coverage_picture}/>
-                    <p>{data[index].createdAt.slice(0,10)}</p> 
+                    <Image src={userNameData[index].coverage_picture}/>
+                    <p>{userNameData[index].createdAt.slice(0,10)}</p> 
                 </div>
-                { data.length > 1 &&
+                { userNameData.length > 1 &&
                 <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginLeft: '4px'}}>
-                    <Image src={data[secondIndex].coverage_picture}/>
-                    <p>{data[secondIndex].createdAt.slice(0,10)}</p>
+                    <Image src={userNameData[secondIndex].coverage_picture}/>
+                    <p>{userNameData[secondIndex].createdAt.slice(0,10)}</p>
                 </div> }
                 <img style={{width: '3em', height: '3em', marginBottom: '50px'}} src={"carousel-right.png"} onClick={onClickRight}/>
             </div> }

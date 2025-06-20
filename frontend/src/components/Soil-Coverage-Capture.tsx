@@ -67,7 +67,22 @@ function SoilCoverageCapture({handleLogoutClick}: any){
     
     // this function simply updates with the slider number
     function handleSliderData(data: any) {
-        const parsedData = parseInt(data);
+        let parsedData = parseInt(data);
+        if (parsedData == 1) {
+            parsedData = 0;
+        }
+        else if (parsedData == 2) {
+            parsedData = 25;
+        }
+        else if (parsedData == 3) {
+            parsedData = 50;
+        }
+        else if (parsedData == 4) {
+            parsedData = 75;
+        }
+        else if (parsedData == 5) {
+            parsedData = 100;
+        }
         setSliderData(parsedData);
     }
 

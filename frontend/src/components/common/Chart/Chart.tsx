@@ -23,7 +23,7 @@ ChartJS.register(
 );
 import { Line } from 'react-chartjs-2';
 
-export const Chart = ({ userId }: { userId: number }) => {
+export const Chart = ({userData}: any) => {
     // State holds array initialized as empty
     const [chartData, setChartData] = useState<number[]>([]);
 
@@ -47,7 +47,7 @@ export const Chart = ({ userId }: { userId: number }) => {
                     const monthIndex = date.getMonth();
 
                     // Only add if coverage_percentage is valid
-                    if (entry.coverage_percentage !== null && entry.coverage_percentage >= 0 && entry.coverage_percentage <= 100) {
+                    if (entry.coverage_percentage !== null && entry.coverage_percentage >= 0 && entry.coverage_percentage <= 100 && entry.userId == userData) {
                         monthlyData[monthIndex] += entry.coverage_percentage;
                         monthlyCounts[monthIndex] += 1;
                     }
@@ -59,7 +59,11 @@ export const Chart = ({ userId }: { userId: number }) => {
                 setChartData(averagedData);
             })
             .catch(err => console.error('Failed to fetch data:', err));
-    }, [userId]);
+    }, [userData]);
+
+    if (chartData.length == 0) {
+        return <p>Loading...</p>;
+    }
 
     const options = {
         responsive: true,
