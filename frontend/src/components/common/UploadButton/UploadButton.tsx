@@ -51,14 +51,14 @@ export function UploadButton({sendUploadData}: any) {
             )}
             {imageList.map((image, index) => (
                 <div key={index} className="image-item">
-                    <img className="uploadedImg" src={image.dataURL} alt="" width="100" />
-                    <div className="image-item__btn-wrapper">
+                    <div className="image-item__btn-wrapper btn-wrapper-margin">
                         <button className="customUpdateButton" onClick={() => {
                             alert(instructionText);
                             onImageUpdate(index);
                         }}>Update</button>
                         <button className="customRemoveButton" onClick={() => onImageRemove(index)}>Remove</button>
                     </div>
+                    <img className="uploadedImg" src={image.dataURL} alt="" width="100" />
                 </div>
             ))}
         </div>

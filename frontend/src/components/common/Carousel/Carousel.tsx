@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Image } from '../Slider/slider.styles';
 
 export const Carousel = ({userData}: any) => {
     const [data, setData] = useState(null);
@@ -55,15 +54,15 @@ export const Carousel = ({userData}: any) => {
 
     return(
         <>
-            { userNameData && userNameData.length > 0 && <div className='' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+            { userNameData && userNameData.length > 0 && <div className='carousel-container' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                 <img style={{width: '3em', height: '3em', marginBottom: '50px'}} src={"carousel-left.png"} onClick={onClickLeft}/>
                 <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginRight: '4px'}}>
-                    <Image src={userNameData[index].coverage_picture}/>
+                    <img className={'carousel-img'} src={userNameData[index].coverage_picture}/>
                     <p>{userNameData[index].createdAt.slice(0,10)}</p> 
                 </div>
                 { userNameData.length > 1 &&
                 <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginLeft: '4px'}}>
-                    <Image src={userNameData[secondIndex].coverage_picture}/>
+                    <img className={'carousel-img'} src={userNameData[secondIndex].coverage_picture}/>
                     <p>{userNameData[secondIndex].createdAt.slice(0,10)}</p>
                 </div> }
                 <img style={{width: '3em', height: '3em', marginBottom: '50px'}} src={"carousel-right.png"} onClick={onClickRight}/>
