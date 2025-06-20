@@ -29,8 +29,8 @@ function SoilCoverageCapture({handleLogoutClick}: any){
 
     const [imageData, setImageData] = useState<string | null>(null);
     const [sliderData, setSliderData] = useState(0);
-    const [label, setLabel] = useState('');
-    const [labelData, setLabelData] = useState<string | null>(null);
+    const [note, setNote] = useState('');
+    const [noteData, setNoteData] = useState<string | null>(null);
 
     // this function posts data to the add-coverage-report endpoint
     // currently nothing will happen after the data is added to the 
@@ -41,7 +41,7 @@ function SoilCoverageCapture({handleLogoutClick}: any){
             img: imageData,
             num: sliderData,
             user: userData,
-            label: labelData
+            note: noteData
         }
 
         //console.log(sendData)
@@ -70,17 +70,16 @@ function SoilCoverageCapture({handleLogoutClick}: any){
     }
 
     function handleInputChange(event: any) {
-        // do something
-        setLabel(event.target.value)
+        setNote(event.target.value)
     }
 
     function handleCreateClick() {
         const sendData = {
-            label: label,
+            note: note,
             userId: userData
         }
         
-        fetch("http://localhost:3000/api/add-label", {
+        fetch("http://localhost:3000/api/add-note", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -89,11 +88,11 @@ function SoilCoverageCapture({handleLogoutClick}: any){
         })
         .then(response => response.json())
         .then(data => {
-            setLabelData(data.id);
+            setNoteData(data.id);
         })  
         .catch(error => console.error("Error:", error));
 
-        setLabelData(label);
+        //setNoteData(note);
     }
 
     return(
@@ -105,7 +104,7 @@ function SoilCoverageCapture({handleLogoutClick}: any){
                 <UploadButton sendUploadData={handleUploadData} />
                 <Slider sendSliderData={handleSliderData} />
                 <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    <InputField className={'md-input'} dir={'col'} label={'Notes'} type={'text'} name={'notes'} value={label} onChange={handleInputChange}/>
+                    <InputField className={'md-input'} dir={'col'} label={'Notes'} type={'text'} name={'notes'} value={note} onChange={handleInputChange}/>
                     <Button size={'tall'} variant={'primary'} disabled={false} text={'Create'} handleClick={handleCreateClick}/>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
