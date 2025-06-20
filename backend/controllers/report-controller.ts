@@ -18,7 +18,7 @@ const addCoverageReport = async (req: Request, res: Response) => {
   const coverageReport = await prisma.coverage_Report.create({
     data: {
       userId: addData.user,
-      labelId: addData.label,
+      noteId: addData.note,
       coverage_picture: addData.img,
       coverage_percentage: addData.num,
     }
@@ -28,23 +28,23 @@ const addCoverageReport = async (req: Request, res: Response) => {
 
 
 /**
- * @summary   - addLabel adds a label to the database. You will need to pass
- *              a userId and a label to create a label and you will need to 
- *              have at least one label before you can add a coverage report
+ * @summary   - addNote adds a note to the database. You will need to pass
+ *              a userId and a note to create a note. Notes are an optional
+ *              part of reports
  * @param req -
  * @param res -
  */
-const addLabel =async (req: Request, res: Response) => {
+const addNote =async (req: Request, res: Response) => {
 
   const addData = req.body;
-  const addLabel = await prisma.label.create({
+  const addNote = await prisma.note.create({
     data: {
-      label: addData.label,
+      note: addData.label,
       userId: addData.userId
     }
   });
-  console.log(addLabel);
-  res.status(200).send(addLabel);
+  console.log(addNote);
+  res.status(200).send(addNote);
 }
 
 /**
@@ -134,4 +134,4 @@ const checkCoverageTable = async (req: Request, res: Response)=> {
 }
 
 
-export {addCoverageReport, addLabel, test, addingUser, checkUsersTable, checkCoverageTable};
+export {addCoverageReport, addNote, test, addingUser, checkUsersTable, checkCoverageTable};
