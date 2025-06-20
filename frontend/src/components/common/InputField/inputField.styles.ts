@@ -7,10 +7,11 @@ export const InputWrapper = styled.div<{ flex?: string, dir?: string}>`
   display: flex;
   flex-direction: ${({dir}) => dir === 'row' ? 'row' : 'column'};
   flex: ${({ flex }) => flex || '1'};
+  ${({dir}) => dir === 'col' ? 'margin-left: 14px;' : ''}
 `;
 
 export const StyledLabel = styled.label<{dir?: string}>`
-  margin: ${({dir}) => dir === 'row' ? '8px' : '10px 0px 0px 0px'};
+  margin: ${({dir}) => dir === 'row' ? '8px' : '0px' };
   font-size: 14px;
   text-align: left;
   ${({dir}) => dir === 'row' ? 'display: flex; align-items: center;' : '' }

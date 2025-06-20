@@ -17,9 +17,14 @@ export const Input = styled.input`
 `;
 
 export const Image = styled.img`
-    height: 8em;
-    width: 8em;
+    height: 22.5vh;
+    width: 22.5vh;
     border-radius: 5%;
+
+    @media screen and (min-height: 796px) {
+        height: 25vh;
+        width: 25vh;
+    }
 `;
 
 export const Text = styled.p`

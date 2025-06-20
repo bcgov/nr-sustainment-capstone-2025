@@ -49,7 +49,7 @@
 .collapse-footer-open {
   position: absolute;
   top: 80%;
-  left: 85%;
+  left: 88%;
   border: none !important;
   background:none;
   outline: none;
@@ -58,7 +58,7 @@
 .collapse-footer-closed {
   position: absolute;
   top: 93%;
-  left: 85%;
+  left: 88%;
   border: none !important;
   background:none;
   outline: none;
