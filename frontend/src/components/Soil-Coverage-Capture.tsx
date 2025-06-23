@@ -34,8 +34,6 @@ function SoilCoverageCapture({handleLogoutClick}: any){
     const [noteData, setNoteData] = useState<string | null>(null);
 
     // this function posts data to the add-coverage-report endpoint
-    // currently nothing will happen after the data is added to the 
-    // database
     const postSoilCoverage = () => {
 
         let sendData = {
@@ -45,7 +43,6 @@ function SoilCoverageCapture({handleLogoutClick}: any){
             note: noteData
         }
 
-        //console.log(sendData)
         fetch("http://localhost:3000/api/add-coverage-report", {
             method: "POST",
             headers: {
@@ -53,8 +50,6 @@ function SoilCoverageCapture({handleLogoutClick}: any){
             },
             body: JSON.stringify(sendData)
         })
-        // .then(response => response.json())
-        // .then(data => console.log("Success:", data))  
         .catch(error => console.error("Error:", error));
 
         //this resets the image and save button disables
@@ -111,8 +106,6 @@ function SoilCoverageCapture({handleLogoutClick}: any){
             setNoteData(data.id);
         })  
         .catch(error => console.error("Error:", error));
-
-        //setNoteData(note);
     }
 
     return(
