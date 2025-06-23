@@ -22,6 +22,15 @@ function Categories({handleLogoutClick}: any){
         }
     }
 
+    const handleOrganicMatterAnalysisClick = () => {
+        if (userClick === "capture") {
+            navigate("/organic-matter-analysis-capture", {state:{id: id}});
+        }
+        else if (userClick === "compare") {
+            navigate("/organic-matter-analysis-compare", {state:{id: id}});
+        }
+    }
+
     return(
         <>
             <Header />
@@ -30,6 +39,7 @@ function Categories({handleLogoutClick}: any){
                 <h2>Select an Assessment:</h2>
                     <div className="button-container">
                         <Button size={'md'} variant='primary' disabled={false} text={'Soil Coverage'} handleClick={handleSoilCoverageClick}></Button>
+                        <Button size={'md'} variant='primary' disabled={false} text={'Organic Matter Analysis'} handleClick={handleOrganicMatterAnalysisClick}></Button>
                     </div>
             <Collapsible children={<Footer/>}/>
         </>

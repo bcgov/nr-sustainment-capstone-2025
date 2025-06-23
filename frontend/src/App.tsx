@@ -6,7 +6,9 @@ import Home from './components/Home.tsx';
 import Login from './components/Login/Login.tsx';
 import PrivateRoute from './PrivateRoute.tsx';
 import './App.css';
-import { useState } from 'react'
+import { useState } from 'react';
+import OrganicMatterAnalysisCapture from './components/Organic-Matter-Analysis-Capture.tsx';
+import OrganicMatterAnalysisCompare from './components/Organic-Matter-Analysis-Compare.tsx';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -35,6 +37,14 @@ function App() {
           <PrivateRoute isAuthenticated={isAuthenticated}>
             <SoilCoverageCompare handleLogoutClick={handleLogoutClick} />
           </PrivateRoute>} />
+        <Route path='/organic-matter-analysis-capture' element={
+          <PrivateRoute isAuthenticated={isAuthenticated}>
+            <OrganicMatterAnalysisCapture handleLogoutClick={handleLogoutClick} />
+          </PrivateRoute>}/>
+        <Route path='/organic-matter-analysis-compare' element={
+          <PrivateRoute isAuthenticated={isAuthenticated}>
+            <OrganicMatterAnalysisCompare handleLogoutClick={handleLogoutClick} />
+        </PrivateRoute>}/>
       </Routes>
     </Router>
   )
