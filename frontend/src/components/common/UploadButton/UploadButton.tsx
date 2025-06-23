@@ -1,9 +1,7 @@
-import React from "react";
 import ImageUploading, { type ImageListType } from "react-images-uploading";
 import './uploadButton.styles.css';
 
-export function UploadButton({sendUploadData}: any) {
-    const [images, setImages] = React.useState([]);
+export function UploadButton({sendUploadData, images, setImages}: any) {
     const maxNumber = 1;
     const instructionText = "In 10-15 randomly selected areas of the field, take a photo of an approximately 1 ft by 1 ft (30 by 30 cm) square of the soil surface.";
 
