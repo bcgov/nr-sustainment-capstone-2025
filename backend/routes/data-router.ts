@@ -1,13 +1,21 @@
 import express from 'express';
-import {addCoverageReport, addNote, checkCoverageTable, checkUsersTable, test, addingUser} from '../controllers/report-controller';
+import {addCoverageReport, addNote, checkCoverageTable, checkUsersTable, test, addingUser, checkNotesTable} from '../controllers/report-controller';
+import {dummyCovRprtData, dummyNotes, dummyUsers, populateDatabase} from '../controllers/test-controller';
 
 const router = express.Router();
 
 router.route('/add-coverage-report').post(addCoverageReport);
 router.route('/add-note').post(addNote);
 router.route('/add-user').post(addingUser);
-router.route('/test').get(test);
+
 router.route('/check-users').get(checkUsersTable);
 router.route('/check-coverage-report').get(checkCoverageTable);
+router.route('/check-notes').get(checkNotesTable);
+
+router.route('/test').get(test);
+router.route('/populate').get(populateDatabase);
+router.route('/dummy-cov-rpt').get(dummyCovRprtData);
+router.route('/dummy-users').get(dummyUsers);
+router.route('/dummy-notes').get(dummyNotes);
 
 export default router;

@@ -39,11 +39,10 @@ const addNote =async (req: Request, res: Response) => {
   const addData = req.body;
   const addNote = await prisma.note.create({
     data: {
-      note: addData.label,
+      note: addData.note,
       userId: addData.userId
     }
   });
-  console.log(addNote);
   res.status(200).send(addNote);
 }
 
@@ -98,7 +97,7 @@ const addingUser = async (req: Request, res: Response)=> {
   const addUser = req.body;
   const findUser = await prisma.user.findUnique({
     where: {
-      name: addUser.userName
+      name: addUser.userName.toUpperCase()
     },select : {
       id: true
     }
@@ -110,10 +109,9 @@ const addingUser = async (req: Request, res: Response)=> {
     // add user to the database
     const userAdd = await prisma.user.create({
       data: {
-        name: addUser.userName
+        name: addUser.userName.toUpperCase()
       }
     });
-    console.log(userAdd)
     res.status(200).send(userAdd)
   };
 }
@@ -127,11 +125,18 @@ const checkUsersTable = async (req: Request, res: Response)=> {
 }
 
 const checkCoverageTable = async (req: Request, res: Response)=> {
-  const findReports = await prisma.coverage_Report.findMany();
+  const findReports = await prisma.coverage_Report.findMany({
+    orderBy: {createdAt: 'desc'}
+  });
   console.log(findReports);
   //console.log(findReports.coverage_picture.toString('utf-8'));
   res.status(200).send(findReports);
 }
 
+const checkNotesTable = async (req: Request, res: Response)=> {
+  const findNotes = await prisma.note.findMany();
+  console.log(findNotes);
+  res.status(200).send("table in console")
+}
 
-export {addCoverageReport, addNote, test, addingUser, checkUsersTable, checkCoverageTable};
+export {addCoverageReport, addNote, test, addingUser, checkUsersTable, checkCoverageTable, checkNotesTable};
