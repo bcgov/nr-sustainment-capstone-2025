@@ -27,6 +27,7 @@ function SoilCoverageCapture({handleLogoutClick}: any){
         navigate("/categories", {state:{page:'compare', id: userData}});
     }
 
+    const [images, setImages] = useState([]);
     const [imageData, setImageData] = useState<string | null>(null);
     const [sliderData, setSliderData] = useState(0);
     const [note, setNote] = useState('');
@@ -55,6 +56,10 @@ function SoilCoverageCapture({handleLogoutClick}: any){
         // .then(response => response.json())
         // .then(data => console.log("Success:", data))  
         .catch(error => console.error("Error:", error));
+
+        //this resets the image and save button disables
+        setImages([]);
+        setImageData(null);
     }
 
     // this function updates the image status and will update the
@@ -116,7 +121,7 @@ function SoilCoverageCapture({handleLogoutClick}: any){
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <UploadButton sendUploadData={handleUploadData} />
+                <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages}/>
                 <Slider sendSliderData={handleSliderData} />
                 <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <InputField className={'md-input'} dir={'col'} label={'Notes'} type={'text'} name={'notes'} value={note} onChange={handleInputChange}/>
