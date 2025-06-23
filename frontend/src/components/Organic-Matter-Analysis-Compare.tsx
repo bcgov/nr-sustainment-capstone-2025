@@ -38,5 +38,4 @@ function OrganicMatterAnalysisCompare({handleLogoutClick}: any) {
     )
 }
 
-
 export default OrganicMatterAnalysisCompare;

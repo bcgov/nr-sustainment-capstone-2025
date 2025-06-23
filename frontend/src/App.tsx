@@ -37,11 +37,11 @@ function App() {
           <PrivateRoute isAuthenticated={isAuthenticated}>
             <SoilCoverageCompare handleLogoutClick={handleLogoutClick} />
           </PrivateRoute>} />
-        <Route path='/organic-matter-analysis-capture' element={
+        <Route path="/organic-matter-analysis-capture" element={
           <PrivateRoute isAuthenticated={isAuthenticated}>
             <OrganicMatterAnalysisCapture handleLogoutClick={handleLogoutClick} />
           </PrivateRoute>}/>
-        <Route path='/organic-matter-analysis-compare' element={
+        <Route path="/organic-matter-analysis-compare" element={
           <PrivateRoute isAuthenticated={isAuthenticated}>
             <OrganicMatterAnalysisCompare handleLogoutClick={handleLogoutClick} />
         </PrivateRoute>}/>

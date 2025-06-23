@@ -26,6 +26,7 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
         navigate("/categories", {state:{page:'compare', id: userData}});
     }
 
+    const [images, setImages] = useState([]);
     const [imageData, setImageData] = useState<string | null>(null);
     const [note, setNote] = useState('');
     const [noteData, setNoteData] = useState<string | null>(null);
@@ -39,6 +40,8 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
         }
 
         console.log(sendData);
+        setImages([]);
+        setImageData(null);
     }
 
     // this function updates the image status and will update the
@@ -81,7 +84,7 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <UploadButton sendUploadData={handleUploadData} />
+                <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} />
                 <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <InputField className={'md-input'} dir={'col'} label={'Notes'} type={'text'} name={'notes'} value={note} onChange={handleInputChange}/>
                     <Button size={'tall'} variant={'primary'} disabled={false} text={'Create'} handleClick={handleCreateClick}/>
@@ -101,6 +104,5 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
         </>
     )
 }
-
 
 export default OrganicMatterAnalysisCapture;
