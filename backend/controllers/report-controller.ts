@@ -120,23 +120,32 @@ const addingUser = async (req: Request, res: Response)=> {
 
 const checkUsersTable = async (req: Request, res: Response)=> {
   const findUsers = await prisma.user.findMany();
-  console.log(findUsers);
-  res.status(200).send("table in console")
+  res.status(200).send(findUsers)
 }
 
 const checkCoverageTable = async (req: Request, res: Response)=> {
   const findReports = await prisma.coverage_Report.findMany({
     orderBy: {createdAt: 'desc'}
   });
+  res.status(200).send(findReports);
+}
+
+const filterCoverageTable = async (req: Request, res: Response)=> {
+  const findReports = await prisma.coverage_Report.findMany({
+    where: {
+      createdAt: {
+        gte: req.body.date
+      }
+    },
+    orderBy: {createdAt: 'desc'}
+  });
   console.log(findReports);
-  //console.log(findReports.coverage_picture.toString('utf-8'));
   res.status(200).send(findReports);
 }
 
 const checkNotesTable = async (req: Request, res: Response)=> {
   const findNotes = await prisma.note.findMany();
-  console.log(findNotes);
-  res.status(200).send("table in console")
+  res.status(200).send(findNotes)
 }
 
-export {addCoverageReport, addNote, test, addingUser, checkUsersTable, checkCoverageTable, checkNotesTable};
+export {addCoverageReport, addNote, test, addingUser, checkUsersTable, checkCoverageTable, checkNotesTable, filterCoverageTable};

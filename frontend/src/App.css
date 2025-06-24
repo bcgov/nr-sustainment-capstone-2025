@@ -97,7 +97,7 @@
 
 .carousel-container {
   width: 90vw;
-  height: 50vh;
+  height: 41vh;
 }
 
 .carousel-img {
@@ -105,4 +105,12 @@
   height: 8em;
 
   border-radius: 5px;
+}
+
+canvas{
+  height: 42vh !important;
+}
+
+span{
+  font-family: inherit !important;
 }
