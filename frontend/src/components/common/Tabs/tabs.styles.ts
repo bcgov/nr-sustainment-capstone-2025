@@ -17,7 +17,7 @@ export const Tab = styled.button<{ active: boolean; clickable: boolean }>`
   border-left: ${({ active }) => (active ? 'none' : '0.5px solid #fff')};
   border-right: ${({ active }) => (active ? 'none' : '0.5px solid #fff')};
   border-radius: 5px 5px 0 0;
-  height: ${({ active }) => (active ? '66px' : '40px')};
+  height: 40px;
   margin-top: ${({ active }) => (active ? '0' : '115px')};
 `;
 

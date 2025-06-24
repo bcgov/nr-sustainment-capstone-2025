@@ -52,10 +52,15 @@ function CoverageCompare({handleLogoutClick}: any){
             <LogoutButton handleLogoutClick={handleLogoutClick} />
             <TabOptions activeTab={activeTab} tabs={[dataTab, visualsTab]} setActiveTab={tabSwitch}/>
             <TabContentDisplay activeTab={activeTab} tabs={[visualsTab, dataTab]} />
-                <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                    <Button size={'md'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
-                    <Button size={'md'} variant='primary' disabled={false} text={'Input Another Category'} handleClick={handleCaptureDataClick}/>
-                    <Button size={'md'} variant='primary' disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
+                        <Button size={'nav'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
+                        <div style={{ height: '45px', margin:' 0.15em' }}></div>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                        <Button size={'nav'} variant='primary' disabled={false} text={'Input Another Category'} handleClick={handleCaptureDataClick}/>
+                        <Button size={'nav'} variant='primary' disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
+                    </div>
                 </div>
             <Collapsible children={<Footer/>}/>
         </>
