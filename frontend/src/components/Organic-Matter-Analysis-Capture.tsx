@@ -14,6 +14,8 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
     const navigate = useNavigate();
     const userData = location.state.id;
 
+    const organicMatterAnalysisInstructions = <p>Organic matter analysis instructions</p>;
+
     const handleReturnHomeClick = () => {
         navigate("/", {state:{id: userData}});
     }
@@ -84,7 +86,7 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} />
+                <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={organicMatterAnalysisInstructions}/>
                 <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <InputField className={'md-input'} dir={'col'} label={'Notes'} type={'text'} name={'notes'} value={note} onChange={handleInputChange}/>
                     <Button size={'tall'} variant={'primary'} disabled={false} text={'Create'} handleClick={handleCreateClick}/>

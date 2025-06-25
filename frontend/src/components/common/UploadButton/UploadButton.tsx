@@ -3,19 +3,11 @@ import ImageUploading, { type ImageListType } from "react-images-uploading";
 import './uploadButton.styles.css';
 import Modal from '../Modal/Modal.tsx';
 
-export function UploadButton({sendUploadData, images, setImages}: any) {
+export function UploadButton({sendUploadData, images, setImages, instructions}: any) {
     const maxNumber = 1;
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-    const modalInstructions = <p>INSTRUCTIONS</p>;
-
-    const handleDialogOpen = () => {
-        setIsDialogOpen(true);
-    }
-
-    const handleDialogClose = () => {
-        setIsDialogOpen(false);
-    }
+    const [buttonPress, setButtonPress] = useState("Upload");
+    const [updateIndex, setUpdateIndex] = useState(0);
 
     const onChange = (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
         // data for submit
@@ -50,9 +42,17 @@ export function UploadButton({sendUploadData, images, setImages}: any) {
             {isDialogOpen && (
                 <Modal
                     isOpen={isDialogOpen}
-                    onOpenChange={handleDialogClose}
-                    title='Organic Matter Analysis'
-                    children={modalInstructions}
+                    onOpenChange={() => {
+                        setIsDialogOpen(false); 
+                        if (buttonPress == "Upload") {
+                            onImageUpload();
+                        }
+                        else if (buttonPress == "Update") {
+                            onImageUpdate(updateIndex);
+                        }
+                    }}
+                    title='Instructions'
+                    children={instructions}
                     modalStyle={{ width: '85vw' }}
                 />
             )}
@@ -60,8 +60,8 @@ export function UploadButton({sendUploadData, images, setImages}: any) {
             <button className="customUploadButton"
                 style={isDragging ? { color: "red" } : undefined}
                 onClick={() => {
-                        handleDialogOpen();
-                        onImageUpload();
+                        setIsDialogOpen(true);
+                        setButtonPress("Upload");
                     }}
                 {...dragProps}
             >
@@ -72,8 +72,9 @@ export function UploadButton({sendUploadData, images, setImages}: any) {
                 <div key={index} className="image-item">
                     <div className="image-item__btn-wrapper btn-wrapper-margin">
                         <button className="customUpdateButton" onClick={() => {
-                            handleDialogOpen();
-                            onImageUpdate(index);
+                            setIsDialogOpen(true);
+                            setButtonPress("Update");
+                            setUpdateIndex(index);
                         }}>Update</button>
                         <button className="customRemoveButton" onClick={() => onImageRemove(index)}>Remove</button>
                     </div>
