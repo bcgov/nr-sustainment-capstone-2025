@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dialog, Modal as BcGovModal } from '@bcgov/design-system-react-components';
-import Divider from '@mui/material/Divider';
+//import Divider from '@mui/material/Divider';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -24,11 +24,11 @@ function Modal({ isOpen, onOpenChange, title, children, modalStyle }: ModalProps
       >
         <div style={{ padding: '1rem' }}>
           <span style={{ fontWeight: '700', fontSize: '1.25rem' }}>{title}</span>
-          <Divider
+          {/* <Divider
             aria-hidden="true"
             component="div"
             css={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}
-          />
+          /> */}
           {children}
         </div>
       </Dialog>
