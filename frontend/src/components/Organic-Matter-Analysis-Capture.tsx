@@ -16,7 +16,7 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
 
     const organicMatterAnalysisInstructions = <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                                                 <p style={{marginTop: '0.8em'}}>
-                                                    To analysis soil colour, take a picture of about a handful
+                                                    Take a picture of about a handful
                                                     worth of soil on top of or next to a white sheet of paper. 
                                                     The soil surface should be flat and dry, if that is not 
                                                     possible, then it should be uniformly moist but not glistening.
@@ -55,6 +55,8 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
         console.log(sendData);
         setImages([]);
         setImageData(null);
+        setNote('');
+        setNoteData(null);
     }
 
     // this function updates the image status and will update the

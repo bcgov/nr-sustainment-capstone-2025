@@ -59,6 +59,8 @@ function SoilCoverageCapture({handleLogoutClick}: any){
         //this resets the image and save button disables
         setImages([]);
         setImageData(null);
+        setNote('');
+        setNoteData(null);
     }
 
     // this function updates the image status and will update the
