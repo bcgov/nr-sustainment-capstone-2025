@@ -15,6 +15,10 @@ function SoilCoverageCapture({handleLogoutClick}: any){
     const navigate = useNavigate();
     const userData = location.state.id;
 
+    const soilCoverageInstructions = <p style={{marginTop: '0.8em'}}>In 10-15 randomly selected areas of the field, 
+                                        take a photo of an approximately 1 ft by 1 ft 
+                                        (30 by 30 cm) square of the soil surface.</p>;
+
     const handleReturnHomeClick = () => {
         navigate("/", {state:{id: userData}});
     }
@@ -55,6 +59,8 @@ function SoilCoverageCapture({handleLogoutClick}: any){
         //this resets the image and save button disables
         setImages([]);
         setImageData(null);
+        setNote('');
+        setNoteData(null);
     }
 
     // this function updates the image status and will update the
@@ -114,7 +120,7 @@ function SoilCoverageCapture({handleLogoutClick}: any){
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages}/>
+                <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={soilCoverageInstructions}/>
                 <Slider sendSliderData={handleSliderData} />
                 <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <InputField className={'md-input'} dir={'col'} label={'Notes'} type={'text'} name={'notes'} value={note} onChange={handleInputChange}/>
