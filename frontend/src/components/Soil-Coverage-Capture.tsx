@@ -15,7 +15,9 @@ function SoilCoverageCapture({handleLogoutClick}: any){
     const navigate = useNavigate();
     const userData = location.state.id;
 
-    const soilCoverageInstructions = <p>Soil coverage instructions</p>;
+    const soilCoverageInstructions = <p style={{marginTop: '0.8em'}}>In 10-15 randomly selected areas of the field, 
+                                        take a photo of an approximately 1 ft by 1 ft 
+                                        (30 by 30 cm) square of the soil surface.</p>;
 
     const handleReturnHomeClick = () => {
         navigate("/", {state:{id: userData}});
