@@ -14,6 +14,19 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
     const navigate = useNavigate();
     const userData = location.state.id;
 
+    const organicMatterAnalysisInstructions = <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                                <p style={{marginTop: '0.8em'}}>
+                                                    Take a picture of about a handful
+                                                    worth of soil on top of or next to a white sheet of paper. 
+                                                    The soil surface should be flat and dry, if that is not 
+                                                    possible, then it should be uniformly moist but not glistening.
+                                                    The reference and the soil should be in the same plane. Please 
+                                                    ensure there are no internal shadows (e.g., dark areas between 
+                                                    aggregates or microaggregates).
+                                                </p>
+                                                <img src='OMA_Instructions.png' />
+                                            </div>;
+
     const handleReturnHomeClick = () => {
         navigate("/", {state:{id: userData}});
     }
@@ -42,6 +55,8 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
         console.log(sendData);
         setImages([]);
         setImageData(null);
+        setNote('');
+        setNoteData(null);
     }
 
     // this function updates the image status and will update the
@@ -84,7 +99,7 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} />
+                <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={organicMatterAnalysisInstructions}/>
                 <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <InputField className={'md-input'} dir={'col'} label={'Notes'} type={'text'} name={'notes'} value={note} onChange={handleInputChange}/>
                     <Button size={'tall'} variant={'primary'} disabled={false} text={'Create'} handleClick={handleCreateClick}/>
