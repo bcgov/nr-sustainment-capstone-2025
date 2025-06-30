@@ -35,7 +35,7 @@ export const Chart = ({userData, category}: any) => {
         'September', 'October', 'November', 'December'
     ];
     const title = category === "Coverage" ? "Monthly Soil Coverage Trend" : "Monthly Organic Matter Analysis Trend";
-    const xAxis = category === "Coverage" ? "Soil Coverage" : "Colour Value";
+    const xAxis = category === "Coverage" ? "Soil Coverage" : "Colour Score";
     const min = category === "Coverage" ? 0 : 2;
     const max = category === "Coverage" ? 100 : 8;
     const stepSize = category === "Coverage" ? 25 : 2;
@@ -118,7 +118,7 @@ export const Chart = ({userData, category}: any) => {
                     });
                     // Calculate average coverage per month
                     const averagedData = monthlyData.map((sum, index) => {
-                        return monthlyCounts[index] > 0 ? sum / monthlyCounts[index] : 0;
+                        return monthlyCounts[index] > 0 ? sum / monthlyCounts[index] : 2;
                     });
                     setChartData(averagedData);
                 })
