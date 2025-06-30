@@ -1,5 +1,5 @@
 import express from 'express';
-import {addCoverageReport, addNote, checkCoverageTable, checkUsersTable, test, addingUser, checkNotesTable, filterCoverageTable} from '../controllers/report-controller';
+import {addCoverageReport, addNote, checkCoverageTable, checkUsersTable, test, addingUser, checkNotesTable, filterCoverageTable, filterOMATable} from '../controllers/report-controller';
 import {dummyCovRprtData, dummyNotes, dummyUsers, populateDatabase} from '../controllers/test-controller';
 
 const router = express.Router();
@@ -13,6 +13,7 @@ router.route('/check-coverage-report').get(checkCoverageTable);
 router.route('/check-notes').get(checkNotesTable);
 
 router.route('/check-coverage-report').post(filterCoverageTable);
+router.route('/check-oma-report').post(filterOMATable);
 
 router.route('/test').get(test);
 router.route('/populate').get(populateDatabase);
