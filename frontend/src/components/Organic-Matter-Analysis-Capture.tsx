@@ -47,12 +47,22 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
     // post data to add report to endpoint, need more info on table structure 
     const postOrganicMatterAnalysis = () => {
         let sendData = {
-            img: imageData,
             user: userData,
-            note: noteData
+            note: noteData,
+            hue: '60/40/50',
+            value: Math.floor(Math.random() * (8 - 2) + 2),
+            chroma: 5
         }
 
-        console.log(sendData);
+        fetch("http://localhost:3000/api/add-oma-report", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(sendData)
+        })
+        .catch(error => console.error("Error:", error));
+
         setImages([]);
         setImageData(null);
         setNote('');

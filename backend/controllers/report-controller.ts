@@ -5,7 +5,7 @@ import { error } from 'console';
 const prisma = new PrismaClient();
 
 /**
- * @summary - addSurfaceCoverageReport will add to the coverage_report
+ * @summary - addCoverageReport will add to the coverage_report
  *            table using information sent from the soil coverage page.
  *            user ids are found by looking up the name sent in the 
  *            request body on the user table
@@ -21,6 +21,30 @@ const addCoverageReport = async (req: Request, res: Response) => {
       noteId: addData.note,
       coverage_picture: addData.img,
       coverage_percentage: addData.num,
+    }
+  });
+  res.status(200).send('Add report is working');
+};
+
+
+/**
+ * @summary - addOMAReport will add to the oma_report
+ *            table using information sent from the OMA page.
+ *            user ids are found by looking up the name sent in the 
+ *            request body on the user table
+ * @param req - the incoming request 
+ * @param res - the outgoing response
+ */ 
+const addOMAReport = async (req: Request, res: Response) => {
+  const addData = req.body;
+
+  const omaReport = await prisma.oMA_Report.create({
+    data: {
+      userId: addData.user,
+      noteId: addData.note,
+      hue: addData.hue,
+      value: addData.value,
+      chroma: addData.chroma,
     }
   });
   res.status(200).send('Add report is working');
@@ -130,6 +154,13 @@ const checkCoverageTable = async (req: Request, res: Response)=> {
   res.status(200).send(findReports);
 }
 
+const checkOMATable = async (req: Request, res: Response)=> {
+  const findReports = await prisma.oMA_Report.findMany({
+    orderBy: {createdAt: 'desc'}
+  });
+  res.status(200).send(findReports);
+}
+
 const filterCoverageTable = async (req: Request, res: Response)=> {
   const findReports = await prisma.coverage_Report.findMany({
     where: {
@@ -148,4 +179,4 @@ const checkNotesTable = async (req: Request, res: Response)=> {
   res.status(200).send(findNotes)
 }
 
-export {addCoverageReport, addNote, test, addingUser, checkUsersTable, checkCoverageTable, checkNotesTable, filterCoverageTable};
+export {addCoverageReport, addOMAReport, addNote, test, addingUser, checkUsersTable, checkCoverageTable, checkOMATable, checkNotesTable, filterCoverageTable};
