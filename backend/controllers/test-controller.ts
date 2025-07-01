@@ -111,7 +111,7 @@ const dummyNotes = async (req: Request, res: Response) => {
 const dummyCovRprtData = async (req: Request, res: Response) => {
 
     // check if there is already anything in the database
-    let firstTime = await prisma.coverage_Report.findMany();
+    let firstTime = await prisma.coverageReport.findMany();
 
     if(firstTime.length < 1){
         // these will need to be added as dataURLs to the database
@@ -152,7 +152,7 @@ const dummyCovRprtData = async (req: Request, res: Response) => {
                 date: new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime()))
             }
 
-            const coverageReport = await prisma.coverage_Report.create({
+            const coverageReport = await prisma.coverageReport.create({
                 data: {
                     userId: data.user,
                     noteId: data.note,
@@ -201,7 +201,7 @@ const dummyCovRprtData = async (req: Request, res: Response) => {
 const dummyOMARprtData = async (req: Request, res: Response) => {
 
     // check if there is already anything in the database
-    let firstTime = await prisma.oMA_Report.findMany();
+    let firstTime = await prisma.oMAReport.findMany();
 
     if(firstTime.length < 1){
         const huePool = [
@@ -256,7 +256,7 @@ const dummyOMARprtData = async (req: Request, res: Response) => {
                 date: new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime()))
             }
     
-            const OMAReport = await prisma.oMA_Report.create({
+            const OMAReport = await prisma.oMAReport.create({
                 data: {
                     userId: data.user,
                     noteId: data.note,
