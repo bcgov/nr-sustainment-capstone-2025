@@ -154,7 +154,7 @@ const dummyCovRprtData = async (req: Request, res: Response) => {
         });
 
         for(let i = 0; i < 500; i++){
-            if( i % 5 == 0 ){
+            if( i % 5 == 0 && i > 249 ){
                 fillCovReports(userId, notes[ i % 5].id);
             }else {
                 fillCovReports(userId, null);
@@ -165,6 +165,105 @@ const dummyCovRprtData = async (req: Request, res: Response) => {
     const data = {
         pictures: covPicturePool,
         percents: covPercentPool,
+        users: userPool,
+        startDate: startDate,
+        endDate: endDate
+    }
+
+    res.status(200).send(data)
+}
+
+
+const dummyOMARprtData = async (req: Request, res: Response) => {
+
+    const huePool = [
+        '2YR',
+        '3.5YR',
+        '0.5RP',
+        '4RP',
+        '10YR ',
+        '2.5PB',
+        '2.5Y ',
+        '7.5YR',
+        '5GY',
+        '7.5R'
+    ];
+
+    const userPool = [
+        1,
+        2,
+        3,
+        4,
+        5
+    ];
+
+    const startDate = new Date(2020, 0, 1); // January 1, 2020
+    const endDate = new Date(); // Current date
+
+    const covPercentPool = [
+        0,
+        25,
+        50,
+        75,
+        100
+    ]
+
+    const minValue = 2.5;
+    const maxValue = 8;
+
+    const minChroma = 1;
+    const maxChroma = 8;
+
+    const fillOMAReports = async (userId: number, noteId: number | null) => {
+
+        const randomValue = Math.random() * (maxValue - minValue) + minValue;
+        const randomChroma = Math.random() * (maxChroma - minChroma) + minChroma;
+
+        const data = {
+            hue: huePool[Math.floor(Math.random() * huePool.length)],
+            value: randomValue,
+            chroma: randomChroma,
+            user: userId,
+            note: noteId,
+            date: new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime()))
+        }
+
+        const OMAReport = await prisma.oMA_Report.create({
+            data: {
+                userId: data.user,
+                noteId: data.note,
+                hue: data.hue,
+                value: data.value,
+                chroma: data.chroma,
+                createdAt: data.date
+            }
+        });
+    }
+
+    for( let i = 0; i < userPool.length; i++){
+        const userId = userPool[i]
+        const notes = await prisma.note.findMany({
+            where: {
+                userId: userId
+            },
+            select: {
+                id: true
+            }
+        });
+
+        for(let i = 0; i < 500; i++){
+            if( i % 5 == 0 && i < 249 ){
+                fillOMAReports(userId, notes[ i % 5].id);
+            }else {
+                fillOMAReports(userId, null);
+            }
+        }
+    }
+
+    const data = {
+        hues: huePool,
+        values_range: [minValue, minChroma],
+        chromas_range: [minChroma, maxChroma],
         users: userPool,
         startDate: startDate,
         endDate: endDate
@@ -187,7 +286,12 @@ const populateDatabase = async (req: Request, res: Response) => {
     // const covRptsAdded = await addCovRpts.json();
     // console.log(covRptsAdded);
 
+    const addOMARpts = await fetch('http://localhost:3000/api/dummy-oma-rpt');
+    // const covRptsAdded = await addCovRpts.json();
+    // console.log(covRptsAdded);
+
+
     res.status(200).send('database populated');
 }
 
-export {dummyCovRprtData, dummyUsers, dummyNotes, populateDatabase};
+export {dummyCovRprtData, dummyOMARprtData, dummyUsers, dummyNotes, populateDatabase};
