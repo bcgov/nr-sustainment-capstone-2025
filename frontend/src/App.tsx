@@ -9,6 +9,8 @@ import './App.css';
 import { useState } from 'react';
 import OrganicMatterAnalysisCapture from './components/Organic-Matter-Analysis-Capture.tsx';
 import OrganicMatterAnalysisCompare from './components/Organic-Matter-Analysis-Compare.tsx';
+import SoilPenetrationResistanceCapture from './components/Soil-Penetration-Capture.tsx';
+import SoilPenetrationResistanceCompare from './components/Soil-Penetration-Compare.tsx';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -44,6 +46,14 @@ function App() {
         <Route path="/organic-matter-analysis-compare" element={
           <PrivateRoute isAuthenticated={isAuthenticated}>
             <OrganicMatterAnalysisCompare handleLogoutClick={handleLogoutClick} />
+        </PrivateRoute>}/>
+        <Route path="/soil-penetration-resistance-capture" element={
+          <PrivateRoute isAuthenticated={isAuthenticated}>
+            <SoilPenetrationResistanceCapture handleLogoutClick={handleLogoutClick} />
+          </PrivateRoute>}/>
+        <Route path="/soil-penetration-resistance-compare" element={
+          <PrivateRoute isAuthenticated={isAuthenticated}>
+            <SoilPenetrationResistanceCompare handleLogoutClick={handleLogoutClick} />
         </PrivateRoute>}/>
       </Routes>
     </Router>

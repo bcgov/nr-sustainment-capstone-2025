@@ -114,3 +114,26 @@ canvas{
 span{
   font-family: inherit !important;
 }
+
+.form-container {
+  margin-top: 15vh;
+  height: 60vh;
+  overflow: scroll;
+}
+
+.depth-btn {
+  height: 35px;
+  background-color: #003366;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submit-btn{
+  margin: 0.5em;
+  width: 50vw;
+  height: 50px;
+  color: #ffffff;
+  background-color: #198754;
+}
