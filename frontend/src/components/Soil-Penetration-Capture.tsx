@@ -8,7 +8,7 @@ import { useState } from 'react';
 import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 import Modal from './common/Modal/Modal.tsx';
 
-function SoilPenetrationCapture({handleLogoutClick}: any){
+function SoilPenetrationResistanceCapture({handleLogoutClick}: any){
     const location = useLocation();
     const navigate = useNavigate();
     const userData = location.state.id;
@@ -158,4 +158,4 @@ function SoilPenetrationCapture({handleLogoutClick}: any){
     );
 };
 
-export default SoilPenetrationCapture;
+export default SoilPenetrationResistanceCapture;

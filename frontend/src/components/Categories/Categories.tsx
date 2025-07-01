@@ -36,7 +36,7 @@ function Categories({handleLogoutClick}: any){
             navigate("/soil-penetration-resistance-capture", {state:{id: id}});
         }
         else if (userClick === "compare") {
-            navigate("/soil-penetration-resistance-capture", {state:{id: id}});
+            navigate("/soil-penetration-resistance-compare", {state:{id: id}});
         }
     }
 
