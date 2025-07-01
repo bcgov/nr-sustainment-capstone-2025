@@ -5,6 +5,7 @@ import { Button } from './common/Button/Button.tsx';
 import LogoutButton from './common/LogoutButton/LogoutButton.tsx';
 import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Chart from './common/Chart/Chart.tsx';
 
 function OrganicMatterAnalysisCompare({handleLogoutClick}: any) {
     const location = useLocation();
@@ -28,6 +29,7 @@ function OrganicMatterAnalysisCompare({handleLogoutClick}: any) {
             <Header />
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
+            <div className='chart-container'><Chart userData={userData} category={"OMA"} /></div>
                 <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <Button size={'md'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
                     <Button size={'md'} variant='primary' disabled={false} text={'Input Another Category'} handleClick={handleCaptureDataClick}/>

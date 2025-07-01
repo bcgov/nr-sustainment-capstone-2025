@@ -174,9 +174,23 @@ const filterCoverageTable = async (req: Request, res: Response)=> {
   res.status(200).send(findReports);
 }
 
+const filterOMATable = async (req: Request, res: Response)=> {
+  const findReports = await prisma.oMA_Report.findMany({
+    where: {
+      createdAt: {
+        gte: req.body.date
+      }
+    },
+    orderBy: {createdAt: 'desc'}
+  });
+  console.log(findReports);
+  res.status(200).send(findReports);
+}
+
 const checkNotesTable = async (req: Request, res: Response)=> {
   const findNotes = await prisma.note.findMany();
   res.status(200).send(findNotes)
 }
 
-export {addCoverageReport, addOMAReport, addNote, test, addingUser, checkUsersTable, checkCoverageTable, checkOMATable, checkNotesTable, filterCoverageTable};
+export {addCoverageReport, addOMAReport, addNote, test, addingUser, checkUsersTable, checkCoverageTable, checkOMATable, checkNotesTable, filterCoverageTable, filterOMATable};
+

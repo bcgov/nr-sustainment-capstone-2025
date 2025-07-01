@@ -62,7 +62,7 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
             body: JSON.stringify(sendData)
         })
         .catch(error => console.error("Error:", error));
-
+      
         setImages([]);
         setImageData(null);
         setNote('');
