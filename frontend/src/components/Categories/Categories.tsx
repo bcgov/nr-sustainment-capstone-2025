@@ -31,6 +31,15 @@ function Categories({handleLogoutClick}: any){
         }
     }
 
+    const handleSoilPenetrationClick = () => {
+        if (userClick === "capture") {
+            navigate("/soil-penetration-resistance-capture", {state:{id: id}});
+        }
+        else if (userClick === "compare") {
+            navigate("/soil-penetration-resistance-capture", {state:{id: id}});
+        }
+    }
+
     return(
         <>
             <Header />
@@ -40,6 +49,7 @@ function Categories({handleLogoutClick}: any){
                     <div className="button-container">
                         <Button size={'md'} variant='primary' disabled={false} text={'Soil Coverage'} handleClick={handleSoilCoverageClick}></Button>
                         <Button size={'md'} variant='primary' disabled={false} text={'Organic Matter Analysis'} handleClick={handleOrganicMatterAnalysisClick}></Button>
+                        <Button size={'md'} variant='primary' disabled={false} text={'Soil Penetration Resistance'} handleClick={handleSoilPenetrationClick}></Button>
                     </div>
             <Collapsible children={<Footer/>}/>
         </>
