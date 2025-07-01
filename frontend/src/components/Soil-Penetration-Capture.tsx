@@ -6,15 +6,12 @@ import LogoutButton from './common/LogoutButton/LogoutButton.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
+import Modal from './common/Modal/Modal.tsx';
 
 function SoilPenetrationCapture({handleLogoutClick}: any){
     const location = useLocation();
     const navigate = useNavigate();
     const userData = location.state.id;
-
-    // const soilPenetrationInstructions = <p style={{marginTop: '0.8em'}}>In 10-15 randomly selected areas of the field, 
-    //                                     take a photo of an approximately 1 ft by 1 ft 
-    //                                     (30 by 30 cm) square of the soil surface.</p>;
 
     const handleReturnHomeClick = () => {
         navigate("/", {state:{id: userData}});
@@ -29,7 +26,15 @@ function SoilPenetrationCapture({handleLogoutClick}: any){
     }
 
     const [dateData, setDateData] = useState('');
-    const [depthData, setDepthData] = useState([''])
+    const [depthData, setDepthData] = useState(['']);
+    const [formSubmitted, setFormSubmitted] = useState(false);
+
+    const thankyouMessage = <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                <p style={{marginTop: '0.8em'}}>
+                                    Your form has been submitted. Thank you.
+                                </p>
+                            </div>;
+
 
     const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setDateData(e.target.value);
@@ -75,26 +80,17 @@ function SoilPenetrationCapture({handleLogoutClick}: any){
         // setNoteData(null);
     }
 
-    function handleSubmitClick(event: React.FormEvent) {
-        // const sendData = {
-        //     note: note,
-        //     userId: userData
-        // }
-        
-        // fetch("http://localhost:3000/api/add-note", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify(sendData)
-        // })
-        // .then(response => response.json())
-        // .then(data => {
-        //     setNoteData(data.id);
-        // })  
-        // .catch(error => console.error("Error:", error));
+    // reset the page will onlt be called after closing the modal
+    function resetData(){
+        setDateData('');
+        setDepthData(['']);
+        setFormSubmitted(false);
+    }
 
+    function handleSubmitClick(event: React.FormEvent) {
         event.preventDefault();
+        // postSoilPenetration();
+        setFormSubmitted(true);
         console.log('Date:', dateData);
         console.log('Depths:', depthData);
     }
@@ -105,6 +101,15 @@ function SoilPenetrationCapture({handleLogoutClick}: any){
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            <Modal
+                isOpen={formSubmitted}
+                onOpenChange={() => {
+                    resetData();
+                }}
+                title='Form Submitted'
+                children={thankyouMessage}
+                modalStyle={{ width: '85vw' }}
+            />
             <form className={'form-container'} onSubmit={handleSubmitClick}>
                 <div style={{marginBottom: '1em'}}>
                     <label style={{marginRight: '1em'}}>Date:</label>
