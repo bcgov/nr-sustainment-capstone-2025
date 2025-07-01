@@ -64,8 +64,12 @@ const addSoilPenetrationReport = async (req: Request, res: Response) => {
 
   let depthData = [];
 
-  for(let i = 0; i < addData.depths.length; i++){
-    depthData.push(parseFloat(addData.depths[i]))
+  if (!Array.isArray(addData.depths)) {
+    return res.status(400).send('Invalid depths data. Ensure it is an array.');
+  }
+
+  for (let i = 0; i < addData.depths.length; i++) {
+    depthData.push(parseFloat(addData.depths[i]));
   }
   
   const soilPenetrationReport = await prisma.soilPenetrationReport.create({
