@@ -151,7 +151,7 @@ export const Chart = ({userData, category}: any) => {
 
     const handleFilter = (event: any) => {
         setLoading(true);
-        setFilterValue(event)
+        setFilterValue(event);
     }
 
     const options = {
@@ -200,7 +200,7 @@ export const Chart = ({userData, category}: any) => {
 
     return(
         <>
-            <Select className={'select-font'} items={filter} label="Filter" size='small' defaultSelectedKey={1} onSelectionChange={handleFilter}/>
+            <Select className={'select-font'} items={filter} label="Filter" size='small' defaultSelectedKey={filterValue} onSelectionChange={handleFilter}/>
             <Line 
                 data={{
                     labels,

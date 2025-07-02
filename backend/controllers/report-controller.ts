@@ -52,8 +52,8 @@ const addOMAReport = async (req: Request, res: Response) => {
 
 
 /**
- * @summary - addOMAReport will add to the oma_report
- *            table using information sent from the OMA page.
+ * @summary - addSoilPenetrationReport will add to the soil_penetration_report
+ *            table using information sent from the Soil Penetration page.
  *            user ids are found by looking up the name sent in the 
  *            request body on the user table
  * @param req - the incoming request 
@@ -61,22 +61,12 @@ const addOMAReport = async (req: Request, res: Response) => {
  */ 
 const addSoilPenetrationReport = async (req: Request, res: Response) => {
   const addData = req.body;
-
-  let depthData = [];
-
-  if (!Array.isArray(addData.depths)) {
-    return res.status(400).send('Invalid depths data. Ensure it is an array.');
-  }
-
-  for (let i = 0; i < addData.depths.length; i++) {
-    depthData.push(parseFloat(addData.depths[i]));
-  }
   
   const soilPenetrationReport = await prisma.soilPenetrationReport.create({
     data: {
       userId: addData.user,
       createdAt: new Date(addData.date),
-      depths: depthData
+      depths: addData.depths
     }
   });
   res.status(200).send('Add report is working');

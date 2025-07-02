@@ -57,9 +57,15 @@ function SoilPenetrationResistanceCapture({handleLogoutClick}: any){
     // this function posts data to the add-coverage-report endpoint
     const postSoilPenetration = () => {
 
-        let sendData = {
+        const depthDataNumbers = []
+
+        for(let i = 0; i < depthData.length; i++){
+            depthDataNumbers.push(parseFloat(depthData[i]));
+        }
+
+        const sendData = {
             date: dateData,
-            depths: depthData,
+            depths: depthDataNumbers,
             user: userData,
         }
 
