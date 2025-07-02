@@ -15,7 +15,7 @@ const prisma = new PrismaClient();
 const addCoverageReport = async (req: Request, res: Response) => {
   const addData = req.body;
 
-  const coverageReport = await prisma.coverage_Report.create({
+  const coverageReport = await prisma.coverageReport.create({
     data: {
       userId: addData.user,
       noteId: addData.note,
@@ -38,7 +38,7 @@ const addCoverageReport = async (req: Request, res: Response) => {
 const addOMAReport = async (req: Request, res: Response) => {
   const addData = req.body;
 
-  const omaReport = await prisma.oMA_Report.create({
+  const omaReport = await prisma.oMAReport.create({
     data: {
       userId: addData.user,
       noteId: addData.note,
@@ -49,6 +49,38 @@ const addOMAReport = async (req: Request, res: Response) => {
   });
   res.status(200).send('Add report is working');
 };
+
+
+/**
+ * @summary - addOMAReport will add to the oma_report
+ *            table using information sent from the OMA page.
+ *            user ids are found by looking up the name sent in the 
+ *            request body on the user table
+ * @param req - the incoming request 
+ * @param res - the outgoing response
+ */ 
+const addSoilPenetrationReport = async (req: Request, res: Response) => {
+  const addData = req.body;
+
+  let depthData = [];
+
+  if (!Array.isArray(addData.depths)) {
+    return res.status(400).send('Invalid depths data. Ensure it is an array.');
+  }
+
+  for (let i = 0; i < addData.depths.length; i++) {
+    depthData.push(parseFloat(addData.depths[i]));
+  }
+  
+  const soilPenetrationReport = await prisma.soilPenetrationReport.create({
+    data: {
+      userId: addData.user,
+      createdAt: new Date(addData.date),
+      depths: depthData
+    }
+  });
+  res.status(200).send('Add report is working');
+}
 
 
 /**
@@ -148,21 +180,28 @@ const checkUsersTable = async (req: Request, res: Response)=> {
 }
 
 const checkCoverageTable = async (req: Request, res: Response)=> {
-  const findReports = await prisma.coverage_Report.findMany({
+  const findReports = await prisma.coverageReport.findMany({
     orderBy: {createdAt: 'desc'}
   });
   res.status(200).send(findReports);
 }
 
 const checkOMATable = async (req: Request, res: Response)=> {
-  const findReports = await prisma.oMA_Report.findMany({
+  const findReports = await prisma.oMAReport.findMany({
+    orderBy: {createdAt: 'desc'}
+  });
+  res.status(200).send(findReports);
+}
+
+const checkSoilPenetrationTable = async (req: Request, res: Response)=> {
+  const findReports = await prisma.soilPenetrationReport.findMany({
     orderBy: {createdAt: 'desc'}
   });
   res.status(200).send(findReports);
 }
 
 const filterCoverageTable = async (req: Request, res: Response)=> {
-  const findReports = await prisma.coverage_Report.findMany({
+  const findReports = await prisma.coverageReport.findMany({
     where: {
       createdAt: {
         gte: req.body.date
@@ -175,7 +214,7 @@ const filterCoverageTable = async (req: Request, res: Response)=> {
 }
 
 const filterOMATable = async (req: Request, res: Response)=> {
-  const findReports = await prisma.oMA_Report.findMany({
+  const findReports = await prisma.oMAReport.findMany({
     where: {
       createdAt: {
         gte: req.body.date
@@ -192,5 +231,5 @@ const checkNotesTable = async (req: Request, res: Response)=> {
   res.status(200).send(findNotes)
 }
 
-export {addCoverageReport, addOMAReport, addNote, test, addingUser, checkUsersTable, checkCoverageTable, checkOMATable, checkNotesTable, filterCoverageTable, filterOMATable};
+export {addCoverageReport, addOMAReport, addSoilPenetrationReport, addNote, test, addingUser, checkUsersTable, checkSoilPenetrationTable, checkCoverageTable, checkOMATable, checkNotesTable, filterCoverageTable, filterOMATable};
 

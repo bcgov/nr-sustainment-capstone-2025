@@ -57,27 +57,20 @@ function SoilPenetrationResistanceCapture({handleLogoutClick}: any){
     // this function posts data to the add-coverage-report endpoint
     const postSoilPenetration = () => {
 
-        // let sendData = {
-        //     img: imageData,
-        //     num: sliderData,
-        //     user: userData,
-        //     note: noteData
-        // }
+        let sendData = {
+            date: dateData,
+            depths: depthData,
+            user: userData,
+        }
 
-        // fetch("http://localhost:3000/api/add-coverage-report", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify(sendData)
-        // })
-        // .catch(error => console.error("Error:", error));
-
-        // //this resets the image and save button disables
-        // setImages([]);
-        // setImageData(null);
-        // setNote('');
-        // setNoteData(null);
+        fetch("http://localhost:3000/api/add-soil-penetration-report", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(sendData)
+        })
+        .catch(error => console.error("Error:", error));
     }
 
     // reset the page will onlt be called after closing the modal
@@ -89,7 +82,7 @@ function SoilPenetrationResistanceCapture({handleLogoutClick}: any){
 
     function handleSubmitClick(event: React.FormEvent) {
         event.preventDefault();
-        // postSoilPenetration();
+        postSoilPenetration();
         setFormSubmitted(true);
         console.log('Date:', dateData);
         console.log('Depths:', depthData);
