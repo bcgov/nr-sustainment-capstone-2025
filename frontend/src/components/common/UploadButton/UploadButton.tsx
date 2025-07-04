@@ -3,7 +3,7 @@ import ImageUploading, { type ImageListType } from "react-images-uploading";
 import './uploadButton.styles.css';
 import Modal from '../Modal/Modal.tsx';
 
-export function UploadButton({sendUploadData, images, setImages, instructions}: any) {
+export function UploadButton({sendUploadData, images, setImages, instructions, hideImageAfterUpload}: any) {
     const maxNumber = 1;
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [buttonPress, setButtonPress] = useState("Upload");
@@ -78,7 +78,7 @@ export function UploadButton({sendUploadData, images, setImages, instructions}: 
                         }}>Update</button>
                         <button className="customRemoveButton" onClick={() => onImageRemove(index)}>Remove</button>
                     </div>
-                    <img className="uploadedImg" src={image.dataURL} alt="" width="100" />
+                    <img className={`uploadedImg ${hideImageAfterUpload ? 'hidden' : ''}`} src={image.dataURL} alt="" width="100" />
                 </div>
             ))}
         </div>
