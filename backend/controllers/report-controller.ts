@@ -18,7 +18,6 @@ const addCoverageReport = async (req: Request, res: Response) => {
   const coverageReport = await prisma.coverageReport.create({
     data: {
       userId: addData.user,
-      noteId: addData.note,
       coverage_picture: addData.img,
       coverage_percentage: addData.num,
     }
@@ -41,7 +40,6 @@ const addOMAReport = async (req: Request, res: Response) => {
   const omaReport = await prisma.oMAReport.create({
     data: {
       userId: addData.user,
-      noteId: addData.note,
       hue: addData.hue,
       value: addData.value,
       chroma: addData.chroma,
@@ -74,65 +72,6 @@ const addSoilPenetrationReport = async (req: Request, res: Response) => {
 
 
 /**
- * @summary   - addNote adds a note to the database. You will need to pass
- *              a userId and a note to create a note. Notes are an optional
- *              part of reports
- * @param req -
- * @param res -
- */
-const addNote =async (req: Request, res: Response) => {
-
-  const addData = req.body;
-  const addNote = await prisma.note.create({
-    data: {
-      note: addData.note,
-      userId: addData.userId
-    }
-  });
-  res.status(200).send(addNote);
-}
-
-/**
- * @summary     Test is just as it says a test page. For now it is just
- *              for now it is just a blank page and the logs will only 
- *              show up in the compiler. It is just testing to see if CRUD
- *              commands are working with the database
- * @param req   a request being sent to this api endpoint
- * @param res   the response being sent by this api endpoint
- */
-
-const test = async (req: Request, res: Response)=> {
-  // add test
-  const testAdd = await prisma.user.create({
-    data: {
-      name: 'test'
-    }
-  });
-
-  console.log(testAdd);
-
-  // find test
-  const testFind = await prisma.user.findMany({
-    where: {
-      name: 'test'
-    }
-  });
-
-  console.log(testFind);
-
-  // delete test
-  const testDelete = await prisma.user.delete({
-    where: {
-      name: 'test'
-    }
-  });
-
-  console.log(testDelete);
-
-  res.status(200).send('this is a test');
-}
-
-/**
  * This function will only be used to create a testing User one time
  * After this has been done this endpoint will return in a 400 error
  * This can be deleted as soon as the login page is working correctly
@@ -163,12 +102,24 @@ const addingUser = async (req: Request, res: Response)=> {
 }
 
 
-
+/**
+ * @summary   checkUserTable checks to see what is currently
+ *            in the Users Table
+ * @param req - the incoming request 
+ * @param res - the outgoing response
+ */ 
 const checkUsersTable = async (req: Request, res: Response)=> {
   const findUsers = await prisma.user.findMany();
   res.status(200).send(findUsers)
 }
 
+
+/**
+ * @summary   checkCoverageTable checks to see what is currently
+ *            in the CoverageReport Table
+ * @param req - the incoming request 
+ * @param res - the outgoing response
+ */ 
 const checkCoverageTable = async (req: Request, res: Response)=> {
   const findReports = await prisma.coverageReport.findMany({
     orderBy: {createdAt: 'desc'}
@@ -176,6 +127,13 @@ const checkCoverageTable = async (req: Request, res: Response)=> {
   res.status(200).send(findReports);
 }
 
+
+/**
+ * @summary   checkOMATable checks to see what is currently
+ *            in the OMAReport Table
+ * @param req - the incoming request 
+ * @param res - the outgoing response
+ */ 
 const checkOMATable = async (req: Request, res: Response)=> {
   const findReports = await prisma.oMAReport.findMany({
     orderBy: {createdAt: 'desc'}
@@ -183,6 +141,13 @@ const checkOMATable = async (req: Request, res: Response)=> {
   res.status(200).send(findReports);
 }
 
+
+/**
+ * @summary   checkSoilPenetrationTable checks to see what is
+ *            currently in the SoilPenetrationReport Table
+ * @param req - the incoming request 
+ * @param res - the outgoing response
+ */ 
 const checkSoilPenetrationTable = async (req: Request, res: Response)=> {
   const findReports = await prisma.soilPenetrationReport.findMany({
     orderBy: {createdAt: 'desc'}
@@ -190,6 +155,14 @@ const checkSoilPenetrationTable = async (req: Request, res: Response)=> {
   res.status(200).send(findReports);
 }
 
+
+/**
+ * @summary   filterCoverageTable selects all entries in the
+ *            CoverageReport Table that fit the given filter.
+ *            The filter is sent through the body of the request
+ * @param req - the incoming request 
+ * @param res - the outgoing response
+ */ 
 const filterCoverageTable = async (req: Request, res: Response)=> {
   const findReports = await prisma.coverageReport.findMany({
     where: {
@@ -203,6 +176,14 @@ const filterCoverageTable = async (req: Request, res: Response)=> {
   res.status(200).send(findReports);
 }
 
+
+/**
+ * @summary   filterOMATable selects all entries in the
+ *            OMA Report Table that fit the given filter.
+ *            The filter is sent through the body of the request
+ * @param req - the incoming request 
+ * @param res - the outgoing response
+ */ 
 const filterOMATable = async (req: Request, res: Response)=> {
   const findReports = await prisma.oMAReport.findMany({
     where: {
@@ -216,10 +197,5 @@ const filterOMATable = async (req: Request, res: Response)=> {
   res.status(200).send(findReports);
 }
 
-const checkNotesTable = async (req: Request, res: Response)=> {
-  const findNotes = await prisma.note.findMany();
-  res.status(200).send(findNotes)
-}
-
-export {addCoverageReport, addOMAReport, addSoilPenetrationReport, addNote, test, addingUser, checkUsersTable, checkSoilPenetrationTable, checkCoverageTable, checkOMATable, checkNotesTable, filterCoverageTable, filterOMATable};
+export {addCoverageReport, addOMAReport, addSoilPenetrationReport, addingUser, checkUsersTable, checkSoilPenetrationTable, checkCoverageTable, checkOMATable, filterCoverageTable, filterOMATable};
 

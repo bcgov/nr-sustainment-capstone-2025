@@ -8,7 +8,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 import { UploadButton } from './common/UploadButton/UploadButton.tsx';
-import InputField from './common/InputField/InputField.tsx';
 
 function SoilCoverageCapture({handleLogoutClick}: any){
     const location = useLocation();
@@ -34,8 +33,6 @@ function SoilCoverageCapture({handleLogoutClick}: any){
     const [images, setImages] = useState([]);
     const [imageData, setImageData] = useState<string | null>(null);
     const [sliderData, setSliderData] = useState(0);
-    const [note, setNote] = useState('');
-    const [noteData, setNoteData] = useState<string | null>(null);
 
     // this function posts data to the add-coverage-report endpoint
     const postSoilCoverage = () => {
@@ -44,7 +41,6 @@ function SoilCoverageCapture({handleLogoutClick}: any){
             img: imageData,
             num: sliderData,
             user: userData,
-            note: noteData
         }
 
         fetch("http://localhost:3000/api/add-coverage-report", {
@@ -59,8 +55,6 @@ function SoilCoverageCapture({handleLogoutClick}: any){
         //this resets the image and save button disables
         setImages([]);
         setImageData(null);
-        setNote('');
-        setNoteData(null);
     }
 
     // this function updates the image status and will update the
@@ -90,30 +84,6 @@ function SoilCoverageCapture({handleLogoutClick}: any){
         setSliderData(parsedData);
     }
 
-    function handleInputChange(event: any) {
-        setNote(event.target.value)
-    }
-
-    function handleCreateClick() {
-        const sendData = {
-            note: note,
-            userId: userData
-        }
-        
-        fetch("http://localhost:3000/api/add-note", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(sendData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            setNoteData(data.id);
-        })  
-        .catch(error => console.error("Error:", error));
-    }
-
     return(
         <>
             <Header />
@@ -122,10 +92,6 @@ function SoilCoverageCapture({handleLogoutClick}: any){
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={soilCoverageInstructions}/>
                 <Slider sendSliderData={handleSliderData} />
-                <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    <InputField className={'md-input'} dir={'col'} label={'Notes'} type={'text'} name={'notes'} value={note} onChange={handleInputChange}/>
-                    <Button size={'tall'} variant={'primary'} disabled={false} text={'Create'} handleClick={handleCreateClick}/>
-                </div>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                         <Button size={'nav'} variant='tertiary' disabled={imageData == null ? true : false} text={'Save'} handleClick={postSoilCoverage}/>
