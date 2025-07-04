@@ -137,3 +137,28 @@ span{
   color: #ffffff;
   background-color: #198754;
 }
+
+.marker-button {
+  background-color: white;
+  border: 1px solid;
+  border-color: black;
+  color: black;
+  margin: 0 2.5px 2em 0;
+  padding: 4px;
+}
+
+.image-marker__image {
+  height: 45vh;
+}
+
+.marker-text {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: bold;
+}

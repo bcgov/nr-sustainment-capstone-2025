@@ -8,6 +8,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { UploadButton } from './common/UploadButton/UploadButton.tsx';
 import InputField from './common/InputField/InputField.tsx';
+import ImageMarker, { type Marker } from 'react-image-marker';
+import ColorExtractor from './common/ColorExtractor/ColorExtractor.tsx';
+
 
 function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
     const location = useLocation();
@@ -41,8 +44,13 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
 
     const [images, setImages] = useState([]);
     const [imageData, setImageData] = useState<string | null>(null);
-    const [note, setNote] = useState('');
-    const [noteData, setNoteData] = useState<string | null>(null);
+    const [markers, setMarkers] = useState<Marker[]>([
+        {
+        top: 50, //10% of the image relative size from top
+        left: 50 //50% of the image relative size from left
+        }
+    ]);
+    const [hideImageAfterUpload, setHideImageAfterUpload] = useState(false);
 
     // post data to add report to endpoint, need more info on table structure 
     const postOrganicMatterAnalysis = () => {
@@ -73,6 +81,8 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
     // image to either null or the dataURL for the current image
     function handleUploadData(data: string) {
         setImageData(data);
+        setMarkers([]); // Clear markers on new image
+        setHideImageAfterUpload(true);
         // remove this after testing compare page
         console.log(imageData)
     }
@@ -103,16 +113,55 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
         //setNoteData(note);
     }
 
+    const handleAddMarker = (marker: Marker) => {
+        if (markers.length < 2) {
+        const newMarkers = [...markers, marker];
+        setMarkers(newMarkers);
+        } else {
+            alert("You can only add two markers to the image.");
+        }
+    };
+
+    // Remove marker or reset markers
+    const handleRemoveMarker = () => {
+        setMarkers(prev => prev.slice(0, -1));
+    };
+
+    // Clears markers
+    const handleResetMarkers = () => {
+        setMarkers([]); 
+    };
+
     return(
         <>
             <Header />
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={organicMatterAnalysisInstructions}/>
+                <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={organicMatterAnalysisInstructions}  hideImageAfterUpload={hideImageAfterUpload}/>
                 <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <InputField className={'md-input'} dir={'col'} label={'Notes'} type={'text'} name={'notes'} value={note} onChange={handleInputChange}/>
                     <Button size={'tall'} variant={'primary'} disabled={false} text={'Create'} handleClick={handleCreateClick}/>
+                </div>
+                {/* Only show Reset and Remove Markers buttons if an image is uploaded */}
+                {imageData && (
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                        <button className="marker-button" disabled={markers.length === 0} onClick={handleResetMarkers}>
+                            Reset
+                        </button>
+                        <button className="marker-button" disabled={markers.length === 0} onClick={handleRemoveMarker}>
+                            Remove Marker
+                        </button>
+                    </div>
+                )}
+                {imageData && ( <ImageMarker src={imageData} markers={markers} onAddMarker={handleAddMarker}/> )}
+                <div>
+                    <ColorExtractor imageUrl={imageData} 
+                        markers={markers.map(m => ({
+                            top: Number(m.top),
+                            left: Number(m.left),
+                        }))}
+                    />
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
