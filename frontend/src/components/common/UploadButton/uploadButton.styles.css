@@ -38,6 +38,10 @@ img.uploadedImg {
     margin-bottom: 10px;
 }
 
+.hidden {
+    display: none;
+}
+
 @media screen and (min-height: 668px) {
     .btn-wrapper-margin {
         margin-top: 4.5vh;
