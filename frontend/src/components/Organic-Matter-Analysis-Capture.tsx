@@ -100,7 +100,7 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
     const handleResetMarkers = () => {
         setMarkers([]); 
     };
-
+    
     return(
         <>
             <Header />
