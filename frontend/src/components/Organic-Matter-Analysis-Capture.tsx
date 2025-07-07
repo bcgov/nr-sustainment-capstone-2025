@@ -11,6 +11,7 @@ import ImageMarker, { type Marker } from 'react-image-marker';
 import ColorExtractor from './common/ColorExtractor/ColorExtractor.tsx';
 import * as munsell from 'munsell';
 import { RadioGroup, Radio } from "@bcgov/design-system-react-components";
+import Modal from './common/Modal/Modal.tsx';
 
 function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
     const location = useLocation();
@@ -55,8 +56,12 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
     const [colorsSelected, setColorsSelected] = useState(false);
     const [moistureLevel, setMoistureLevel] = useState('');
     const [moistureSelected, setMoistureSelected] = useState(false);
+    const [dataPosted, setDataPosted] = useState(false);
+    const [message, setMessage] = useState<JSX.Element>(); 
 
     // need this function to try and reduce the effect of light on images
+    // This is the function I would appreciate people look at because it works
+    // just not as well as I would like it too on images with cool lighting
     function whiteBalance(soilRGB: number[], whiteRGB: number[], strength = 2.8) {
         const total = whiteRGB[0] + whiteRGB[1] + whiteRGB[2];
     
@@ -91,7 +96,18 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
         const splitString = munsellValue.split(' ');
         const hue = splitString[0];
         const value = parseFloat(splitString[1].split('/')[0]);
-        const chroma = parseFloat(splitString[1].split('/')[1]);
+        const chroma = parseFloat(splitString[1].split('/')[1]);         
+
+        setMessage(<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                        <p style={{marginTop: '0.8em'}}>
+                            Your form has been submitted. Thank you.
+                        </p>
+                        <div>
+                            <div style={{height: '30px', width: '30px', backgroundColor: hex}}></div>
+                            <p>Your adjusted color is: {hex}</p>
+                            <p>Your Munsell Value is: {munsellValue}</p>
+                        </div>
+                    </div>);
 
         const sendData = {
             hue: hue,
@@ -102,6 +118,13 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
         }
 
         return sendData;
+    }
+
+    function resetData(){
+        setImages([]);
+        setImageData(null);
+        setMoistureSelected(false);
+        setDataPosted(false);
     }
 
     // post data to add report to endpoint, need more info on table structure 
@@ -120,10 +143,8 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
             },
             body: JSON.stringify(sendData)
         })
-        .catch(error => console.error("Error:", error));
-
-        setImages([]);
-        setImageData(null);
+        .catch(error => console.error("Error:", error))
+        .finally(() => {setDataPosted(true)});
     }
 
     function handleColorData ( data: any[]){
@@ -180,6 +201,15 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
             <Header />
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
+            <Modal
+                isOpen={dataPosted}
+                onOpenChange={() => {
+                    resetData();
+                }}
+                title='Submitted'
+                children={message}
+                modalStyle={{ width: '85vw' }}
+            />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={organicMatterAnalysisInstructions}  hideImageAfterUpload={hideImageAfterUpload}/>
                 {/* Only show Reset and Remove Markers buttons if an image is uploaded */}
