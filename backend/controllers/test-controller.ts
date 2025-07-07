@@ -160,6 +160,8 @@ const dummyOMARprtData = async (req: Request, res: Response) => {
             '7.5R'
         ];
     
+        const moistureLevel = ['dry', 'wet'];
+
         const users = await prisma.user.findMany();
         const userPool = users.map(user => user.id);
     
@@ -173,7 +175,7 @@ const dummyOMARprtData = async (req: Request, res: Response) => {
         const maxChroma = 8;
     
         const fillOMAReports = async (userId: number) => {
-    
+
             const randomValue = parseFloat((Math.random() * (maxValue - minValue) + minValue).toFixed(2));
             const randomChroma = parseFloat((Math.random() * (maxChroma - minChroma) + minChroma).toFixed(2));
     
@@ -182,7 +184,8 @@ const dummyOMARprtData = async (req: Request, res: Response) => {
                 value: randomValue,
                 chroma: randomChroma,
                 user: userId,
-                date: new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime()))
+                date: new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime())),
+                moistureLevel: moistureLevel[Math.floor(Math.random() * moistureLevel.length)]
             }
     
             const OMAReport = await prisma.oMAReport.create({
@@ -191,7 +194,8 @@ const dummyOMARprtData = async (req: Request, res: Response) => {
                     hue: data.hue,
                     value: data.value,
                     chroma: data.chroma,
-                    createdAt: data.date
+                    createdAt: data.date,
+                    moisture_level: data.moistureLevel
                 }
             });
         }

@@ -13,9 +13,10 @@ interface ColorData {
 interface ColorExtractorProps {
     imageUrl: string | null;
     markers: Marker[];
+    sendColors: Function;
 }
 
-const ColorExtractor: React.FC<ColorExtractorProps> = ({ imageUrl, markers }) => {
+const ColorExtractor: React.FC<ColorExtractorProps> = ({ imageUrl, markers, sendColors }) => {
     const [colors, setColors] = useState<ColorData[]>([]);
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -85,6 +86,7 @@ const ColorExtractor: React.FC<ColorExtractorProps> = ({ imageUrl, markers }) =>
         });
 
             setColors(sampledColors);
+            sendColors(sampledColors);
         };
     }, [imageUrl, markers]);
 

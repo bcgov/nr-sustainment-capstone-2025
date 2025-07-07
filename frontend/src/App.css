@@ -143,12 +143,12 @@ span{
   border: 1px solid;
   border-color: black;
   color: black;
-  margin: 0 2.5px 2em 0;
   padding: 4px;
 }
 
 .image-marker__image {
-  height: 45vh;
+  height: 40vh;
+  border-radius: 5px;
 }
 
 .marker-text {
