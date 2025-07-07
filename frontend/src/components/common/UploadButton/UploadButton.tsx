@@ -21,14 +21,6 @@ export function UploadButton({sendUploadData, images, setImages, instructions, h
         }
     };
 
-    // DOES NOT WORK ON DIFFERENT PHONE SIZES
-    // let instructionLength = instructions.props.children.length;
-    // if (instructions.props.children.length === 2) {
-    //     instructionLength = instructions.props.children[0].props.children.length;
-    // }
-
-    //const modalStyle = instructionLength > 300 ? { width: '85vw', height: '72vh', overflow: 'scroll'} : { width: '85vw' };
-
     return (
         <div className="UploadButton">
         <ImageUploading
