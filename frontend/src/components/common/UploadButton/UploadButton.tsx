@@ -3,7 +3,7 @@ import ImageUploading, { type ImageListType } from "react-images-uploading";
 import './uploadButton.styles.css';
 import Modal from '../Modal/Modal.tsx';
 
-export function UploadButton({sendUploadData, images, setImages, instructions, hideImageAfterUpload}: any) {
+export function UploadButton({sendUploadData, images, setImages, instructions}: any) {
     const maxNumber = 1;
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [buttonPress, setButtonPress] = useState("Upload");
@@ -20,13 +20,6 @@ export function UploadButton({sendUploadData, images, setImages, instructions, h
             sendUploadData(null)
         }
     };
-
-    let instructionLength = instructions.props.children.length;
-    if (instructions.props.children.length === 2) {
-        instructionLength = instructions.props.children[0].props.children.length;
-    }
-
-    const modalStyle = instructionLength > 300 ? { width: '85vw', height: '72vh', overflow: 'scroll'} : { width: '85vw' };
 
     return (
         <div className="UploadButton">
@@ -60,7 +53,7 @@ export function UploadButton({sendUploadData, images, setImages, instructions, h
                     }}
                     title='Instructions'
                     children={instructions}
-                    modalStyle={modalStyle}
+                    modalStyle={{ width: '85vw' }}
                 />
             )}
             {images.length === 0 && (
@@ -85,7 +78,7 @@ export function UploadButton({sendUploadData, images, setImages, instructions, h
                         }}>Update</button>
                         <button className="customRemoveButton" onClick={() => onImageRemove(index)}>Remove</button>
                     </div>
-                    <img className={`uploadedImg ${hideImageAfterUpload ? 'hidden' : ''}`} src={image.dataURL} alt="" width="100" />
+                    <img className="uploadedImg" src={image.dataURL} alt="" width="100" />
                 </div>
             ))}
         </div>

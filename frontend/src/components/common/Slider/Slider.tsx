@@ -31,7 +31,7 @@ function Slider({sendSliderData}: any) {
         <>
             <Image src={imgSource}/>
             <Input type="range" min="1" max="5" defaultValue="0" step="1" onInput={onChange}/>
-            <Text>Reference: {value}</Text>
+            <Text>Score: {value}</Text>
         </>
     )
 }
