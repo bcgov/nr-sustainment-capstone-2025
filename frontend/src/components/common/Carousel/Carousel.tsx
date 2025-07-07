@@ -102,12 +102,14 @@ export const Carousel = ({userData}: any) => {
                 <img style={{width: '3em', height: '3em', marginBottom: '50px'}} src={"carousel-left.png"} onClick={onClickLeft}/>
                 <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginRight: '4px'}}>
                     <img className={'carousel-img'} src={userNameData[index].coverage_picture}/>
-                    <p>{userNameData[index].createdAt.slice(0,10)}</p> 
+                    <p>{userNameData[index].createdAt.slice(0,10)}</p>
+                    <p>{userNameData[index].coverage_percentage}%</p>
                 </div>
                 { userNameData.length > 1 &&
                 <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginLeft: '4px'}}>
                     <img className={'carousel-img'} src={userNameData[secondIndex].coverage_picture}/>
                     <p>{userNameData[secondIndex].createdAt.slice(0,10)}</p>
+                    <p>{userNameData[secondIndex].coverage_percentage}%</p>
                 </div> }
                 <img style={{width: '3em', height: '3em', marginBottom: '50px'}} src={"carousel-right.png"} onClick={onClickRight}/>
             </div> }
