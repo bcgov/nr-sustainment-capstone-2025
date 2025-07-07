@@ -2,7 +2,6 @@ import { useState } from 'react';
 import ImageUploading, { type ImageListType } from "react-images-uploading";
 import './uploadButton.styles.css';
 import Modal from '../Modal/Modal.tsx';
-import { width } from '@mui/system';
 
 export function UploadButton({sendUploadData, images, setImages, instructions, hideImageAfterUpload}: any) {
     const maxNumber = 1;
