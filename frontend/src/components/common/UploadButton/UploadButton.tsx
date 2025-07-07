@@ -53,7 +53,7 @@ export function UploadButton({sendUploadData, images, setImages, instructions, h
                     }}
                     title='Instructions'
                     children={instructions}
-                    modalStyle={{ width: '85vw' }}
+                    modalStyle={{ width: '85vw', overflow: 'scroll' }}
                 />
             )}
             {images.length === 0 && (

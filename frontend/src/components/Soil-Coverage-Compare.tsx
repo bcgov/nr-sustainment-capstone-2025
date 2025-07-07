@@ -50,7 +50,7 @@ function CoverageCompare({handleLogoutClick}: any){
             <Header />
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
-            <TabOptions activeTab={activeTab} tabs={[dataTab, visualsTab]} setActiveTab={tabSwitch}/>
+            <TabOptions activeTab={activeTab} tabs={[dataTab, visualsTab]} setActiveTab={tabSwitch} style={{marginRight: "175px"}}/>
             <TabContentDisplay activeTab={activeTab} tabs={[visualsTab, dataTab]} />
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
