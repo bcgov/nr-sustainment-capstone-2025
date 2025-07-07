@@ -21,6 +21,13 @@ export function UploadButton({sendUploadData, images, setImages, instructions, h
         }
     };
 
+    let instructionLength = instructions.props.children.length;
+    if (instructions.props.children.length === 2) {
+        instructionLength = instructions.props.children[0].props.children.length;
+    }
+
+    const modalStyle = instructionLength > 300 ? { width: '85vw', height: '72vh', overflow: 'scroll'} : { width: '85vw' };
+
     return (
         <div className="UploadButton">
         <ImageUploading
@@ -53,7 +60,7 @@ export function UploadButton({sendUploadData, images, setImages, instructions, h
                     }}
                     title='Instructions'
                     children={instructions}
-                    modalStyle={{ width: '85vw' }}
+                    modalStyle={modalStyle}
                 />
             )}
             {images.length === 0 && (
