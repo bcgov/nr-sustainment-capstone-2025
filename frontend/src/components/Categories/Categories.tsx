@@ -47,9 +47,9 @@ function Categories({handleLogoutClick}: any){
             <LogoutButton handleLogoutClick={handleLogoutClick}/>
                 <h2>Select an Assessment:</h2>
                     <div className="button-container">
-                        <Button size={'md'} variant='primary' disabled={false} text={'Soil Coverage'} handleClick={handleSoilCoverageClick}></Button>
-                        <Button size={'md'} variant='primary' disabled={false} text={'Organic Matter Analysis'} handleClick={handleOrganicMatterAnalysisClick}></Button>
-                        <Button size={'md'} variant='primary' disabled={false} text={'Soil Penetration Resistance'} handleClick={handleSoilPenetrationClick}></Button>
+                        <Button size={'lg'} variant='primary' disabled={false} text={'Soil Coverage'} handleClick={handleSoilCoverageClick}></Button>
+                        <Button size={'lg'} variant='primary' disabled={false} text={'Organic Matter Analysis'} handleClick={handleOrganicMatterAnalysisClick}></Button>
+                        <Button size={'lg'} variant='primary' disabled={false} text={'Soil Penetration Resistance'} handleClick={handleSoilPenetrationClick}></Button>
                     </div>
             <Collapsible children={<Footer/>}/>
         </>
