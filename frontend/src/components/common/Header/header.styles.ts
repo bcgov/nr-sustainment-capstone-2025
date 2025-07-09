@@ -28,7 +28,6 @@ export const HeaderWrapper = styled.header`
   @media (max-width: 450px) {
     height: 8vh;
   }
-  z-index: 2000;
 `;
 
 export const Heading = styled.h2`

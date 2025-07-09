@@ -12,11 +12,12 @@ interface TabsProps {
   activeTab: number;
   setActiveTab?: (index: number) => void;
   clickable?: boolean;
+  style?: object
 }
 
-export function TabOptions({ tabs, activeTab, setActiveTab , clickable = true }: TabsProps) {
+export function TabOptions({ tabs, activeTab, setActiveTab , clickable = true, style }: TabsProps) {
   return (
-    <TabsWrapper style={{marginRight: "175px"}}>
+    <TabsWrapper style={style}>
       <div>
         {tabs.map((tab, index) => (
           <Tab
