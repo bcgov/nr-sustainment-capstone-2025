@@ -29,12 +29,12 @@ button.customRemoveButton {
 img.uploadedImg {
     margin: 0em;
     width: 95%;
-    height: 30vh;
+    /* height: 30vh; */
     border-radius: 5%;
 }
 
 .btn-wrapper-margin {
-    margin-top: 10vh;
+    margin-top: 5vh;
     margin-bottom: 10px;
 }
 
@@ -44,14 +44,20 @@ img.uploadedImg {
 
 @media screen and (min-height: 668px) {
     .btn-wrapper-margin {
-        margin-top: 4.5vh;
+        margin-top: 5vh;
         margin-bottom: 10px;
+    }
+
+    img.uploadedImg {
+        margin: 0em;
+        width: 95%;
+        height: 30vh;
+        border-radius: 5%;
     }
 }
 
 @media screen and (min-height: 796px) {
     .btn-wrapper-margin {
-        margin-top: 4.5vh;
         margin-bottom: 10px;
     }
 
