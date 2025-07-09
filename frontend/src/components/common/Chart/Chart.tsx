@@ -36,25 +36,27 @@ export const Chart = ({userData, category}: any) => {
     ];
     const title = category === "Coverage" ? "Monthly Soil Coverage Trend" : "Monthly Organic Matter Analysis Trend";
     const xAxis = category === "Coverage" ? "Soil Coverage" : "Colour Score";
-    const min = category === "Coverage" ? 0 : 2;
+    const min = category === "Coverage" ? 0 : 0;
     const max = category === "Coverage" ? 100 : 8;
     const stepSize = category === "Coverage" ? 25 : 2;
 
     useEffect(() => {
+        const currentDate = new Date().getFullYear();
         let dateData;
 
         if(filterValue == 1){
-            dateData = new Date().getFullYear();
+            dateData = currentDate;
         } else if (filterValue == 2){
-            dateData = new Date().getFullYear() - 3;
+            dateData = currentDate - 3;
         } else {
-            dateData = new Date().getFullYear() - 5;
+            dateData = currentDate - 5;
         }
 
         console.log(dateData);
 
         const sendData = {
-            date: new Date(dateData, 0, 1)
+            date: new Date(dateData, 0, 1),
+            moistureLevel: ''
         }
 
         if (category === "Coverage") {
@@ -92,7 +94,8 @@ export const Chart = ({userData, category}: any) => {
                     setLoading(false);
                 })
         }
-        else if (category === "OMA") {
+        else if (category === "OMA-dry") {
+            sendData.moistureLevel = 'dry';
             fetch('http://localhost:3000/api/check-oma-report', {
                 method: "POST",
                 headers: {
@@ -118,7 +121,42 @@ export const Chart = ({userData, category}: any) => {
                     });
                     // Calculate average coverage per month
                     const averagedData = monthlyData.map((sum, index) => {
-                        return monthlyCounts[index] > 0 ? sum / monthlyCounts[index] : 2;
+                        return monthlyCounts[index] > 0 ? sum / monthlyCounts[index] : 0;
+                    });
+                    setChartData(averagedData);
+                })
+                .catch(err => console.error('Failed to fetch data:', err))
+                .finally(()=> {
+                    setLoading(false);
+                })
+        } else if (category === "OMA-wet") {
+            sendData.moistureLevel = 'wet';
+            fetch('http://localhost:3000/api/check-oma-report', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(sendData)})
+                .then(res => res.json())
+                .then(data => {
+                    // Initialize array with 12 months
+                    const monthlyData = new Array(12).fill(0);
+                    // Track entries per month for now
+                    const monthlyCounts = new Array(12).fill(0);
+                    data.forEach((entry: any) => {
+                        const date = new Date(entry.createdAt);
+                        // Index goes from 0 (Jan) to 11 (Dec)
+                        const monthIndex = date.getMonth();
+
+                        // Only add if value is valid
+                        if (entry.value !== null && entry.value >= 2 && entry.value <= 8 && entry.userId == userData) {
+                            monthlyData[monthIndex] += entry.value;
+                            monthlyCounts[monthIndex] += 1;
+                        }
+                    });
+                    // Calculate average coverage per month
+                    const averagedData = monthlyData.map((sum, index) => {
+                        return monthlyCounts[index] > 0 ? sum / monthlyCounts[index] : 0;
                     });
                     setChartData(averagedData);
                 })
@@ -128,7 +166,7 @@ export const Chart = ({userData, category}: any) => {
                 })
         }
         
-    }, [filterValue]);
+    }, [filterValue, category]);
 
     if (loading) {
         return <p>Loading...</p>;
@@ -152,6 +190,7 @@ export const Chart = ({userData, category}: any) => {
     const handleFilter = (event: any) => {
         setLoading(true);
         setFilterValue(event);
+        console.log(event)
     }
 
     const options = {

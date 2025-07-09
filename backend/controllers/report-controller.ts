@@ -43,6 +43,8 @@ const addOMAReport = async (req: Request, res: Response) => {
       hue: addData.hue,
       value: addData.value,
       chroma: addData.chroma,
+      moisture_level: addData.moistureLevel 
+
     }
   });
   res.status(200).send('Add report is working');
@@ -189,7 +191,8 @@ const filterOMATable = async (req: Request, res: Response)=> {
     where: {
       createdAt: {
         gte: req.body.date
-      }
+      },
+      moisture_level: req.body.moistureLevel
     },
     orderBy: {createdAt: 'desc'}
   });

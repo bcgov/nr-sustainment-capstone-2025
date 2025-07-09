@@ -80,7 +80,7 @@ function SoilPenetrationResistanceCapture({handleLogoutClick}: any){
         .catch(error => console.error("Error:", error));
     }
 
-    // reset the page will onlt be called after closing the modal
+    // reset the page will only be called after closing the modal
     function resetData(){
         setDateData('');
         setDepthData(['']);
