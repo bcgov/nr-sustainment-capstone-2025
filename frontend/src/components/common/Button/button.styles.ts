@@ -8,20 +8,21 @@ type ButtonProps = {
   variant: string;
   size: string;
   disabled: boolean;
-  className?: "";
 };
 
 const StyledButton = styled.button<ButtonProps>`
   ${typography.toString()}
-  width: ${(props) => (props.size === 'sm' || props.size === 'tall' ? '125px' : props.size === 'md' ? '175px' : props.size === 'nav'? '90px' : props.size === 'home' ? '55px': '300px')};
-  height: ${(props) => (props.size === 'sm' ? '35px' : props.size === 'md' ? '50px' : props.size === 'nav' || props.size === 'tall' ? '45px' :'100px')};
+  width: ${(props) => (props.size === 'sm' || props.size === 'tall' ? '125px' : props.size === 'md' ? '175px' :
+            props.size === 'nav' ? '85px' : props.size === 'save' ? '115px' : props.size === 'home' ? '70px' : '300px')};
+  height: ${(props) => (props.size === 'sm' ? '35px' : props.size === 'md' ? '50px' : props.size === 'nav' || 
+            props.size === 'tall' || props.size === 'save' || props.size === 'home' ? '45px' : '100px')};
   border: none;
   border-radius: 8px;
   padding: 2px;
-  margin: ${(props) => (props.size === 'sm' || props.size === 'nav' ? '0.15em' : props.size === 'md' ? '0.15em' : props.size === 'tall' ? '1em 1em 0em 1em' : '1em')};
+  margin: ${(props) => (props.size === 'sm' || props.size === 'nav' || props.size === 'save' || props.size === 'home' ? '0 1.5px' : props.size === 'md' ? '0.15em' : props.size === 'tall' ? '1em 1em 0em 1em' : '1em')};
   text-align: center;
   text-decoration: none;
-  font-size: ${(props) => (props.size === 'sm' || props.size === 'nav' ? '14px' : '15px')};
+  font-size: ${(props) => (props.size === 'sm' || props.size === 'nav' || props.size === 'save' || props.size === 'home' ? '14px' : '15px')};
   font-weight: 500;
   letter-spacing: 0.5px;
   cursor: pointer;

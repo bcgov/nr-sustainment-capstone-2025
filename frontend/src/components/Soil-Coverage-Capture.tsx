@@ -92,9 +92,9 @@ function SoilCoverageCapture({handleLogoutClick}: any){
                 <LogoutButton handleLogoutClick={handleLogoutClick} />
                 <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={soilCoverageInstructions}/>
                 <Slider sendSliderData={handleSliderData} />
-                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                        <Button size={'nav'} variant='tertiary' disabled={imageData == null ? true : false} text={'Save'} handleClick={postSoilCoverage}/>
-                        <Button size={'nav'} variant='secondary' disabled={false} text={'Home'} handleClick={handleReturnHomeClick}/>
+                <div className='navButtons' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                        <Button size={'save'} variant='tertiary' disabled={imageData == null ? true : false} text={'Save'} handleClick={postSoilCoverage}/>
+                        <Button size={'home'} variant='secondary' disabled={false} text={'Home'} handleClick={handleReturnHomeClick}/>
 
                         <Button size={'nav'} variant='primary' disabled={false} text={'Add Data'} handleClick={handleCaptureDataClick} />
                         <Button size={'nav'} variant='primary' disabled={false} text={'Compare'} handleClick={handleCompareDataClick}/>
