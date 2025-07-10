@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import {
     Chart as ChartJS,
     LineElement,
+    BarElement,
     PointElement,
     LinearScale,
     Title,
@@ -13,6 +14,7 @@ import {
 
 ChartJS.register(
     LineElement,
+    BarElement,
     PointElement,
     LinearScale,
     Title,
@@ -21,7 +23,7 @@ ChartJS.register(
     Legend,
     plugins
 );
-import { Line } from 'react-chartjs-2';
+import { Line, Bar } from 'react-chartjs-2';
 import { Select } from '@bcgov/design-system-react-components';
 
 export const Chart = ({userData, category}: any) => {
@@ -36,7 +38,7 @@ export const Chart = ({userData, category}: any) => {
     ];
     const title = category === "Coverage" ? "Monthly Soil Coverage Trend" : "Monthly Organic Matter Analysis Trend";
     const xAxis = category === "Coverage" ? "Soil Coverage" : "Colour Score";
-    const min = category === "Coverage" ? 0 : 0;
+    const min = 0;
     const max = category === "Coverage" ? 100 : 8;
     const stepSize = category === "Coverage" ? 25 : 2;
 
@@ -240,16 +242,15 @@ export const Chart = ({userData, category}: any) => {
     return(
         <>
             <Select className={'select-font'} items={filter} label="Filter" size='small' defaultSelectedKey={filterValue} onSelectionChange={handleFilter}/>
-            <Line 
+            { console.log(filterValue) }
+            <Bar 
                 data={{
                     labels,
                     datasets: [{
                         label: 'Monthly Trend',
                         data: chartData,
-                        fill: false,
                         borderColor: 'rgb(75, 94, 115)',
                         backgroundColor: 'rgb(75, 94, 115)',
-                        tension: 0.1
                     }]
                 }}
                 options={options}
