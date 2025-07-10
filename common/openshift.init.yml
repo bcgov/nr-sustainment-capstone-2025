@@ -1,0 +1,63 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+parameters:
+  - name: REPO
+    description: Repository name
+    value: nr-sustainment-capstone-2025
+  - name: ZONE
+    description: Deployment zone, e.g. pr-### or prod
+    required: true
+  - description: Username for PostgreSQL user that will be used for accessing the database.
+    name: POSTGRES_USER
+    required: true
+    value: gwells
+  - description: Password for the PostgreSQL connection user
+    name: POSTGRES_PASSWORD
+    required: true
+  - description: Name of the PostgreSQL database accessed.
+    displayName: PostgreSQL Database Name
+    name: POSTGRES_DATABASE
+    required: true
+    value: postgres
+objects:
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: ${REPO}-${ZONE}-database
+      labels:
+        app: ${REPO}-${ZONE}
+    stringData:
+      database-name: ${POSTGRES_DATABASE}
+      database-password: ${POSTGRES_PASSWORD}
+      database-user: ${POSTGRES_USER}
+      database-host: nr-gwells-232-database.cd43d9-dev.svc.cluster.local
+  - apiVersion: networking.k8s.io/v1
+    kind: NetworkPolicy
+    metadata:
+      name: allow-from-openshift-ingress
+      labels:
+        template: openshift-test
+    spec:
+      ingress:
+        - from:
+            - namespaceSelector:
+                matchLabels:
+                  network.openshift.io/policy-group: ingress
+      policyTypes:
+        - Ingress
+  - apiVersion: networking.k8s.io/v1
+    kind: NetworkPolicy
+    metadata:
+      name: allow-same-namespace
+      labels:
+        template: nr-sustainment-capstone-2025-network-security-policy
+    spec:
+      podSelector: {}
+      ingress:
+        - from:
+            - namespaceSelector:
+                matchLabels:
+                  environment: dev
+                  name: b4cd74
+      policyTypes:
+        - Ingress
