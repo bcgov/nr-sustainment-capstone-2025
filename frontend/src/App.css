@@ -162,3 +162,10 @@ span{
   font-size: 14px;
   font-weight: bold;
 }
+
+.bcds-react-aria-Modal{
+  position: absolute !important;
+  top: 15vh !important;
+  overflow: scroll !important;
+  max-height: 65vh !important;
+}
