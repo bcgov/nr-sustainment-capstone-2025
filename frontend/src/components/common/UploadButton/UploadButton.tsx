@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ImageUploading, { type ImageListType } from "react-images-uploading";
 import './uploadButton.styles.css';
 import Modal from '../Modal/Modal.tsx';
@@ -20,23 +20,6 @@ export function UploadButton({sendUploadData, images, setImages, instructions, h
             sendUploadData(null)
         }
     };
-
-    let element = null;
-    if (isDialogOpen === true) {
-        element = document.getElementsByClassName('bcds-react-aria-Button small tertiary  icon');
-    }
-
-    useEffect(() => {
-        const stopProp = (event: Event) => {
-            event.stopPropagation();
-        }
-
-        if (element) {
-            console.log(element[0]);
-            element[0].addEventListener('click', stopProp);
-        }
-
-    }, []);
 
     return (
         <div className="UploadButton">
