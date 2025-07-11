@@ -65,8 +65,7 @@ const addSoilPenetrationReport = async (req: Request, res: Response) => {
   const soilPenetrationReport = await prisma.soilPenetrationReport.create({
     data: {
       userId: addData.user,
-      createdAt: new Date(addData.date),
-      depths: addData.depths
+      score: addData.score
     }
   });
   res.status(200).send('Add report is working');

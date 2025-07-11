@@ -26,8 +26,10 @@ function SoilPenetrationResistanceCapture({handleLogoutClick}: any){
         navigate("/categories", {state:{page:'compare', id: userData}});
     }
 
-    const [dateData, setDateData] = useState('');
-    const [depthData, setDepthData] = useState(['']);
+    const depths = ["0-5 cm", "5-20 cm", " > 20 cm"];
+    const levels = ['None', 'Some', 'Lots'];
+    
+    const [entries, setEntries] = useState(Array.from({ length: 8 }, () => createEmptyEntry()));
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     const thankyouMessage = <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
@@ -36,37 +38,70 @@ function SoilPenetrationResistanceCapture({handleLogoutClick}: any){
                                 </p>
                             </div>;
 
+    function createEmptyEntry() {
+        return depths.reduce((acc, depth) => {
+            acc[depth] = '';
+            return acc;
+        }, {} as Record<string, string>);
+    }
 
-    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setDateData(e.target.value);
+    const handleChange = (i: number, depth: string, value: string) => {
+        const newEntry = [...entries];
+        newEntry[i][depth] = value;
+        setEntries(newEntry);
     };
 
-    const handleDepthChange = (index: number, value: string) => {
-        const newDepths = [...depthData];
-        newDepths[index] = value;
-        setDepthData(newDepths);
+    const addEntry = () => {
+        setEntries([...entries, createEmptyEntry()]);
     };
 
-    const addDepthField = () => {
-        setDepthData([...depthData, '']);
+    const removeEntry = (index: number) => {
+        const updated = entries.filter((_, i) => i !== index);
+        setEntries(updated);
     };
 
-    const removeDepthField = (index: number) => {
-        setDepthData(depthData.filter((_, i) => i !== index));
-    };
+    function calculateScore(entry: string){
+        if(entry == 'None'){
+            return 3.0;
+        } else if (entry == 'Some'){
+            return 2.0;
+        } else {
+            return 1.0;
+        }
+    }
 
-    // this function posts data to the add-coverage-report endpoint
-    const postSoilPenetration = () => {
-
-        const depthDataNumbers = []
-
-        for(let i = 0; i < depthData.length; i++){
-            depthDataNumbers.push(parseFloat(depthData[i]));
+    function calculateTotalScore(entries: Record<string, string>[]) {
+        
+        const maxPerEntry = Object.keys(entries[0]).length * 3;
+        const totalMaxScore = entries.length * maxPerEntry;
+        let totalRawScore = 0.0;
+    
+        for(let i = 0; i < entries.length; i++){
+            const values = Object.values(entries[i]);
+            totalRawScore += calculateScore(values[0]) + calculateScore(values[1]) + calculateScore(values[2]);
         }
 
+        return Math.round(totalRawScore / totalMaxScore * 100);
+    }
+
+    function findEmptyValues(entries: Record<string, string>[]){
+        const emptyFields: { plot: number, depth: string }[] = [];
+    
+        entries.forEach((entry, index) => {
+            for (const [depth, value] of Object.entries(entry)) {
+                if (value === '') {
+                    emptyFields.push({ plot: index + 1, depth });
+                }
+            }
+        });
+    
+        return emptyFields;
+    }
+
+    const postSoilPenetration = (score: number) => {
+
         const sendData = {
-            date: dateData,
-            depths: depthDataNumbers,
+            score: score,
             user: userData,
         }
 
@@ -82,25 +117,31 @@ function SoilPenetrationResistanceCapture({handleLogoutClick}: any){
 
     // reset the page will only be called after closing the modal
     function resetData(){
-        setDateData('');
-        setDepthData(['']);
         setFormSubmitted(false);
+        setEntries(Array.from({ length: 8 }, () => createEmptyEntry()));
     }
 
     function handleSubmitClick(event: React.FormEvent) {
         event.preventDefault();
-        postSoilPenetration();
-        setFormSubmitted(true);
-        console.log('Date:', dateData);
-        console.log('Depths:', depthData);
+        const emptyValues = findEmptyValues(entries)
+        if(emptyValues.length > 0){
+            const missingMessage = emptyValues
+            .map((e) => `Spot ${e.plot} at ${e.depth} needs to be filled out.`)
+            .join('\n');
+
+            alert(`Please make sure all values have been filled out before clicking submit.\n\n${missingMessage}`);
+        } else {
+            const score = calculateTotalScore(entries);
+            console.log(score);
+            postSoilPenetration(score);
+            setFormSubmitted(true);
+        }
+        console.log(entries);
     }
 
     return(
         <>
             <Header />
-            <BackNavButton />
-            <LogoutButton handleLogoutClick={handleLogoutClick} />
-            <InformationIcon />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             <Modal
                 isOpen={formSubmitted}
@@ -111,37 +152,65 @@ function SoilPenetrationResistanceCapture({handleLogoutClick}: any){
                 children={thankyouMessage}
                 modalStyle={{ width: '85vw' }}
             />
+            <div style={{flexDirection: 'row'}}>
+                <BackNavButton />
+                <InformationIcon />
+                <LogoutButton handleLogoutClick={handleLogoutClick} />
+            </div>
             <form className={'form-container'} onSubmit={handleSubmitClick}>
-                <div style={{marginBottom: '1em'}}>
-                    <label style={{marginRight: '1em'}}>Date:</label>
-                    <input 
-                        style={{borderRadius: '5px', borderWidth: 'thin'}}
-                        type="date" value={dateData} onChange={handleDateChange} required />
-                </div>
-                <div style={{display: 'flex', flexDirection: 'column'}}>
-                    <label>Depth(s):</label>
-                    {depthData.map((depth, index) => (
-                    <div style={{display: 'flex', margin: '0.5em'}} key={index}>
-                        <input
-                            style={{borderRadius: '5px', borderWidth: 'thin', height: '35px', marginRight: '0.5em'}}
-                            type="number"
-                            value={depth}
-                            onChange={(e) => handleDepthChange(index, e.target.value)}
-                            placeholder={`Depth ${index + 1}`}
-                            required
-                        />
-                        {depthData.length > 1 && (
-                        <button className={'depth-btn'} type="button" onClick={() => removeDepthField(index)}>
-                            Remove
-                        </button>
-                        )}
-                    </div>
+                <table style={{ borderCollapse: 'collapse', marginBottom: '0px' }}>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        {depths.map((depth) => (
+                        <th key={depth}>{depth}</th>
+                        ))}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {entries.map((entry, i) => (
+                        <tr key={i}>
+                        <td style={{ padding: '0.5rem', fontWeight: 'bold' }}>Plot {i + 1}</td>
+                        {depths.map((depth) => (
+                            <td key={depth} style={{ padding: '0.5rem' }}>
+                            <select
+                                value={entry[depth]}
+                                onChange={(e) => handleChange(i, depth, e.target.value)}
+                            >
+                                <option value="">Select</option>
+                                {levels.map((level) => (
+                                <option key={level} value={level}>
+                                    {level}
+                                </option>
+                                ))}
+                            </select>
+                            </td>
+                        ))}
+                        <td style={{padding: '0'}}>
+                            <button
+                            onClick={() => removeEntry(i)}
+                            style={{
+                            background: 'transparent',
+                            border: 'none',
+                            color: 'red',
+                            cursor: 'pointer',
+                            lineHeight: '1',
+                            padding: '0'
+                            }}
+                            aria-label={`Remove Spot ${i + 1}`}
+                            type={'button'}
+                            >
+                                ×
+                            </button>
+                        </td>
+                        </tr>
                     ))}
-                    <button className={'depth-btn'} type="button" onClick={addDepthField}>
-                        Add Another Depth
-                    </button>
+                    </tbody>
+                </table>
+                <div style={{display: 'flex', flexDirection: "row", alignItems: 'center', justifyContent: 'center'}}>
+                    <button className={'depth-btn'} type="button" onClick={addEntry}>Add Plot</button>
+                    <button className={'submit-btn'} type="submit">Submit</button>
                 </div>
-                <button className='submit-btn' type="submit">Submit</button>
             </form>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>

@@ -122,7 +122,9 @@ span{
 }
 
 .depth-btn {
+  margin: 0.5em;
   height: 35px;
+  width: 150px;
   background-color: #003366;
   color: #ffffff;
   display: flex;
@@ -132,10 +134,13 @@ span{
 
 .submit-btn{
   margin: 0.5em;
-  width: 50vw;
-  height: 50px;
+  width: 150px;
+  height: 35px;
   color: #ffffff;
   background-color: #198754;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .marker-button {
