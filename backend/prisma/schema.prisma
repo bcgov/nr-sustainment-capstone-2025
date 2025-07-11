@@ -39,6 +39,7 @@ model OMAReport {
   hue                 String
   value               Float
   chroma              Float
+  moisture_level      String
 
   User                User     @relation(fields: [userId], references: [id])
   userId              Int

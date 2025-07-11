@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 import Modal from './common/Modal/Modal.tsx';
+import InformationIcon from './common/InformationIcon/InformationIcon.tsx';
 
 function SoilPenetrationResistanceCapture({handleLogoutClick}: any){
     const location = useLocation();
@@ -79,7 +80,7 @@ function SoilPenetrationResistanceCapture({handleLogoutClick}: any){
         .catch(error => console.error("Error:", error));
     }
 
-    // reset the page will onlt be called after closing the modal
+    // reset the page will only be called after closing the modal
     function resetData(){
         setDateData('');
         setDepthData(['']);
@@ -99,6 +100,7 @@ function SoilPenetrationResistanceCapture({handleLogoutClick}: any){
             <Header />
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
+            <InformationIcon />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             <Modal
                 isOpen={formSubmitted}

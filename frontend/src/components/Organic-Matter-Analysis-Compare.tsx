@@ -6,6 +6,8 @@ import LogoutButton from './common/LogoutButton/LogoutButton.tsx';
 import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Chart from './common/Chart/Chart.tsx';
+import { TabOptions, TabContentDisplay } from './common/Tabs/Tabs.tsx';
+import { useState } from 'react';
 
 function OrganicMatterAnalysisCompare({handleLogoutClick}: any) {
     const location = useLocation();
@@ -24,17 +26,32 @@ function OrganicMatterAnalysisCompare({handleLogoutClick}: any) {
         navigate("/categories", {state:{page:'compare', id: userData}});
     }
 
+    const [activeTab, setActiveTab] = useState(1);
+
+    const dryDataTab = {
+        label: "Dry",
+        content: <div className='chart-container'><Chart userData={userData} category={"OMA-dry"} /></div>,
+        id: "0"
+    }
+
+    const wetDataTab = {
+        label: "Wet",
+        content: <div className='chart-container'><Chart userData={userData} category={"OMA-wet"} /></div>,
+        id: "1"
+    }
+
+    const tabSwitch = (index: number) => {
+        index == 0 ? setActiveTab(1) : setActiveTab(0);
+    }
+
     return(
         <>
             <Header />
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
             <div className='chart-container'><Chart userData={userData} category={"OMA"} /></div>
-                {/* <div className='' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    <Button size={'md'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
-                    <Button size={'md'} variant='primary' disabled={false} text={'Input Another Category'} handleClick={handleCaptureDataClick}/>
-                    <Button size={'md'} variant='primary' disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
-                </div> */}
+            <TabOptions activeTab={activeTab} tabs={[dryDataTab, wetDataTab]} setActiveTab={tabSwitch}/>
+            <TabContentDisplay activeTab={activeTab} tabs={[dryDataTab, wetDataTab]} />
                 <div className='navButtons' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                         <Button size={'home'} variant='secondary' disabled={false} text={'Home'} handleClick={handleReturnHomeClick}/>
                         <Button size={'nav'} variant='primary' disabled={false} text={'Add Data'} handleClick={handleCaptureDataClick} />

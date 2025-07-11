@@ -142,7 +142,6 @@ span{
   border: 1px solid;
   border-color: black;
   color: black;
-  margin: 0 2.5px 2em 0;
   padding: 4px;
 }
 
@@ -163,4 +162,11 @@ span{
   border-radius: 3px;
   font-size: 14px;
   font-weight: bold;
+}
+
+.bcds-react-aria-Modal{
+  position: absolute !important;
+  top: 15vh !important;
+  overflow: scroll !important;
+  max-height: 65vh !important;
 }
