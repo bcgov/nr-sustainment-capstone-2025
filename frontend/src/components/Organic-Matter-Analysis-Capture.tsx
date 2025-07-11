@@ -241,7 +241,7 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
                         Wet
                     </Radio>
                 </RadioGroup>
-                 <div className='navButtons' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                         <Button size={'save'} variant='tertiary' disabled={moistureSelected && colorsSelected ? false : true} text={'Save'} handleClick={postOrganicMatterAnalysis}/>
                         <Button size={'home'} variant='secondary' disabled={false} text={'Home'} handleClick={handleReturnHomeClick}/>
                         <Button size={'nav'} variant='primary' disabled={false} text={'Add Data'} handleClick={handleCaptureDataClick} />
