@@ -52,7 +52,7 @@ function OrganicMatterAnalysisCompare({handleLogoutClick}: any) {
             <div className='chart-container'><Chart userData={userData} category={"OMA"} /></div>
             <TabOptions activeTab={activeTab} tabs={[dryDataTab, wetDataTab]} setActiveTab={tabSwitch}/>
             <TabContentDisplay activeTab={activeTab} tabs={[dryDataTab, wetDataTab]} />
-                <div className='navButtons' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                         <Button size={'home'} variant='secondary' disabled={false} text={'Home'} handleClick={handleReturnHomeClick}/>
                         <Button size={'nav'} variant='primary' disabled={false} text={'Add Data'} handleClick={handleCaptureDataClick} />
                         <Button size={'nav'} variant='primary' disabled={false} text={'Compare'} handleClick={handleCompareDataClick}/>
