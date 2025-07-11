@@ -28,8 +28,8 @@ button.customRemoveButton {
 
 img.uploadedImg {
     margin: 0em;
-    width: 95%;
-    /* height: 30vh; */
+    width: 63vw;
+    height: 30vh;
     border-radius: 5%;
 }
 
@@ -48,7 +48,7 @@ img.uploadedImg {
 
     img.uploadedImg {
         margin: 0em;
-        width: 95%;
+        width: 70vw;
         height: 30vh;
         border-radius: 5%;
     }
@@ -61,8 +61,8 @@ img.uploadedImg {
 
     img.uploadedImg {
         margin: 0em;
-        width: 95%;
-        height: 33vh;
+        width: 78vw;
+        height: 30vh;
         border-radius: 5%;
     }
 }

@@ -84,19 +84,24 @@
   margin-bottom: 16px;
 }
 
+.coverageUploadImage {
+  height: 80vh;
+}
+
 .chart-container {
   height: 50vh;
   width: 80vw;
+  margin-bottom: 5px;
 }
 
 .carousel-container {
-  width: 90vw;
-  height: 41vh;
+  width: 94vw;
+  height: 46vh;
 }
 
 .carousel-img {
-  width: 8em;
-  height: 8em;
+  width: 10em;
+  height: 10em;
 
   border-radius: 5px;
 }
