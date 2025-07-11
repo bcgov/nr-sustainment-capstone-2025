@@ -9,7 +9,7 @@ import { useState } from 'react';
 import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 import { UploadButton } from './common/UploadButton/UploadButton.tsx';
 
-function SoilCoverageCapture({handleLogoutClick}: any){
+function SoilCoverageCapture({handleLogoutClick}: any) {
     const location = useLocation();
     const navigate = useNavigate();
     const userData = location.state.id;
@@ -95,7 +95,6 @@ function SoilCoverageCapture({handleLogoutClick}: any){
                 <div className='navButtons' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                         <Button size={'save'} variant='tertiary' disabled={imageData == null ? true : false} text={'Save'} handleClick={postSoilCoverage}/>
                         <Button size={'home'} variant='secondary' disabled={false} text={'Home'} handleClick={handleReturnHomeClick}/>
-
                         <Button size={'nav'} variant='primary' disabled={false} text={'Add Data'} handleClick={handleCaptureDataClick} />
                         <Button size={'nav'} variant='primary' disabled={false} text={'Compare'} handleClick={handleCompareDataClick}/>
                 </div>

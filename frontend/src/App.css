@@ -142,7 +142,10 @@ span{
 }
 
 .image-marker__image {
-  height: 45vh;
+  height: 50vh;
+  border: 1px solid;
+  border-color: white;
+  border-radius: 2%;
 }
 
 .marker-text {
