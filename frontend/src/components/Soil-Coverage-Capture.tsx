@@ -9,7 +9,7 @@ import { useState } from 'react';
 import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 import { UploadButton } from './common/UploadButton/UploadButton.tsx';
 
-function SoilCoverageCapture({handleLogoutClick}: any){
+function SoilCoverageCapture({handleLogoutClick}: any) {
     const location = useLocation();
     const navigate = useNavigate();
     const userData = location.state.id;
@@ -87,20 +87,18 @@ function SoilCoverageCapture({handleLogoutClick}: any){
     return(
         <>
             <Header />
-            <BackNavButton />
-            <LogoutButton handleLogoutClick={handleLogoutClick} />
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={soilCoverageInstructions}/>
-                <Slider sendSliderData={handleSliderData} />
-                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                        <Button size={'nav'} variant='tertiary' disabled={imageData == null ? true : false} text={'Save'} handleClick={postSoilCoverage}/>
-                        <Button size={'nav'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                        <Button size={'nav'} variant='primary' disabled={false} text={'Input Another Category'} handleClick={handleCaptureDataClick} />
-                        <Button size={'nav'} variant='primary' disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
-                    </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <BackNavButton />
+                <LogoutButton handleLogoutClick={handleLogoutClick} />
+                <div className='coverageUploadImage' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
+                    <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={soilCoverageInstructions}/>
+                    <Slider sendSliderData={handleSliderData} />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                        <Button size={'save'} variant='tertiary' disabled={imageData == null ? true : false} text={'Save'} handleClick={postSoilCoverage}/>
+                        <Button size={'home'} variant='secondary' disabled={false} text={'Home'} handleClick={handleReturnHomeClick}/>
+                        <Button size={'nav'} variant='primary' disabled={false} text={'Add Data'} handleClick={handleCaptureDataClick} />
+                        <Button size={'nav'} variant='primary' disabled={false} text={'Compare'} handleClick={handleCompareDataClick}/>
                 </div>
             </div>
             <Collapsible children={<Footer/>}/>
