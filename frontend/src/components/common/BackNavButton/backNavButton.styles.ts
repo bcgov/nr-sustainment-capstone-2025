@@ -8,13 +8,13 @@ export const StyledBackButton = styled.button`
     background-color: darkgrey;
     border: none;
     outline: none;
-    padding: 3px 3px 0.5px 3px;
+    padding: 3px 3px 0 3px;
     cursor: pointer;
     font-size: 1rem;
     color: #333;
     position: absolute;
     left: 2vh;
-    top: 10.2vh;
+    top: 9.5vh;
     align-items: center;
     justify-content: center;
     margin: 0;
@@ -28,7 +28,7 @@ export const StyledBackButton = styled.button`
 
 export const StyledIcon = styled.img`
     width: 30px;
-    height: 30px;
+    height: 27px;
     margin-bottom: 0;
     padding-right: 1.5px;
 `;
