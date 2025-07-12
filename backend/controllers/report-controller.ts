@@ -199,5 +199,27 @@ const filterOMATable = async (req: Request, res: Response)=> {
   res.status(200).send(findReports);
 }
 
-export {addCoverageReport, addOMAReport, addSoilPenetrationReport, addingUser, checkUsersTable, checkSoilPenetrationTable, checkCoverageTable, checkOMATable, filterCoverageTable, filterOMATable};
+/**
+ * @summary   filterCoverageTable selects all entries in the
+ *            CoverageReport Table that fit the given filter.
+ *            The filter is sent through the body of the request
+ * @param req - the incoming request 
+ * @param res - the outgoing response
+ */ 
+const filterSoilPenetrationTable = async (req: Request, res: Response)=> {
+  const findReports = await prisma.soilPenetrationReport.findMany({
+    where: {
+      createdAt: {
+        gte: req.body.date
+      }
+    },
+    orderBy: {createdAt: 'desc'}
+  });
+  console.log(findReports);
+  res.status(200).send(findReports);
+}
+
+export {addCoverageReport, addOMAReport, addSoilPenetrationReport, 
+  addingUser, checkUsersTable, checkSoilPenetrationTable, checkCoverageTable, 
+  checkOMATable, filterCoverageTable, filterOMATable, filterSoilPenetrationTable};
 

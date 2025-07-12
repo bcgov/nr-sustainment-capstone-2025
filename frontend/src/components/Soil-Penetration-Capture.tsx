@@ -143,84 +143,79 @@ function SoilPenetrationResistanceCapture({handleLogoutClick}: any){
         <>
             <Header />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <Modal
-                isOpen={formSubmitted}
-                onOpenChange={() => {
-                    resetData();
-                }}
-                title='Form Submitted'
-                children={thankyouMessage}
-                modalStyle={{ width: '85vw' }}
-            />
-            <div style={{flexDirection: 'row'}}>
-                <BackNavButton />
-                <InformationIcon />
-                <LogoutButton handleLogoutClick={handleLogoutClick} />
-            </div>
-            <form className={'form-container'} onSubmit={handleSubmitClick}>
-                <table style={{ borderCollapse: 'collapse', marginBottom: '0px' }}>
-                    <thead>
-                    <tr>
-                        <th></th>
-                        {depths.map((depth) => (
-                        <th key={depth}>{depth}</th>
-                        ))}
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {entries.map((entry, i) => (
-                        <tr key={i}>
-                        <td style={{ padding: '0.5rem', fontWeight: 'bold' }}>Plot {i + 1}</td>
-                        {depths.map((depth) => (
-                            <td key={depth} style={{ padding: '0.5rem' }}>
-                            <select
-                                value={entry[depth]}
-                                onChange={(e) => handleChange(i, depth, e.target.value)}
-                            >
-                                <option value="">Select</option>
-                                {levels.map((level) => (
-                                <option key={level} value={level}>
-                                    {level}
-                                </option>
-                                ))}
-                            </select>
-                            </td>
-                        ))}
-                        <td style={{padding: '0'}}>
-                            <button
-                            onClick={() => removeEntry(i)}
-                            style={{
-                            background: 'transparent',
-                            border: 'none',
-                            color: 'red',
-                            cursor: 'pointer',
-                            lineHeight: '1',
-                            padding: '0'
-                            }}
-                            aria-label={`Remove Spot ${i + 1}`}
-                            type={'button'}
-                            >
-                                ×
-                            </button>
-                        </td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-                <div style={{display: 'flex', flexDirection: "row", alignItems: 'center', justifyContent: 'center'}}>
-                    <button className={'depth-btn'} type="button" onClick={addEntry}>Add Plot</button>
-                    <button className={'submit-btn'} type="submit">Submit</button>
+                <Modal
+                    isOpen={formSubmitted}
+                    onOpenChange={() => {
+                        resetData();
+                    }}
+                    title='Form Submitted'
+                    children={thankyouMessage}
+                    modalStyle={{ width: '85vw' }}
+                />
+                <div style={{flexDirection: 'row'}}>
+                    <BackNavButton />
+                    <InformationIcon />
+                    <LogoutButton handleLogoutClick={handleLogoutClick} />
                 </div>
-            </form>
-                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                        <Button size={'nav'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
-                        <div style={{ height: '45px', margin:' 0.15em' }}></div>
+                <form className={'form-container'} onSubmit={handleSubmitClick}>
+                    <table style={{ borderCollapse: 'collapse', marginBottom: '0px' }}>
+                        <thead>
+                        <tr>
+                            <th></th>
+                            {depths.map((depth) => (
+                            <th key={depth}>{depth}</th>
+                            ))}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {entries.map((entry, i) => (
+                            <tr key={i}>
+                            <td style={{ padding: '0.5rem', fontWeight: 'bold' }}>Plot {i + 1}</td>
+                            {depths.map((depth) => (
+                                <td key={depth} style={{ padding: '0.5rem' }}>
+                                <select
+                                    value={entry[depth]}
+                                    onChange={(e) => handleChange(i, depth, e.target.value)}
+                                >
+                                    <option value="">Select</option>
+                                    {levels.map((level) => (
+                                    <option key={level} value={level}>
+                                        {level}
+                                    </option>
+                                    ))}
+                                </select>
+                                </td>
+                            ))}
+                            <td style={{padding: '0'}}>
+                                <button
+                                onClick={() => removeEntry(i)}
+                                style={{
+                                background: 'transparent',
+                                border: 'none',
+                                color: 'red',
+                                cursor: 'pointer',
+                                lineHeight: '1',
+                                padding: '0'
+                                }}
+                                aria-label={`Remove Spot ${i + 1}`}
+                                type={'button'}
+                                >
+                                    ×
+                                </button>
+                            </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                    <div style={{display: 'flex', flexDirection: "row", alignItems: 'center', justifyContent: 'center'}}>
+                        <button className={'depth-btn'} type="button" onClick={addEntry}>Add Plot</button>
+                        <button className={'submit-btn'} type="submit">Submit</button>
                     </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                        <Button size={'nav'} variant='primary' disabled={false} text={'Input Another Category'} handleClick={handleCaptureDataClick} />
-                        <Button size={'nav'} variant='primary' disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
-                    </div>
+                </form>
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                    <Button size={'home'} variant='secondary' disabled={false} text={'Home'} handleClick={handleReturnHomeClick}/>
+                    <Button size={'nav'} variant='primary' disabled={false} text={'Add Data'} handleClick={handleCaptureDataClick} />
+                    <Button size={'nav'} variant='primary' disabled={false} text={'Compare'} handleClick={handleCompareDataClick}/>
                 </div>
             </div>
             <Collapsible children={<Footer/>}/>

@@ -49,7 +49,6 @@ function OrganicMatterAnalysisCompare({handleLogoutClick}: any) {
             <Header />
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
-            <div className='chart-container'><Chart userData={userData} category={"OMA"} /></div>
             <TabOptions activeTab={activeTab} tabs={[dryDataTab, wetDataTab]} setActiveTab={tabSwitch}/>
             <TabContentDisplay activeTab={activeTab} tabs={[dryDataTab, wetDataTab]} />
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
