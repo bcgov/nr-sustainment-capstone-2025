@@ -223,6 +223,76 @@ const dummyOMARprtData = async (req: Request, res: Response) => {
     }
 }
 
+/**
+ * @summary     dummySoilPenetrationRprtData populates the
+ *              SoilPenetration table with premade entries. 
+ *              This function can only be run if there are 
+ *              no other entries in the SoilPenetration table
+ * @param req - the incoming request 
+ * @param res - the outgoing response
+ */
+const dummySoilPenetrationRprtData = async (req: Request, res: Response) => {
+
+    // check if there is already anything in the database
+    let firstTime = await prisma.soilPenetrationReport.findMany();
+
+    if(firstTime.length < 1){
+        const scorePool = [
+            67,
+            72,
+            78,
+            81,
+            85,
+            92,
+            62,
+            55,
+            45,
+            33
+        ];
+
+        const users = await prisma.user.findMany();
+        const userPool = users.map(user => user.id);
+    
+        const startDate = new Date(2020, 0, 1); // January 1, 2020
+        const endDate = new Date(); // Current date
+    
+        const fillSoilPenetrationReports = async (userId: number) => {
+    
+            const data = {
+                user: userId,
+                date: new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime())),
+                score: scorePool[Math.floor(Math.random() * scorePool.length)]
+            }
+    
+            const SoilPenetrationReport = await prisma.soilPenetrationReport.create({
+                data: {
+                    userId: data.user,
+                    createdAt: data.date,
+                    score: data.score
+                }
+            });
+        }
+    
+        for( let i = 0; i < userPool.length; i++){
+            const userId = userPool[i]
+    
+            for(let i = 0; i < 200; i++){
+                fillSoilPenetrationReports(userId);
+            }
+        }
+    
+        const data = {
+            users: userPool,
+            scores: scorePool,
+            startDate: startDate,
+            endDate: endDate
+        }
+    
+        res.status(200).send(data)
+    } else {
+        res.status(401).send('401 Unauthorized');
+    }
+}
 
 /**
  * @summary     populateDatabase populates all tables in the 
@@ -240,9 +310,10 @@ const populateDatabase = async (req: Request, res: Response) => {
     setTimeout(() => {
         fetch('http://localhost:3000/api/dummy-cov-rpt')
         fetch('http://localhost:3000/api/dummy-oma-rpt')
+        fetch('http://localhost:3000/api/dummy-soil-penetration-rpt')
     }, 5000);
 
     res.status(200).send('database populated');
 }
 
-export {dummyCovRprtData, dummyOMARprtData, dummyUsers, populateDatabase};
+export {dummyCovRprtData, dummyOMARprtData, dummyUsers, dummySoilPenetrationRprtData, populateDatabase};
