@@ -29,6 +29,13 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
                                                     aggregates or microaggregates).
                                                 </p>
                                                 <img src='OMA_Instructions.png' />
+                                                <p>
+                                                    Upload the picture taken. First select an area of the soil to 
+                                                    be analyzed, then select the paper as a reference. The markers
+                                                    can be reset or removed. Select whether the soil is dry or wet.
+                                                    Press the save button to record the soil colour.
+                                                </p>
+                                                <img src='OMA_Capture_example.png' />
                                             </div>;
 
     const handleReturnHomeClick = () => {
@@ -241,7 +248,7 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
                         Wet
                     </Radio>
                 </RadioGroup>
-                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                         <Button size={'save'} variant='tertiary' disabled={moistureSelected && colorsSelected ? false : true} text={'Save'} handleClick={postOrganicMatterAnalysis}/>
                         <Button size={'home'} variant='secondary' disabled={false} text={'Home'} handleClick={handleReturnHomeClick}/>
                         <Button size={'nav'} variant='primary' disabled={false} text={'Add Data'} handleClick={handleCaptureDataClick} />
