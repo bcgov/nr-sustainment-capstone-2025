@@ -29,6 +29,13 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
                                                     aggregates or microaggregates).
                                                 </p>
                                                 <img src='OMA_Instructions.png' />
+                                                <p>
+                                                    Upload the picture taken. First select an area of the soil to 
+                                                    be analyzed, then select the paper as a reference. The markers
+                                                    can be reset or removed. Select whether the soil is dry or wet.
+                                                    Press the save button to record the soil colour.
+                                                </p>
+                                                <img src='OMA_Capture_example.png' />
                                             </div>;
 
     const handleReturnHomeClick = () => {
@@ -211,38 +218,36 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
                 modalStyle={{ width: '85vw' }}
             />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <div className='coverageUploadImage' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
-                    <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={organicMatterAnalysisInstructions}  hideImageAfterUpload={hideImageAfterUpload}/>
-                    {/* Only show Reset and Remove Markers buttons if an image is uploaded */}
-                    {imageData && (
-                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', height: '50px'}}>
-                            <button className="marker-button" disabled={markers.length === 0} onClick={handleResetMarkers}>
-                                Reset
-                            </button>
-                            <button className="marker-button" disabled={markers.length === 0} onClick={handleRemoveMarker}>
-                                Remove Marker
-                            </button>
-                        </div>
-                    )}
-                    {imageData && ( <ImageMarker src={imageData} markers={markers} onAddMarker={handleAddMarker}/> )}
-                    <div>
-                        <ColorExtractor imageUrl={imageData} 
-                            markers={markers.map(m => ({
-                                top: Number(m.top),
-                                left: Number(m.left),
-                            }))}
-                            sendColors={handleColorData}
-                        />
+                <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={organicMatterAnalysisInstructions}  hideImageAfterUpload={hideImageAfterUpload}/>
+                {/* Only show Reset and Remove Markers buttons if an image is uploaded */}
+                {imageData && (
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', height: '50px'}}>
+                        <button className="marker-button" disabled={markers.length === 0} onClick={handleResetMarkers}>
+                            Reset
+                        </button>
+                        <button className="marker-button" disabled={markers.length === 0} onClick={handleRemoveMarker}>
+                            Remove Marker
+                        </button>
                     </div>
-                    <RadioGroup label="Dry or Wet:" orientation="horizontal" style={{marginBottom: '1em', flexDirection: 'row', alignItems: 'center'}} onChange={handleRadioChange}>
-                        <Radio value="1" style={{fontFamily: 'inherit !important'}}>
-                            Dry
-                        </Radio>
-                        <Radio value="2" style={{fontFamily: 'inherit !important'}}>
-                            Wet
-                        </Radio>
-                    </RadioGroup>
+                )}
+                {imageData && ( <ImageMarker src={imageData} markers={markers} onAddMarker={handleAddMarker}/> )}
+                <div>
+                    <ColorExtractor imageUrl={imageData} 
+                        markers={markers.map(m => ({
+                            top: Number(m.top),
+                            left: Number(m.left),
+                        }))}
+                        sendColors={handleColorData}
+                    />
                 </div>
+                <RadioGroup label="Dry or Wet:" orientation="horizontal" style={{marginBottom: '1em', flexDirection: 'row', alignItems: 'center'}} onChange={handleRadioChange}>
+                    <Radio value="1" style={{fontFamily: 'inherit !important'}}>
+                        Dry
+                    </Radio>
+                    <Radio value="2" style={{fontFamily: 'inherit !important'}}>
+                        Wet
+                    </Radio>
+                </RadioGroup>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                         <Button size={'save'} variant='tertiary' disabled={moistureSelected && colorsSelected ? false : true} text={'Save'} handleClick={postOrganicMatterAnalysis}/>
                         <Button size={'home'} variant='secondary' disabled={false} text={'Home'} handleClick={handleReturnHomeClick}/>
