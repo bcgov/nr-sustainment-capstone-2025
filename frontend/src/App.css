@@ -84,7 +84,7 @@
   margin-bottom: 16px;
 }
 
-.coverageUploadImage {
+.base-container {
   height: 80vh;
 }
 
@@ -107,7 +107,7 @@
 }
 
 canvas{
-  height: 42vh !important;
+  height: 50vh !important;
 }
 
 span{
@@ -174,4 +174,51 @@ span{
   top: 15vh !important;
   overflow: scroll !important;
   max-height: 65vh !important;
+}
+
+.column-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.marker-column{
+  height: inherit;
+  justify-content: space-evenly;
+}
+
+@media (orientation: landscape) {
+  .collapse-footer-open {
+    position: absolute;
+    top: auto;
+    bottom: 14%;
+    left: 93%;
+    border: none !important;
+    background:none;
+    outline: none;
+  }
+  
+  .collapse-footer-closed {
+    position: absolute;
+    top: auto;
+    bottom: 2%;
+    left: 93%;
+    border: none !important;
+    background:none;
+    outline: none;
+  }
+
+  .footer{
+    flex-direction: row !important;
+  }
+
+  .base-container {
+    flex-direction: row !important;
+    justify-content: space-evenly;
+  }
+
+  .form-container{
+    height: 50vh;
+    width: 80vw;
+  }
 }
