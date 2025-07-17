@@ -29,14 +29,17 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
                                                     aggregates or microaggregates).
                                                 </p>
                                                 <img src='OMA_Instructions.png' />
-                                                <p>
-                                                    Upload the picture taken. First select an area of the soil to 
-                                                    be analyzed, then select the paper as a reference. The markers
-                                                    can be reset or removed. Select whether the soil is dry or wet.
-                                                    Press the save button to record the soil colour.
-                                                </p>
-                                                <img src='OMA_Capture_example.png' />
                                             </div>;
+
+    const imageInteractivityInstructions = <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                            <p>
+                                                Upload the picture taken. First select an area of the soil to 
+                                                be analyzed, then select the paper as a reference. The markers
+                                                can be reset or removed. Select whether the soil is dry or wet.
+                                                Press the save button to record the soil colour.
+                                            </p>
+                                            <img src='OMA_Capture_example.png' />
+                                        </div>
 
     const handleReturnHomeClick = () => {
         navigate("/", {state:{id: userData}});
@@ -218,7 +221,7 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
                 modalStyle={{ width: '85vw' }}
             />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={organicMatterAnalysisInstructions}  hideImageAfterUpload={hideImageAfterUpload}/>
+                <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={organicMatterAnalysisInstructions} secondInstructions={imageInteractivityInstructions} hideImageAfterUpload={hideImageAfterUpload}/>
                 {/* Only show Reset and Remove Markers buttons if an image is uploaded */}
                 {imageData && (
                     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', height: '50px'}}>
