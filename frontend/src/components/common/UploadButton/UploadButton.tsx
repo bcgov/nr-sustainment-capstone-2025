@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useOrientation } from 'react-use';
 import ImageUploading, { type ImageListType } from "react-images-uploading";
 import './uploadButton.styles.css';
 import Modal from '../Modal/Modal.tsx';
@@ -9,6 +10,8 @@ export function UploadButton({sendUploadData, images, setImages, instructions, s
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [buttonPress, setButtonPress] = useState("Upload");
     const [updateIndex, setUpdateIndex] = useState(0);
+
+    const { type } = useOrientation();
     const [activeTab, setActiveTab] = useState(1);
 
     const instructionsTab = {
@@ -95,15 +98,29 @@ export function UploadButton({sendUploadData, images, setImages, instructions, s
             )}
             {imageList.map((image, index) => (
                 <div key={index} className="image-item">
-                    <div className="image-item__btn-wrapper btn-wrapper-margin">
-                        <button className="customUpdateButton" onClick={() => {
-                            setIsDialogOpen(true);
-                            setButtonPress("Update");
-                            setUpdateIndex(index);
-                        }}>Update</button>
-                        <button className="customRemoveButton" onClick={() => onImageRemove(index)}>Remove</button>
-                    </div>
-                    <img className={`uploadedImg ${hideImageAfterUpload ? 'hidden' : ''}`} src={image.dataURL} alt="" width="100" />
+                    {type === 'landscape-primary' ? 
+                    <>
+                        <img className={`uploadedImg ${hideImageAfterUpload ? 'hidden' : ''}`} src={image.dataURL} alt="" width="100" />
+                        <div className="image-item__btn-wrapper btn-wrapper-margin">
+                            <button className="customUpdateButton" onClick={() => {
+                                setIsDialogOpen(true);
+                                setButtonPress("Update");
+                                setUpdateIndex(index);
+                            }}>Update</button>
+                            <button className="customRemoveButton" onClick={() => onImageRemove(index)}>Remove</button>
+                        </div>
+                    </> : 
+                    <>
+                        <div className="image-item__btn-wrapper btn-wrapper-margin">
+                            <button className="customUpdateButton" onClick={() => {
+                                setIsDialogOpen(true);
+                                setButtonPress("Update");
+                                setUpdateIndex(index);
+                            }}>Update</button>
+                            <button className="customRemoveButton" onClick={() => onImageRemove(index)}>Remove</button>
+                        </div>
+                        <img className={`uploadedImg ${hideImageAfterUpload ? 'hidden' : ''}`} src={image.dataURL} alt="" width="100" />
+                    </>}
                 </div>
             ))}
         </div>

@@ -29,8 +29,8 @@ function SoilPenetrationResistanceCompare({handleLogoutClick}: any) {
             <Header />
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
-            <div className='coverageUploadImage' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
-                <div style={{height: '20vh'}}></div>
+            <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '80vh' }} >
+                <div className='margin-div'></div>
                 <div className='chart-container'><Chart userData={userData} category={"Soil-Penetration"} /></div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>

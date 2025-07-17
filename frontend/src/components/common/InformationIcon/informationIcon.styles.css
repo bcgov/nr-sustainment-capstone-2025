@@ -4,3 +4,10 @@
     top:  9.2vh;
     left: 45vw;
 }
+
+@media (orientation: landscape ){
+    #info {
+        height: 6vw;
+        top: 12vh;
+    }
+}

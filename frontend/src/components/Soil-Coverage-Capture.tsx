@@ -90,9 +90,13 @@ function SoilCoverageCapture({handleLogoutClick}: any) {
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <BackNavButton />
                 <LogoutButton handleLogoutClick={handleLogoutClick} />
-                <div className='coverageUploadImage' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
-                    <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={soilCoverageInstructions}/>
-                    <Slider sendSliderData={handleSliderData} />
+                <div className='base-container' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '90vw' }} >
+                    <div className='column-container'>
+                        <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={soilCoverageInstructions}/>
+                    </div>
+                    <div className='column-container'>
+                        <Slider sendSliderData={handleSliderData} />
+                    </div>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                         <Button size={'save'} variant='tertiary' disabled={imageData == null ? true : false} text={'Save'} handleClick={postSoilCoverage}/>

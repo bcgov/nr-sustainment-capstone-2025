@@ -66,3 +66,16 @@ img.uploadedImg {
         border-radius: 5%;
     }
 }
+
+@media (orientation: landscape){
+    img.uploadedImg {
+        margin: 0em;
+        width: 38vw;
+        height: 50vh;
+        border-radius: 5%;
+    }
+
+    .btn-wrapper-margin {
+        margin-top: 0px;
+    }
+}
