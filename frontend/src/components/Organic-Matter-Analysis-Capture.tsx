@@ -31,14 +31,17 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
                                                     aggregates or microaggregates).
                                                 </p>
                                                 <img src='OMA_Instructions.png' />
-                                                <p>
-                                                    Upload the picture taken. First select an area of the soil to 
-                                                    be analyzed, then select the paper as a reference. The markers
-                                                    can be reset or removed. Select whether the soil is dry or wet.
-                                                    Press the save button to record the soil colour.
-                                                </p>
-                                                <img src='OMA_Capture_example.png' />
                                             </div>;
+
+    const imageInteractivityInstructions = <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                            <p>
+                                                Upload the picture taken. First select an area of the soil to 
+                                                be analyzed, then select the paper as a reference. The markers
+                                                can be reset or removed. Select whether the soil is dry or wet.
+                                                Press the save button to record the soil colour.
+                                            </p>
+                                            <img src='OMA_Capture_example.png' />
+                                        </div>
 
     const handleReturnHomeClick = () => {
         navigate("/", {state:{id: userData}});
