@@ -18,7 +18,11 @@ export const Tab = styled.button<{ active: boolean; clickable: boolean }>`
   border-right: ${({ active }) => (active ? 'none' : '0.5px solid #fff')};
   border-radius: 5px 5px 0 0;
   height: 40px;
-  margin-top: ${({ active }) => (active ? '0' : '115px')};
+  margin-top: 60px;
+
+  @media (orientation: landscape){
+    margin-top: 20px;
+  }
 `;
 
 export const TabContent = styled.div`

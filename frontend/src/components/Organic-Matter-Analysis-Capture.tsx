@@ -135,7 +135,7 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
     function resetData(){
         setImages([]);
         setImageData(null);
-        setMoistureSelected(false);
+        setColorsSelected(false);
         setDataPosted(false);
     }
 

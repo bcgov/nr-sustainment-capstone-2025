@@ -25,6 +25,12 @@ export const Image = styled.img`
         height: 30vh;
         width: 95%;
     }
+
+    @media (orientation: landscape) {
+        height: 50vh;
+        margin-right: 20px;
+        margin-top: 20px;
+    }
 `;
 
 export const Text = styled.p`

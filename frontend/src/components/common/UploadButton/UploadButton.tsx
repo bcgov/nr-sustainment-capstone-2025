@@ -98,15 +98,29 @@ export function UploadButton({sendUploadData, images, setImages, instructions, s
             )}
             {imageList.map((image, index) => (
                 <div key={index} className="image-item">
-                    <div className="image-item__btn-wrapper btn-wrapper-margin">
-                        <button className="customUpdateButton" onClick={() => {
-                            setIsDialogOpen(true);
-                            setButtonPress("Update");
-                            setUpdateIndex(index);
-                        }}>Update</button>
-                        <button className="customRemoveButton" onClick={() => onImageRemove(index)}>Remove</button>
-                    </div>
-                    <img className={`uploadedImg ${hideImageAfterUpload ? 'hidden' : ''}`} src={image.dataURL} alt="" width="100" />
+                    {type === 'landscape-primary' ? 
+                    <>
+                        <img className={`uploadedImg ${hideImageAfterUpload ? 'hidden' : ''}`} src={image.dataURL} alt="" width="100" />
+                        <div className="image-item__btn-wrapper btn-wrapper-margin">
+                            <button className="customUpdateButton" onClick={() => {
+                                setIsDialogOpen(true);
+                                setButtonPress("Update");
+                                setUpdateIndex(index);
+                            }}>Update</button>
+                            <button className="customRemoveButton" onClick={() => onImageRemove(index)}>Remove</button>
+                        </div>
+                    </> : 
+                    <>
+                        <div className="image-item__btn-wrapper btn-wrapper-margin">
+                            <button className="customUpdateButton" onClick={() => {
+                                setIsDialogOpen(true);
+                                setButtonPress("Update");
+                                setUpdateIndex(index);
+                            }}>Update</button>
+                            <button className="customRemoveButton" onClick={() => onImageRemove(index)}>Remove</button>
+                        </div>
+                        <img className={`uploadedImg ${hideImageAfterUpload ? 'hidden' : ''}`} src={image.dataURL} alt="" width="100" />
+                    </>}
                 </div>
             ))}
         </div>

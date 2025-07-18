@@ -1,10 +1,13 @@
 import { Select } from '@bcgov/design-system-react-components';
 import { useState, useEffect } from 'react';
+import { useOrientation } from 'react-use';
 
 export const Carousel = ({userData}: any) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [filterValue, setFilterValue] = useState(1);
+    const { type } = useOrientation();
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -98,21 +101,55 @@ export const Carousel = ({userData}: any) => {
     return(
         <>
             <Select items={filter} label="Filter" size='small' defaultSelectedKey={1} onSelectionChange={handleFilter}/>
-            { userNameData && userNameData.length > 0 && <div className='carousel-container' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                <img style={{width: '3em', height: '3em', marginBottom: '50px'}} src={"carousel-left.png"} onClick={onClickLeft}/>
-                <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginRight: '4px'}}>
-                    <img className={'carousel-img'} src={userNameData[index].coverage_picture}/>
-                    <p>{userNameData[index].createdAt.slice(0,10)}</p>
-                    <p>{userNameData[index].coverage_percentage}%</p>
-                </div>
-                { userNameData.length > 1 &&
-                <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginLeft: '4px'}}>
-                    <img className={'carousel-img'} src={userNameData[secondIndex].coverage_picture}/>
-                    <p>{userNameData[secondIndex].createdAt.slice(0,10)}</p>
-                    <p>{userNameData[secondIndex].coverage_percentage}%</p>
+            {type === 'landscape-primary' ? 
+            <>
+                { userNameData && userNameData.length > 0 && 
+                <div className='carousel-container carousel-landscape'>
+                    <img style={{width: '3em', height: '3em'}} src={"carousel-left.png"} onClick={onClickLeft}/>
+                    <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginRight: '4px'}}>
+                        <img className={'carousel-img'} src={userNameData[index].coverage_picture}/>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: '1em'}}>
+                        <p>{userNameData[index].createdAt.slice(0,10)}</p>
+                        <p>{userNameData[index].coverage_percentage}%</p>
+                    </div>
+                    { userNameData.length > 1 &&
+                    <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginLeft: '4px'}}>
+                        <img className={'carousel-img'} src={userNameData[secondIndex].coverage_picture}/>
+                    </div> }
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: '1em'}}>
+                        <p>{userNameData[secondIndex].createdAt.slice(0,10)}</p>
+                        <p>{userNameData[secondIndex].coverage_percentage}%</p>
+                    </div>
+                    <img style={{width: '3em', height: '3em'}} src={"carousel-right.png"} onClick={onClickRight}/>
                 </div> }
-                <img style={{width: '3em', height: '3em', marginBottom: '50px'}} src={"carousel-right.png"} onClick={onClickRight}/>
-            </div> }
+            </> : 
+            <>
+                { userNameData && userNameData.length > 0 && 
+                <div className='carousel-container' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                        <img style={{width: '3em', height: '3em'}} src={"carousel-left.png"} onClick={onClickLeft}/>
+                        <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginRight: '4px'}}>
+                            <img className={'carousel-img'} src={userNameData[index].coverage_picture}/>
+                        </div>
+                        { userNameData.length > 1 &&
+                        <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginLeft: '4px'}}>
+                            <img className={'carousel-img'} src={userNameData[secondIndex].coverage_picture}/>
+                        </div> }
+                        <img style={{width: '3em', height: '3em'}} src={"carousel-right.png"} onClick={onClickRight}/>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', width: 'inherit'}}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+                            <p>{userNameData[index].createdAt.slice(0,10)}</p>
+                            <p>{userNameData[index].coverage_percentage}%</p>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+                            <p>{userNameData[secondIndex].createdAt.slice(0,10)}</p>
+                            <p>{userNameData[secondIndex].coverage_percentage}%</p>
+                        </div>
+                    </div>           
+                </div> }
+            </>}
         </>
     )
 };

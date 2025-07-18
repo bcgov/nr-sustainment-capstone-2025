@@ -24,6 +24,10 @@ export const StyledBackButton = styled.button`
     &:hover {
         transform: scale(0.9);
     }
+
+    @media (orientation: landscape) {
+        top: 12.5vh
+    }
 `;
 
 export const StyledIcon = styled.img`

@@ -84,7 +84,7 @@
   margin-bottom: 16px;
 }
 
-.coverageUploadImage {
+.base-container {
   height: 80vh;
 }
 
@@ -107,7 +107,7 @@
 }
 
 canvas{
-  height: 42vh !important;
+  height: 50vh !important;
 }
 
 span{
@@ -115,8 +115,8 @@ span{
 }
 
 .form-container {
-  margin-top: 15vh;
-  height: 60vh;
+  margin-top: 10vh;
+  height: 70vh;
   overflow: scroll;
 }
 
@@ -174,4 +174,92 @@ span{
   top: 15vh !important;
   overflow: scroll !important;
   max-height: 65vh !important;
+}
+
+.column-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.marker-column{
+  height: inherit;
+  justify-content: space-evenly;
+}
+
+.tab-container{
+  height: 80vh;
+}
+
+.margin-div{
+  height: 8vh;
+}
+
+@media (orientation: landscape) {
+  .collapse-footer-open {
+    position: absolute;
+    top: auto;
+    bottom: 14%;
+    left: 93%;
+    border: none !important;
+    background:none;
+    outline: none;
+  }
+  
+  .collapse-footer-closed {
+    position: absolute;
+    top: auto;
+    bottom: 2%;
+    left: 93%;
+    border: none !important;
+    background:none;
+    outline: none;
+  }
+
+  .footer{
+    flex-direction: row !important;
+  }
+
+  .base-container {
+    flex-direction: row !important;
+    justify-content: space-evenly;
+  }
+
+  .form-container{
+    height: 55vh;
+    width: 80vw;
+    margin-top:20vh
+  }
+
+  .tab-container{
+    display: flex;
+    width: 80vw;
+    flex-direction: column;
+    height: 75vh;
+    margin-top: 25px;
+  }
+
+  .bcds-react-aria-Select{
+    position: absolute;
+    top: 14vh;
+    right: 80px;
+  }
+
+  canvas{
+    height: 55vh !important;
+  }
+
+  .carousel-landscape{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0px;
+    top: 37vh;
+  }
+
+  .margin-div{
+    height: 25vh;
+  }
 }
