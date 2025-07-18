@@ -1,13 +1,41 @@
 import { useState } from 'react';
+import { useOrientation } from 'react-use';
 import ImageUploading, { type ImageListType } from "react-images-uploading";
 import './uploadButton.styles.css';
 import Modal from '../Modal/Modal.tsx';
+import { TabOptions, TabContentDisplay } from '../Tabs/Tabs.tsx';
 
-export function UploadButton({sendUploadData, images, setImages, instructions, hideImageAfterUpload}: any) {
+export function UploadButton({sendUploadData, images, setImages, instructions, secondInstructions, hideImageAfterUpload}: any) {
     const maxNumber = 1;
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [buttonPress, setButtonPress] = useState("Upload");
     const [updateIndex, setUpdateIndex] = useState(0);
+
+    const { type } = useOrientation();
+    const [activeTab, setActiveTab] = useState(1);
+
+    const instructionsTab = {
+        label: "Capture",
+        content: instructions,
+        id: "0"
+    }
+
+    const secondInstructionTab = {
+        label: "Image",
+        content: secondInstructions,
+        id: "1"
+    }
+
+    const tabSwitch = (index: number) => {
+        index == 0 ? setActiveTab(1) : setActiveTab(0);
+    }
+
+    if (secondInstructions != null) {
+        instructions = <div>
+                            <TabOptions activeTab={activeTab} tabs={[instructionsTab, secondInstructionTab]} setActiveTab={tabSwitch} style={{height: '7vh'}}/>
+                            <TabContentDisplay activeTab={activeTab} tabs={[secondInstructionTab, instructionsTab]} />
+                        </div>
+    }
 
     const onChange = (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
         // data for submit
