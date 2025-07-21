@@ -33,7 +33,6 @@ export const Chart = ({userData, category}: any) => {
     const [twoYearRemovedChartData, setTwoYearRemovedChartData] = useState<number[]>([]);
     const [threeYearRemovedChartData, setThreeYearRemovedChartData] = useState<number[]>([]);
     const [fourYearRemovedChartData, setFourYearRemovedChartData] = useState<number[]>([]);
-    const [fiveYearRemovedChartData, setFiveYearRemovedChartData] = useState<number[]>([]);
     const [filterValue, setFilterValue] = useState(1);
     const [loading, setLoading] = useState(true);
     const labels = [
@@ -71,14 +70,12 @@ export const Chart = ({userData, category}: any) => {
         const twoYearRemovedMonthlyData = new Array(12).fill(0);
         const threeYearRemovedMonthlyData = new Array(12).fill(0);
         const fourYearRemovedMonthlyData = new Array(12).fill(0);
-        const fiveYearRemovedMonthlyData = new Array(12).fill(0);
         // Track entries per month for now
         const currentYearMonthlyCounts = new Array(12).fill(0);
         const oneYearRemovedMonthlyCounts = new Array(12).fill(0);
         const twoYearRemovedMonthlyCounts = new Array(12).fill(0);
         const threeYearRemovedMonthlyCounts = new Array(12).fill(0);
         const fourYearRemovedMonthlyCounts = new Array(12).fill(0);
-        const fiveYearRemovedMonthlyCounts = new Array(12).fill(0);
 
         function isEntryValid(entry: any, userId: number){
             if(category === "Coverage" || "Soil-Penetration"){
@@ -117,10 +114,6 @@ export const Chart = ({userData, category}: any) => {
                 fourYearRemovedMonthlyData[index] += value;
                 fourYearRemovedMonthlyCounts[index] += 1;
             }
-            else if (year == currentDate - 5) {
-                fiveYearRemovedMonthlyData[index] += value;
-                fiveYearRemovedMonthlyCounts[index] += 1;
-            }
         }
 
         function calculateAverageData(){
@@ -140,16 +133,12 @@ export const Chart = ({userData, category}: any) => {
             const averagedFourYearRemovedData = fourYearRemovedMonthlyData.map((sum, index) => {
                 return fourYearRemovedMonthlyCounts[index] > 0 ? sum / fourYearRemovedMonthlyCounts[index] : 0;
             });
-            const averagedFiveYearRemovedData = fiveYearRemovedMonthlyData.map((sum, index) => {
-                return fiveYearRemovedMonthlyCounts[index] > 0 ? sum / fiveYearRemovedMonthlyCounts[index] : 0;
-            });
 
             setCurrentYearChartData(averagedData);
             setOneYearRemovedChartData(averagedOneYearRemovedData);
             setTwoYearRemovedChartData(averagedTwoYearRemovedData);
             setThreeYearRemovedChartData(averagedThreeYearRemovedData);
             setFourYearRemovedChartData(averagedFourYearRemovedData);
-            setFiveYearRemovedChartData(averagedFiveYearRemovedData);
         }
 
         if (category === "Coverage") {
@@ -413,12 +402,6 @@ export const Chart = ({userData, category}: any) => {
                         data: fourYearRemovedChartData,
                         borderColor: 'rgb(66, 153, 175)',
                         backgroundColor: 'rgb(66, 153, 175)',
-                    },
-                    {
-                        label: (year-5).toString(),
-                        data: fiveYearRemovedChartData,
-                        borderColor: 'rgb(225, 236, 72)',
-                        backgroundColor: 'rgb(225, 236, 72)',
                     }]
                 }}
                 options={options}
