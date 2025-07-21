@@ -23,7 +23,7 @@ ChartJS.register(
     Legend,
     plugins
 );
-import { Line, Bar } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import { Select } from '@bcgov/design-system-react-components';
 
 export const Chart = ({userData, category}: any) => {
@@ -34,6 +34,7 @@ export const Chart = ({userData, category}: any) => {
     const [threeYearRemovedChartData, setThreeYearRemovedChartData] = useState<number[]>([]);
     const [fourYearRemovedChartData, setFourYearRemovedChartData] = useState<number[]>([]);
     const [filterValue, setFilterValue] = useState(1);
+    const [filterValueYearly, setFilterValueYearly] = useState(1);
     const [loading, setLoading] = useState(true);
     const labels = [
         'January', 'February', 'March', 'April',
@@ -51,9 +52,9 @@ export const Chart = ({userData, category}: any) => {
         const currentDate = new Date().getFullYear();
         let dateData;
 
-        if(filterValue == 1){
+        if(filterValueYearly == 1){
             dateData = currentDate;
-        } else if (filterValue == 2){
+        } else if (filterValueYearly == 2){
             dateData = currentDate - 3;
         } else {
             dateData = currentDate - 5;
@@ -251,13 +252,28 @@ export const Chart = ({userData, category}: any) => {
                 })
         }
         
-    }, [filterValue, category]);
+    }, [filterValue, filterValueYearly, category]);
 
     if (loading) {
         return <p>Loading...</p>;
     }
 
     const filter = [
+        {
+            id: 1,
+            label: "Yearly"
+        },
+        {
+            id: 2,
+            label: "Quarterly"
+        },
+        {
+            id: 3,
+            label: "Monthly"
+        }
+    ]
+
+    const filterWithYearly = [
         {
             id: 1,
             label: "Current Year"
@@ -272,10 +288,92 @@ export const Chart = ({userData, category}: any) => {
         }
     ]
 
+    const filterWithQuarterly = [
+        {
+            id: 1,
+            label: "First Quarter"
+        },
+        {
+            id: 2,
+            label: "Second Quarter"
+        },
+        {
+            id: 3,
+            label: "Third Quarter"
+        },
+        {
+            id: 4,
+            label: "Fourth Quarter"
+        }
+    ]
+
+    const filterWithMonthly = [
+        {
+            id: 1,
+            label: "January"
+        },
+        {
+            id: 2,
+            label: "February"
+        },
+        {
+            id: 3,
+            label: "March"
+        },
+        {
+            id: 4,
+            label: "April"
+        },
+        {
+            id: 5,
+            label: "May"
+        },
+        {
+            id: 6,
+            label: "June"
+        },
+        {
+            id: 4,
+            label: "April"
+        },
+        {
+            id: 7,
+            label: "July"
+        },
+        {
+            id: 8,
+            label: "August"
+        },
+        {
+            id: 9,
+            label: "September"
+        },
+        {
+            id: 10,
+            label: "October"
+        },
+        {
+            id: 11,
+            label: "November"
+        },
+        {
+            id: 12,
+            label: "December"
+        }
+    ]
+
     const handleFilter = (event: any) => {
-        setLoading(true);
+        if (event != filterValue) {
+            setLoading(true);
+        }
         setFilterValue(event);
-        console.log(event)
+    }
+
+    const handleFilterYearly = (event: any) => {
+        if (event != filterValueYearly) {
+            setLoading(true);
+        }
+        setFilterValueYearly(event);
     }
 
     const options = {
@@ -324,10 +422,15 @@ export const Chart = ({userData, category}: any) => {
 
     return(
         <>
-            <Select className={'select-font'} items={filter} label="Filter" size='small' defaultSelectedKey={filterValue} onSelectionChange={handleFilter}/>
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                <Select style={{marginRight: '1em'}} className={'select-font'} items={filter} label="Filter" size='small' defaultSelectedKey={filterValue} onSelectionChange={handleFilter}/>
+                { filterValue == 1 && <Select className={'select-font'} items={filterWithYearly} label="Filter" size='small' defaultSelectedKey={filterValueYearly} onSelectionChange={handleFilterYearly}/>}
+                { filterValue == 2 && <Select className={'select-font'} items={filterWithQuarterly} label="Filter" size='small' defaultSelectedKey={filterValue} onSelectionChange={handleFilter}/>}
+                { filterValue == 3 && <Select className={'select-font'} items={filterWithMonthly} label="Filter" size='small' defaultSelectedKey={filterValue} onSelectionChange={handleFilter}/>}
+            </div>
 
-            {/* Current Year */}
-            { filterValue == 1 && 
+            {/* Yearly && Current Year */}
+            { filterValue == 1 && filterValueYearly == 1 &&
             <Bar 
                 data={{
                     labels,
@@ -341,8 +444,8 @@ export const Chart = ({userData, category}: any) => {
                 options={options}
             />}
 
-            {/* Last 3 Years */}
-            { filterValue == 2 && 
+            {/* Yearly && Last 3 Years */}
+            { filterValue == 1 && filterValueYearly == 2 &&
             <Bar 
                 data={{
                     labels,
@@ -368,8 +471,8 @@ export const Chart = ({userData, category}: any) => {
                 options={options}
             />}
 
-            {/* Last 5 Years */}
-            { filterValue == 3 && 
+            {/* Yearly && Last 5 Years */}
+            { filterValue == 1 && filterValueYearly == 3 &&
             <Bar 
                 data={{
                     labels,
