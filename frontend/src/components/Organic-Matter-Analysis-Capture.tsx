@@ -227,13 +227,13 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
                     {type === 'landscape-primary' ? 
                     <>
                         <div className='column-container'>
-                            <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={organicMatterAnalysisInstructions}  hideImageAfterUpload={hideImageAfterUpload}/>
+                            <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={organicMatterAnalysisInstructions} secondInstructions={imageInteractivityInstructions} hideImageAfterUpload={hideImageAfterUpload}/>
                             {imageData && ( <ImageMarker src={imageData} markers={markers} onAddMarker={handleAddMarker}/> )}
                         </div>
                     </>: 
                     <>
                         <div className='column-container'>
-                            <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={organicMatterAnalysisInstructions}  hideImageAfterUpload={hideImageAfterUpload}/>
+                            <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={organicMatterAnalysisInstructions} secondInstructions={imageInteractivityInstructions} hideImageAfterUpload={hideImageAfterUpload}/>
                             {/* Only show Reset and Remove Markers buttons if an image is uploaded */}
                             {imageData && (
                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', height: '50px'}}>
