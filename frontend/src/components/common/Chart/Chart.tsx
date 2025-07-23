@@ -25,8 +25,10 @@ ChartJS.register(
 );
 import { Bar } from 'react-chartjs-2';
 import { Select } from '@bcgov/design-system-react-components';
+import { useOrientation } from 'react-use';
 
 export const Chart = ({userData, category}: any) => {
+    const { type } = useOrientation();
     // State holds array initialized as empty
     const [currentYearChartData, setCurrentYearChartData] = useState<number[]>([]);
     const [oneYearRemovedChartData, setOneYearRemovedChartData] = useState<number[]>([]);
@@ -553,7 +555,8 @@ export const Chart = ({userData, category}: any) => {
     return(
         <>
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                <Select style={{marginRight: '1em'}} className={'select-font'} items={filter} label="Filter" size='small' defaultSelectedKey={filterValue} onSelectionChange={handleFilter}/>
+                {type === 'landscape-primary' ? <Select style={{marginRight: '1em', left: '100px'}} className={'select-font'} items={filter} label="Filter" size='small' defaultSelectedKey={filterValue} onSelectionChange={handleFilter}/> :
+                <Select style={{marginRight: '1em'}} className={'select-font'} items={filter} label="Filter" size='small' defaultSelectedKey={filterValue} onSelectionChange={handleFilter}/> }
                 { filterValue == 1 && <Select className={'select-font'} items={filterWithYearly} label="Filter" size='small' defaultSelectedKey={filterValueYearly} onSelectionChange={handleFilterYearly}/>}
                 { filterValue == 2 && <Select className={'select-font'} items={filterWithQuarterly} label="Filter" size='small' defaultSelectedKey={filterValueQuarterly} onSelectionChange={handleFilterQuarterly}/>}
                 { filterValue == 3 && <Select className={'select-font'} items={filterWithMonthly} label="Filter" size='small' defaultSelectedKey={filterValueMonthly} onSelectionChange={handleFilterMonthly}/>}
