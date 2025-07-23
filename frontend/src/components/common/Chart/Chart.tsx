@@ -555,7 +555,7 @@ export const Chart = ({userData, category}: any) => {
     return(
         <>
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                {type === 'landscape-primary' ? <Select style={{marginRight: '1em', left: '100px'}} className={'select-font'} items={filter} label="Filter" size='small' defaultSelectedKey={filterValue} onSelectionChange={handleFilter}/> :
+                {type === 'landscape-primary' ? <Select style={{marginRight: '1em', left: '45%'}} className={'select-font'} items={filter} label="Filter" size='small' defaultSelectedKey={filterValue} onSelectionChange={handleFilter}/> :
                 <Select style={{marginRight: '1em'}} className={'select-font'} items={filter} label="Filter" size='small' defaultSelectedKey={filterValue} onSelectionChange={handleFilter}/> }
                 { filterValue == 1 && <Select className={'select-font'} items={filterWithYearly} label="Filter" size='small' defaultSelectedKey={filterValueYearly} onSelectionChange={handleFilterYearly}/>}
                 { filterValue == 2 && <Select className={'select-font'} items={filterWithQuarterly} label="Filter" size='small' defaultSelectedKey={filterValueQuarterly} onSelectionChange={handleFilterQuarterly}/>}
