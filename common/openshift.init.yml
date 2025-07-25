@@ -10,7 +10,6 @@ parameters:
   - description: Username for PostgreSQL user that will be used for accessing the database.
     name: POSTGRES_USER
     required: true
-    value: gwells
   - description: Password for the PostgreSQL connection user
     name: POSTGRES_PASSWORD
     required: true
