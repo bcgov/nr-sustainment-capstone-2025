@@ -48,7 +48,7 @@ model OMAReport {
 model SoilPenetrationReport {
   id                  Int      @id @default(autoincrement())
   createdAt           DateTime @default(now())
-  depths              Float[]
+  score               Int
 
   User                User     @relation(fields: [userId], references: [id])
   userId              Int

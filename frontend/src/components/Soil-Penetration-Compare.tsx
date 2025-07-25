@@ -29,12 +29,15 @@ function SoilPenetrationResistanceCompare({handleLogoutClick}: any) {
             <Header />
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
-            <div className='chart-container'><Chart userData={userData} category={"OMA"} /></div>
-                <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                    <Button size={'md'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
-                    <Button size={'md'} variant='primary' disabled={false} text={'Input Another Category'} handleClick={handleCaptureDataClick}/>
-                    <Button size={'md'} variant='primary' disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
-                </div>
+            <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '80vh' }} >
+                <div className='margin-div'></div>
+                <div className='chart-container'><Chart userData={userData} category={"Soil-Penetration"} /></div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                <Button size={'home'} variant='secondary' disabled={false} text={'Home'} handleClick={handleReturnHomeClick}/>
+                <Button size={'nav'} variant='primary' disabled={false} text={'Add Data'} handleClick={handleCaptureDataClick} />
+                <Button size={'nav'} variant='primary' disabled={false} text={'Compare'} handleClick={handleCompareDataClick}/>
+            </div>
             <Collapsible children={<Footer/>}/>
         </>
     )

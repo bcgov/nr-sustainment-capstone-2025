@@ -17,13 +17,19 @@ export const Input = styled.input`
 `;
 
 export const Image = styled.img`
-    height: 22.5vh;
-    width: 22.5vh;
+    height: 30vh;
+    width: 95%;
     border-radius: 5%;
 
     @media screen and (min-height: 796px) {
-        height: 25vh;
-        width: 25vh;
+        height: 30vh;
+        width: 95%;
+    }
+
+    @media (orientation: landscape) {
+        height: 50vh;
+        margin-right: 20px;
+        margin-top: 20px;
     }
 `;
 
@@ -35,4 +41,5 @@ export const Text = styled.p`
     min-width: 150px;
     display: contents;
     text-decoration: none;
+    margin-bottom: 0.5em;
 `

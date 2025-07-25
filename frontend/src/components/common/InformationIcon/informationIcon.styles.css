@@ -1,6 +1,13 @@
 #info {
     position: absolute;
     height: 6vh;
-    top: 17vh;
-    left: 83vw;
+    top:  9.2vh;
+    left: 45vw;
+}
+
+@media (orientation: landscape ){
+    #info {
+        height: 6vw;
+        top: 12vh;
+    }
 }

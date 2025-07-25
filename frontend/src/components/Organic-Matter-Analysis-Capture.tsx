@@ -12,11 +12,13 @@ import ColorExtractor from './common/ColorExtractor/ColorExtractor.tsx';
 import * as munsell from 'munsell';
 import { RadioGroup, Radio } from "@bcgov/design-system-react-components";
 import Modal from './common/Modal/Modal.tsx';
+import { useOrientation } from 'react-use';
 
 function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
     const location = useLocation();
     const navigate = useNavigate();
     const userData = location.state.id;
+    const { type } = useOrientation();
 
     const organicMatterAnalysisInstructions = <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                                                 <p style={{marginTop: '0.8em'}}>
@@ -30,6 +32,16 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
                                                 </p>
                                                 <img src='OMA_Instructions.png' />
                                             </div>;
+
+    const imageInteractivityInstructions = <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                            <p>
+                                                Upload the picture taken. First select an area of the soil to 
+                                                be analyzed, then select the paper as a reference. The markers
+                                                can be reset or removed. Select whether the soil is dry or wet.
+                                                Press the save button to record the soil colour.
+                                            </p>
+                                            <img src='OMA_Capture_example.png' />
+                                        </div>
 
     const handleReturnHomeClick = () => {
         navigate("/", {state:{id: userData}});
@@ -123,7 +135,7 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
     function resetData(){
         setImages([]);
         setImageData(null);
-        setMoistureSelected(false);
+        setColorsSelected(false);
         setDataPosted(false);
     }
 
@@ -199,56 +211,103 @@ function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
     return(
         <>
             <Header />
-            <BackNavButton />
-            <LogoutButton handleLogoutClick={handleLogoutClick} />
-            <Modal
-                isOpen={dataPosted}
-                onOpenChange={() => {
-                    resetData();
-                }}
-                title='Submitted'
-                children={message}
-                modalStyle={{ width: '85vw' }}
-            />
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={organicMatterAnalysisInstructions}  hideImageAfterUpload={hideImageAfterUpload}/>
-                {/* Only show Reset and Remove Markers buttons if an image is uploaded */}
-                {imageData && (
-                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', height: '50px'}}>
-                        <button className="marker-button" disabled={markers.length === 0} onClick={handleResetMarkers}>
-                            Reset
-                        </button>
-                        <button className="marker-button" disabled={markers.length === 0} onClick={handleRemoveMarker}>
-                            Remove Marker
-                        </button>
-                    </div>
-                )}
-                {imageData && ( <ImageMarker src={imageData} markers={markers} onAddMarker={handleAddMarker}/> )}
-                <div>
-                    <ColorExtractor imageUrl={imageData} 
-                        markers={markers.map(m => ({
-                            top: Number(m.top),
-                            left: Number(m.left),
-                        }))}
-                        sendColors={handleColorData}
-                    />
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <BackNavButton />
+                <LogoutButton handleLogoutClick={handleLogoutClick} />
+                <Modal
+                    isOpen={dataPosted}
+                    onOpenChange={() => {
+                        resetData();
+                    }}
+                    title='Submitted'
+                    children={message}
+                    modalStyle={{ width: '85vw' }}
+                />
+                <div className='base-container' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '90vw' }}>
+                    {type === 'landscape-primary' ? 
+                    <>
+                        <div className='column-container'>
+                            <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={organicMatterAnalysisInstructions} secondInstructions={imageInteractivityInstructions} hideImageAfterUpload={hideImageAfterUpload}/>
+                            {imageData && ( <ImageMarker src={imageData} markers={markers} onAddMarker={handleAddMarker}/> )}
+                        </div>
+                    </>: 
+                    <>
+                        <div className='column-container'>
+                            <UploadButton sendUploadData={handleUploadData} images={images} setImages={setImages} instructions={organicMatterAnalysisInstructions} secondInstructions={imageInteractivityInstructions} hideImageAfterUpload={hideImageAfterUpload}/>
+                            {/* Only show Reset and Remove Markers buttons if an image is uploaded */}
+                            {imageData && (
+                                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', height: '50px'}}>
+                                    <button className="marker-button" disabled={markers.length === 0} onClick={handleResetMarkers}>
+                                        Reset
+                                    </button>
+                                    <button className="marker-button" disabled={markers.length === 0} onClick={handleRemoveMarker}>
+                                        Remove Marker
+                                    </button>
+                                </div>
+                            )}
+                            {imageData && ( <ImageMarker src={imageData} markers={markers} onAddMarker={handleAddMarker}/> )}
+                        </div>
+                    </>}
+                    {type === 'landscape-primary' ? 
+                    <>
+                        <div className='column-container marker-column'>
+                            {imageData && (
+                                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', height: '50px'}}>
+                                    <button className="marker-button" disabled={markers.length === 0} onClick={handleResetMarkers}>
+                                        Reset
+                                    </button>
+                                    <button className="marker-button" disabled={markers.length === 0} onClick={handleRemoveMarker}>
+                                        Remove Marker
+                                    </button>
+                                </div>
+                            )}
+                            <div>
+                                <ColorExtractor imageUrl={imageData} 
+                                    markers={markers.map(m => ({
+                                        top: Number(m.top),
+                                        left: Number(m.left),
+                                    }))}
+                                    sendColors={handleColorData}
+                                />
+                            </div>
+                            <RadioGroup label="Dry or Wet:" orientation="horizontal" style={{marginBottom: '1em', flexDirection: 'row', alignItems: 'center'}} onChange={handleRadioChange}>
+                                <Radio value="1" style={{fontFamily: 'inherit !important'}}>
+                                    Dry
+                                </Radio>
+                                <Radio value="2" style={{fontFamily: 'inherit !important'}}>
+                                    Wet
+                                </Radio>
+                            </RadioGroup>
+                        </div>
+                    </> : 
+                    <>
+                        <div className='column-container'>
+                            <div>
+                                <ColorExtractor imageUrl={imageData} 
+                                    markers={markers.map(m => ({
+                                        top: Number(m.top),
+                                        left: Number(m.left),
+                                    }))}
+                                    sendColors={handleColorData}
+                                />
+                            </div>
+                            <RadioGroup label="Dry or Wet:" orientation="horizontal" style={{marginBottom: '1em', flexDirection: 'row', alignItems: 'center'}} onChange={handleRadioChange}>
+                                <Radio value="1" style={{fontFamily: 'inherit !important'}}>
+                                    Dry
+                                </Radio>
+                                <Radio value="2" style={{fontFamily: 'inherit !important'}}>
+                                    Wet
+                                </Radio>
+                            </RadioGroup>
+                        </div>
+                    </>}
                 </div>
-                <RadioGroup label="Dry or Wet:" orientation="horizontal" style={{marginBottom: '1em', flexDirection: 'row', alignItems: 'center'}} onChange={handleRadioChange}>
-                    <Radio value="1" style={{fontFamily: 'inherit !important'}}>
-                        Dry
-                    </Radio>
-                    <Radio value="2" style={{fontFamily: 'inherit !important'}}>
-                        Wet
-                    </Radio>
-                </RadioGroup>
-                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                        <Button size={'nav'} variant='tertiary' disabled={moistureSelected && colorsSelected ? false : true} text={'Save'} handleClick={postOrganicMatterAnalysis}/>
-                        <Button size={'nav'} variant='secondary' disabled={false} text={'Back to Home'} handleClick={handleReturnHomeClick}/>
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                        <Button size={'nav'} variant='primary' disabled={false} text={'Input Another Category'} handleClick={handleCaptureDataClick} />
-                        <Button size={'nav'} variant='primary' disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
+                <div>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                            <Button size={'save'} variant='tertiary' disabled={moistureSelected && colorsSelected ? false : true} text={'Save'} handleClick={postOrganicMatterAnalysis}/>
+                            <Button size={'home'} variant='secondary' disabled={false} text={'Home'} handleClick={handleReturnHomeClick}/>
+                            <Button size={'nav'} variant='primary' disabled={false} text={'Add Data'} handleClick={handleCaptureDataClick} />
+                            <Button size={'nav'} variant='primary' disabled={false} text={'Compare'} handleClick={handleCompareDataClick}/>
                     </div>
                 </div>
             </div>

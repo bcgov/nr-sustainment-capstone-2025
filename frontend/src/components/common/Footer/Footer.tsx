@@ -9,7 +9,7 @@ export default function Footer() {
     <FooterWrapper>
       {/* <div type="dark" variant="primary" toggleable="sm"> */}
       <Banner>
-        <Columns>
+        <Columns className='footer'>
           <div>
             <StyledLink
               id="footer-home"

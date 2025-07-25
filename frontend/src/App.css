@@ -40,12 +40,6 @@
   color: #888;
 }
 
-/* remove this when it is no longer needed */
-.dummy-image {
-  width: 10vh;
-  height: 10vh;
-}
-
 .collapse-footer-open {
   position: absolute;
   top: 80%;
@@ -90,25 +84,30 @@
   margin-bottom: 16px;
 }
 
+.base-container {
+  height: 80vh;
+}
+
 .chart-container {
   height: 50vh;
   width: 80vw;
+  margin-bottom: 5px;
 }
 
 .carousel-container {
-  width: 90vw;
-  height: 41vh;
+  width: 94vw;
+  height: 46vh;
 }
 
 .carousel-img {
-  width: 8em;
-  height: 8em;
+  width: 10em;
+  height: 10em;
 
   border-radius: 5px;
 }
 
 canvas{
-  height: 42vh !important;
+  height: 50vh !important;
 }
 
 span{
@@ -116,13 +115,15 @@ span{
 }
 
 .form-container {
-  margin-top: 15vh;
-  height: 60vh;
+  margin-top: 10vh;
+  height: 70vh;
   overflow: scroll;
 }
 
 .depth-btn {
+  margin: 0.5em;
   height: 35px;
+  width: 150px;
   background-color: #003366;
   color: #ffffff;
   display: flex;
@@ -130,12 +131,15 @@ span{
   justify-content: center;
 }
 
-.submit-btn{
+.submit-btn {
   margin: 0.5em;
-  width: 50vw;
-  height: 50px;
+  width: 150px;
+  height: 35px;
   color: #ffffff;
   background-color: #198754;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .marker-button {
@@ -147,8 +151,10 @@ span{
 }
 
 .image-marker__image {
-  height: 40vh;
-  border-radius: 5px;
+  height: 50vh;
+  border: 1px solid;
+  border-color: white;
+  border-radius: 2%;
 }
 
 .marker-text {
@@ -161,4 +167,99 @@ span{
   border-radius: 3px;
   font-size: 14px;
   font-weight: bold;
+}
+
+.bcds-react-aria-Modal{
+  position: absolute !important;
+  top: 15vh !important;
+  overflow: scroll !important;
+  max-height: 65vh !important;
+}
+
+.column-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.marker-column{
+  height: inherit;
+  justify-content: space-evenly;
+}
+
+.tab-container{
+  height: 80vh;
+}
+
+.margin-div{
+  height: 8vh;
+}
+
+@media (orientation: landscape) {
+  .collapse-footer-open {
+    position: absolute;
+    top: auto;
+    bottom: 14%;
+    left: 93%;
+    border: none !important;
+    background:none;
+    outline: none;
+  }
+  
+  .collapse-footer-closed {
+    position: absolute;
+    top: auto;
+    bottom: 2%;
+    left: 93%;
+    border: none !important;
+    background:none;
+    outline: none;
+  }
+
+  .footer{
+    flex-direction: row !important;
+  }
+
+  .base-container {
+    flex-direction: row !important;
+    justify-content: space-evenly;
+  }
+
+  .form-container{
+    height: 55vh;
+    width: 80vw;
+    margin-top:20vh
+  }
+
+  .tab-container{
+    display: flex;
+    width: 80vw;
+    flex-direction: column;
+    height: 75vh;
+    margin-top: 25px;
+  }
+
+  .bcds-react-aria-Select{
+    position: absolute;
+    top: 14vh;
+    right: 80px;
+  }
+
+  canvas{
+    height: 55vh !important;
+  }
+
+  .carousel-landscape{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0px;
+    top: 37vh;
+  }
+
+  .margin-div{
+    height: 25vh;
+  }
 }
