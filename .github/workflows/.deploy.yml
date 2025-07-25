@@ -33,27 +33,27 @@ jobs:
           file: common/openshift.init.yml
           overwrite: true
           parameters:
-            -p ZONE=${{ inputs.target }}
+            -p TARGET=${{ inputs.target }}
             -p POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
             -p POSTGRES_USER=${{ secrets.POSTGRES_USER }}
             -p POSTGRES_HOST=${{ vars.POSTGRES_HOST }}
             -p POSTGRES_DATABASE=${{ vars.POSTGRES_DATABASE }}
 
-  # database:
-  #   name: Database
-  #   environment: ${{ inputs.environment }}
-  #   runs-on: ubuntu-24.04
-  #   steps:
-  #     - name: Deploy Database
-  #       uses: bcgov-nr/action-deployer-openshift@v3.0.0
-  #       with:
-  #         oc_namespace: ${{ vars.OC_NAMESPACE }}
-  #         oc_server: ${{ vars.OC_SERVER }}
-  #         oc_token: ${{ secrets.OC_TOKEN }}
-  #         file: database/openshift.deploy.yml
-  #         overwrite: false
-  #         parameters:
-  #           -p TAG=${{ inputs.tag }} -p TARGET=${{ inputs.target }}
+  database:
+    name: Database
+    environment: ${{ inputs.environment }}
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Deploy Database
+        uses: bcgov-nr/action-deployer-openshift@v4.0.0
+        with:
+          oc_namespace: ${{ vars.OC_NAMESPACE }}
+          oc_server: ${{ vars.OC_SERVER }}
+          oc_token: ${{ secrets.OC_TOKEN }}
+          file: database/openshift.deploy.yml
+          overwrite: false
+          parameters:
+            -p TAG=${{ inputs.tag }} -p TARGET=${{ inputs.target }}
 
   # backend:
   #   name: Backend

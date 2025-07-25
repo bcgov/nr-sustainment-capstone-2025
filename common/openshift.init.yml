@@ -4,7 +4,7 @@ parameters:
   - name: REPO
     description: Repository name
     value: nr-sustainment-capstone-2025
-  - name: ZONE
+  - name: TARGET
     description: Deployment zone, e.g. pr-### or prod
     required: true
   - description: Username for PostgreSQL user that will be used for accessing the database.
@@ -24,9 +24,9 @@ objects:
   - apiVersion: v1
     kind: Secret
     metadata:
-      name: ${REPO}-${ZONE}-database
+      name: ${REPO}-${TARGET}-database
       labels:
-        app: ${REPO}-${ZONE}
+        app: ${REPO}-${TARGET}
     stringData:
       database-name: ${POSTGRES_DATABASE}
       database-password: ${POSTGRES_PASSWORD}

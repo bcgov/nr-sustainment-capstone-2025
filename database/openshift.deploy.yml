@@ -1,66 +1,24 @@
 apiVersion: template.openshift.io/v1
 kind: Template
 parameters:
-  - name: APP
-    description: Application name
-    value: nr-sustainment-capstone-2024
+  - name: REPO
+    description: Repository Name
+    value: nr-sustainment-capstone-2025
+  - name: TAG
+    required: true
   - name: COMPONENT
     description: Component name
     value: database
-  - name: ORG
-    description: Organization name; e.g. bcgov or bcdevops
-    value: bcgov
-  - name: TAG
-    description: Image tag; e.g. PR number or latest
-    required: true
   - name: TARGET
-    description: Deployment target; e.g. PR number, test or prod
+    description: Deployment target, e.g. pr-###, test or prod
     required: true
-  - name: DB_PASSWORD
-    description: Password for the PostgreSQL connection user.
-    from: "[a-zA-Z0-9]{16}"
-    generate: expression
 objects:
-  - apiVersion: networking.k8s.io/v1
-    kind: NetworkPolicy
-    metadata:
-      name: allow-from-openshift-ingress
-      labels:
-        template: openshift-test
-    spec:
-      ingress:
-        - from:
-            - namespaceSelector:
-                matchLabels:
-                  network.openshift.io/policy-group: ingress
-      policyTypes:
-        - Ingress
-  - apiVersion: networking.k8s.io/v1
-    kind: NetworkPolicy
-    metadata:
-      name: allow-same-namespace
-      labels:
-        template: nr-spar-backend-network-security-policy
-    spec:
-      policyTypes:
-        - Ingress
-  - apiVersion: v1
-    kind: Secret
-    metadata:
-      name: ${APP}-${TARGET}-${COMPONENT}
-      labels:
-        app: ${APP}-${TARGET}
-    stringData:
-      database-name: postgres
-      database-password: ${DB_PASSWORD}
-      database-port: "5432"
-      database-user: postgres
   - kind: PersistentVolumeClaim
     apiVersion: v1
     metadata:
-      name: ${APP}-${TARGET}-${COMPONENT}
+      name: ${REPO}-${TARGET}-${COMPONENT}
       labels:
-        app: ${APP}-${TARGET}
+        app: ${REPO}-${TARGET}
     spec:
       accessModes:
         - ReadWriteOnce
@@ -71,14 +29,14 @@ objects:
   - kind: Deployment
     apiVersion: apps/v1
     metadata:
-      name: ${APP}-${TARGET}-${COMPONENT}
+      name: ${REPO}-${TARGET}-${COMPONENT}
       labels:
-        app: ${APP}-${TARGET}
+        app: ${REPO}-${TARGET}
     spec:
       replicas: 1
       selector:
         matchLabels:
-          deployment: ${APP}-${TARGET}-${COMPONENT}
+          deployment: ${REPO}-${TARGET}-${COMPONENT}
       strategy:
         type: Recreate
         recreateParams:
@@ -86,18 +44,18 @@ objects:
         activeDeadlineSeconds: 21600
       template:
         metadata:
-          name: ${APP}-${TARGET}-${COMPONENT}
+          name: ${REPO}-${TARGET}-${COMPONENT}
           labels:
-            app: ${APP}-${TARGET}
-            deployment: ${APP}-${TARGET}-${COMPONENT}
+            app: ${REPO}-${TARGET}
+            deployment: ${REPO}-${TARGET}-${COMPONENT}
         spec:
           volumes:
-            - name: ${APP}-${TARGET}-${COMPONENT}
+            - name: ${REPO}-${TARGET}-${COMPONENT}
               persistentVolumeClaim:
-                claimName: ${APP}-${TARGET}-${COMPONENT}
+                claimName: ${REPO}-${TARGET}-${COMPONENT}
           containers:
-            - name: ${APP}-${TARGET}
-              image: ghcr.io/${ORG}/${APP}/${COMPONENT}:${TAG}
+            - name: ${REPO}-${TARGET}
+              image: ghcr.io/${ORG}/${REPO}/${COMPONENT}:${TAG}
               ports:
                 - containerPort: 5432
                   protocol: TCP
@@ -133,23 +91,28 @@ objects:
                 periodSeconds: 15
                 timeoutSeconds: 10
               env:
-                - name: POSTGRES_DB
+                - name: POSTGRES_DATABASE
                   valueFrom:
                     secretKeyRef:
-                      name: ${APP}-${TARGET}-${COMPONENT}
+                      name: ${REPO}-${TARGET}-${COMPONENT}
                       key: database-name
                 - name: POSTGRES_PASSWORD
                   valueFrom:
                     secretKeyRef:
-                      name: ${APP}-${TARGET}-${COMPONENT}
+                      name: ${REPO}-${TARGET}-${COMPONENT}
                       key: database-password
                 - name: POSTGRES_USER
                   valueFrom:
                     secretKeyRef:
-                      name: ${APP}-${TARGET}-${COMPONENT}
+                      name: ${REPO}-${TARGET}-${COMPONENT}
                       key: database-user
+                - name: POSTGRES_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${REPO}-${TARGET}-${COMPONENT}
+                      key: database-host
               volumeMounts:
-                - name: ${APP}-${TARGET}-${COMPONENT}
+                - name: ${REPO}-${TARGET}-${COMPONENT}
                   mountPath: "/var/lib/postgresql"
               terminationMessagePath: "/dev/termination-log"
               terminationMessagePolicy: File
@@ -162,8 +125,8 @@ objects:
     kind: Service
     metadata:
       labels:
-        app: ${APP}-${TARGET}
-      name: ${APP}-${TARGET}-${COMPONENT}
+        app: ${REPO}-${TARGET}
+      name: ${REPO}-${TARGET}-${COMPONENT}
     spec:
       ports:
         - name: postgresql
@@ -172,6 +135,6 @@ objects:
           protocol: TCP
           targetPort: 5432
       selector:
-        deployment: ${APP}-${TARGET}-${COMPONENT}
+        deployment: ${REPO}-${TARGET}-${COMPONENT}
       sessionAffinity: None
       type: ClusterIP
