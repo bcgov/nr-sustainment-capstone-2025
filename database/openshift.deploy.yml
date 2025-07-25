@@ -72,7 +72,7 @@ objects:
                     - /usr/bin/env
                     - bash
                     - "-c"
-                    - psql -q -U $POSTGRES_USER -d $POSTGRES_DB -c 'SELECT 1'
+                    - psql -q -U $POSTGRES_USER -d $POSTGRES_DATABASE -c 'SELECT 1'
                 successThreshold: 1
                 failureThreshold: 5
                 initialDelaySeconds: 10
@@ -84,7 +84,7 @@ objects:
                     - /usr/bin/env
                     - bash
                     - "-c"
-                    - psql -q $POSTGRES_USER -d $POSTGRES_DB -c 'SELECT 1'
+                    - psql -q $POSTGRES_USER -d $POSTGRES_DATABASE -c 'SELECT 1'
                 successThreshold: 1
                 failureThreshold: 5
                 initialDelaySeconds: 10
