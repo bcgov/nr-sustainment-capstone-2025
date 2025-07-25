@@ -55,7 +55,7 @@ objects:
                 claimName: ${REPO}-${TARGET}-${COMPONENT}
           containers:
             - name: ${REPO}-${TARGET}
-              image: ghcr.io/${ORG}/${REPO}/${COMPONENT}:${TAG}
+              image: ghcr.io/bcgov/${REPO}/${COMPONENT}:${TAG}
               ports:
                 - containerPort: 5432
                   protocol: TCP
