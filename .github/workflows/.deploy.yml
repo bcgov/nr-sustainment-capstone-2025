@@ -37,6 +37,8 @@ jobs:
             -p ZONE=${{ inputs.target }}
             -p POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
             -p POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+            -p POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}
+            -p PSOTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }}
 
   # database:
   #   name: Database

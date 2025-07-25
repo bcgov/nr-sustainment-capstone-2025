@@ -18,7 +18,9 @@ parameters:
     displayName: PostgreSQL Database Name
     name: POSTGRES_DATABASE
     required: true
-    value: postgres
+  - description: Name of PostgreSQL database host.
+    name: POSTGRES_HOST
+    required: true
 objects:
   - apiVersion: v1
     kind: Secret
@@ -30,7 +32,7 @@ objects:
       database-name: ${POSTGRES_DATABASE}
       database-password: ${POSTGRES_PASSWORD}
       database-user: ${POSTGRES_USER}
-      database-host: nr-gwells-232-database.cd43d9-dev.svc.cluster.local
+      database-host: ${POSTGRES_HOST}
   - apiVersion: networking.k8s.io/v1
     kind: NetworkPolicy
     metadata:
