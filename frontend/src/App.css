@@ -94,6 +94,13 @@
   margin-bottom: 5px;
 }
 
+.chart-container-landscape {
+      height: 70vh;
+    width: 75vw;
+    margin-left: 6vw;
+    margin-top: 10px;
+}
+
 .carousel-container {
   width: 94vw;
   height: 46vh;
