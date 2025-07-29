@@ -31,13 +31,16 @@ function SoilPenetrationResistanceCompare({handleLogoutClick}: any) {
             <Header />
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
+            { type === 'landscape-primary' ? 
             <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh', marginTop: '2.8em' }} >
                 <div className='margin-div'></div>
-                { type === 'landscape-primary' ? 
                 <div className='chart-container-landscape' style={{ height: '100vh', width: '80vw', marginLeft: '12vw', marginTop: '25px'}}>
-                    <Chart userData={userData} category={"Soil-Penetration"} /></div> :
-                <div className='chart-container'><Chart userData={userData} category={"Soil-Penetration"} /></div> }
-            </div>
+                    <Chart userData={userData} category={"Soil-Penetration"} /></div>
+            </div> :
+            <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '75vh', marginTop: '2.8em' }} >
+                <div className='margin-div'></div>
+                <div className='chart-container'><Chart userData={userData} category={"Soil-Penetration"} /></div> 
+            </div>}
             { type === 'landscape-primary' ? 
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'absolute',
                         top: '40vh', left: '2vw'}}>
