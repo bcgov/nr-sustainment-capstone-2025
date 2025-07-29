@@ -63,7 +63,7 @@ function OrganicMatterAnalysisCompare({handleLogoutClick}: any) {
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'absolute',
                         top: '40vh', left: '2vw'}}>
                     <div style={{ marginBottom: '0.7em' }}>
-                        <Button size={'home'} variant='secondary' disabled={false} text={'Home'} handleClick={handleReturnHomeClick}/>
+                        <Button size={'nav'} variant='secondary' disabled={false} text={'Home'} handleClick={handleReturnHomeClick}/>
                     </div>
                     <div style={{ marginBottom: '0.7em' }}>
                         <Button size={'nav'} variant='primary' disabled={false} text={'Add Data'} handleClick={handleCaptureDataClick}/>
