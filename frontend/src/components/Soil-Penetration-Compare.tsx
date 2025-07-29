@@ -31,7 +31,7 @@ function SoilPenetrationResistanceCompare({handleLogoutClick}: any) {
             <Header />
             <BackNavButton />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
-            <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '95vh', marginTop: '2em' }} >
+            <div className='' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '75vh', marginTop: '2em' }} >
                 <div className='margin-div'></div>
                 { type === 'landscape-primary' ? 
                 <div className='chart-container-landscape' style={{ height: '100vh', width: '75vw', marginLeft: '8vw', marginTop: '25px'}}>
