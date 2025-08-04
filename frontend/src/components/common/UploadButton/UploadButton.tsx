@@ -31,6 +31,11 @@ export function UploadButton({sendUploadData, images, setImages, instructions, s
     }
 
     if (secondInstructions != null) {
+        type === 'landscape-primary' ?
+        instructions = <div>
+                            <TabOptions activeTab={activeTab} tabs={[instructionsTab, secondInstructionTab]} setActiveTab={tabSwitch} style={{height: '13vh'}}/>
+                            <TabContentDisplay activeTab={activeTab} tabs={[secondInstructionTab, instructionsTab]} />
+                        </div> :
         instructions = <div>
                             <TabOptions activeTab={activeTab} tabs={[instructionsTab, secondInstructionTab]} setActiveTab={tabSwitch} style={{height: '7vh'}}/>
                             <TabContentDisplay activeTab={activeTab} tabs={[secondInstructionTab, instructionsTab]} />

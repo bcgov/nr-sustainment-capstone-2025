@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import zoomPlugin from 'chartjs-plugin-zoom';
 import {
     Chart as ChartJS,
     LineElement,
@@ -21,7 +22,8 @@ ChartJS.register(
     CategoryScale,
     Tooltip,
     Legend,
-    plugins
+    plugins,
+    zoomPlugin
 );
 import { Bar } from 'react-chartjs-2';
 import { Select } from '@bcgov/design-system-react-components';
@@ -516,6 +518,22 @@ export const Chart = ({userData, category}: any) => {
             title: {
                 display: true,
                 text: title,
+            },
+            zoom: {
+                zoom: {
+                    wheel: {
+                        enabled: true,
+                        speed: 0.002
+                    },
+                    pinch: {
+                        enabled: true,
+                    },
+                    mode: 'xy',
+                },
+                limits: { 
+                    y: {min: 0, max: category === 'OMA-wet' || category === 'OMA-dry' ? 8 : 100},
+                    x: {min: 0, max: 100}
+                },
             },
         },
         scales: {
