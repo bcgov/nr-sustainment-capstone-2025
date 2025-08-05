@@ -5,7 +5,7 @@ FROM node:20.19.2-alpine3.21
 WORKDIR /app/
 
 # Copy package files and install dependencies
-COPY package.json ./
+COPY package*.json ./
 
 # Add curl for health checks
 RUN apk --no-cache add curl
