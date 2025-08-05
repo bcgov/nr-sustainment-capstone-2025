@@ -58,6 +58,11 @@ objects:
                     secretKeyRef:
                       name: ${REPO}-${TARGET}-database
                       key: database-user
+                - name: DATABASE_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${REPO}-database-url
+                      key: database-url
               ports:
                 - containerPort: 3000
                   protocol: TCP
