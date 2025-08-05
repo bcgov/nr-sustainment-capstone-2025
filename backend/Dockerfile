@@ -36,12 +36,12 @@ COPY --from=build /app/node_modules ./node_modules
 COPY prisma ./prisma
 COPY package*.json ./
 
-USER node
-
 # RUN npx prisma migrate deploy
 # CMD ["npm", "run", "serve"]
 
 COPY --chown=node:node start.sh /app/start.sh
 RUN chmod +x /app/start.sh
+
+USER node
 
 CMD ["sh", "/app/start.sh"]
