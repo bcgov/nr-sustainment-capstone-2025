@@ -22,6 +22,8 @@ COPY --chown=node:node . .
 
 RUN npx prisma generate
 
+RUN npm run build
+
 FROM node:20.19.2-slim AS prod
 
 RUN apt-get update -y && apt-get install -y \

@@ -30,11 +30,11 @@ jobs:
           tag_fallback: latest
           triggers: ('${{ matrix.package }}/')
 
-  deploy:
-    name: Deploy
-    needs: [builds]
-    secrets: inherit
-    uses: ./.github/workflows/.deploy.yml
+  # deploy:
+  #   name: Deploy
+  #   needs: [builds]
+  #   secrets: inherit
+  #   uses: ./.github/workflows/.deploy.yml
 
   results:
     name: PR Results
