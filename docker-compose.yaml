@@ -71,10 +71,10 @@ services:
 
   # Frontend
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
     container_name: sat-frontend
+    image: node:20.19.2
+    working_dir: /app/frontend
+    command: sh -c "npm ci && npm run dev -- --host"
     depends_on:
       backend:
         condition: service_healthy
@@ -89,7 +89,10 @@ services:
     healthcheck:
       test: curl --fail http://localhost:5173 || exit 1
     ports: ["5173:5173"]
-    volumes: ["./frontend:/app", "/app/node_modules"]
+    # entrypoint: ls /app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
 
 volumes:
   postgres_data:
