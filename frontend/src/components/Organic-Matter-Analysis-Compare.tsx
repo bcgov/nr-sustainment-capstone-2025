@@ -5,6 +5,7 @@ import { Button } from './common/Button/Button.tsx';
 import LogoutButton from './common/LogoutButton/LogoutButton.tsx';
 import BackNavButton from './common/BackNavButton/BackNavButton.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useOrientation } from 'react-use';
 import Chart from './common/Chart/Chart.tsx';
 import { TabOptions, TabContentDisplay } from './common/Tabs/Tabs.tsx';
 import { useState } from 'react';
@@ -13,6 +14,7 @@ function OrganicMatterAnalysisCompare({handleLogoutClick}: any) {
     const location = useLocation();
     const navigate = useNavigate();
     const userData = location.state.id;
+    const { type } = useOrientation();
 
     const handleReturnHomeClick = () => {
         navigate("/", {state:{id: userData}});
@@ -30,13 +32,17 @@ function OrganicMatterAnalysisCompare({handleLogoutClick}: any) {
 
     const dryDataTab = {
         label: "Dry",
-        content: <div className='chart-container'><Chart userData={userData} category={"OMA-dry"} /></div>,
+        content: type === 'landscape-primary' ? 
+                <div className='chart-container-landscape'><Chart userData={userData} category={"OMA-dry"} /></div> : 
+                <div className='chart-container'><Chart userData={userData} category={"OMA-dry"} /></div>,
         id: "0"
     }
 
     const wetDataTab = {
         label: "Wet",
-        content: <div className='chart-container'><Chart userData={userData} category={"OMA-wet"} /></div>,
+        content:  type === 'landscape-primary' ? 
+                <div className='chart-container-landscape'><Chart userData={userData} category={"OMA-wet"} /></div> : 
+                <div className='chart-container'><Chart userData={userData} category={"OMA-wet"} /></div>,
         id: "1"
     }
 
@@ -53,11 +59,24 @@ function OrganicMatterAnalysisCompare({handleLogoutClick}: any) {
                 <TabOptions activeTab={activeTab} tabs={[dryDataTab, wetDataTab]} setActiveTab={tabSwitch}/>
                 <TabContentDisplay activeTab={activeTab} tabs={[dryDataTab, wetDataTab]} />
             </div>
+            { type === 'landscape-primary' ? 
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'absolute',
+                        top: '40vh', left: '2vw'}}>
+                    <div style={{ marginBottom: '0.7em' }}>
+                        <Button size={'nav'} variant='secondary' disabled={false} text={'Home'} handleClick={handleReturnHomeClick}/>
+                    </div>
+                    <div style={{ marginBottom: '0.7em' }}>
+                        <Button size={'nav'} variant='primary' disabled={false} text={'Add Data'} handleClick={handleCaptureDataClick}/>
+                    </div>
+                    <div style={{ marginBottom: '0.7em' }}>
+                        <Button size={'nav'} variant='primary' disabled={false} text={'Compare'} handleClick={handleCompareDataClick}/>
+                    </div>
+            </div> : 
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                     <Button size={'home'} variant='secondary' disabled={false} text={'Home'} handleClick={handleReturnHomeClick}/>
-                    <Button size={'nav'} variant='primary' disabled={false} text={'Add Data'} handleClick={handleCaptureDataClick} />
+                    <Button size={'nav'} variant='primary' disabled={false} text={'Add Data'} handleClick={handleCaptureDataClick}/>
                     <Button size={'nav'} variant='primary' disabled={false} text={'Compare'} handleClick={handleCompareDataClick}/>
-            </div>
+            </div>}
             <Collapsible children={<Footer/>}/>
         </>
     )
