@@ -31,11 +31,13 @@ function SoilPenetrationResistanceCapture({handleLogoutClick}: any){
     
     const [entries, setEntries] = useState(Array.from({ length: 8 }, () => createEmptyEntry()));
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const [score, setScore] = useState(0);
 
     const thankyouMessage = <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                                 <p style={{marginTop: '0.8em'}}>
-                                    Your form has been submitted. Thank you.
+                                    Your form has been submitted.
                                 </p>
+                                <p>You Scored {score}/100.</p>
                             </div>;
 
     function createEmptyEntry() {
@@ -131,7 +133,8 @@ function SoilPenetrationResistanceCapture({handleLogoutClick}: any){
 
             alert(`Please make sure all values have been filled out before clicking submit.\n\n${missingMessage}`);
         } else {
-            const score = calculateTotalScore(entries);
+            //const score = calculateTotalScore(entries);
+            setScore(calculateTotalScore(entries));
             console.log(score);
             postSoilPenetration(score);
             setFormSubmitted(true);
