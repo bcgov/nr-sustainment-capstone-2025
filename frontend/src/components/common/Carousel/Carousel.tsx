@@ -1,4 +1,3 @@
-import { Select } from '@bcgov/design-system-react-components';
 import { useState, useEffect } from 'react';
 import { useOrientation } from 'react-use';
 
@@ -12,26 +11,12 @@ export const Carousel = ({userData}: any) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                let dateData;
-
-                if(filterValue == 1){
-                    dateData = new Date().getFullYear();
-                } else if (filterValue == 2){
-                    dateData = new Date().getFullYear() - 3;
-                } else {
-                    dateData = new Date().getFullYear() - 5;
-                }
-
-                const sendData = {
-                    date: new Date(dateData, 0, 1)
-                }
-
                 const response = await fetch('http://localhost:3000/api/check-coverage-report', {
-                    method: "POST",
+                    method: "GET",
                     headers: {
                         "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(sendData)});
+                    }
+                });
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
