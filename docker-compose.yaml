@@ -72,6 +72,7 @@ services:
   # Frontend
   frontend:
     container_name: sat-frontend
+    profiles: ["frontend"]
     image: node:20.19.2
     working_dir: /app/frontend
     command: sh -c "npm ci && npm run dev -- --host"
@@ -93,6 +94,25 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
+
+  caddy:
+    container_name: caddy
+    profiles: ["caddy"]
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+      PORT: 5173
+      VITE_BACKEND_URL: http://localhost:3000
+      LOG_LEVEL: info
+    ports: ["5173:5173"]
+    volumes: ["./frontend/Caddyfile:/etc/caddy/Caddyfile"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5173"]
+    depends_on:
+      backend:
+        condition: service_healthy
 
 volumes:
   postgres_data:
