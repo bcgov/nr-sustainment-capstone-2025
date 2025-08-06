@@ -1,7 +1,7 @@
 # Base image for the container
 FROM node:20.19.2 AS dependencies
 
-RUN apt-get update -y && apt-get install -y \
+RUN apt-get update -y && apt-get install -y --no-install-recommends\
     openssl \
     curl
 
@@ -26,7 +26,7 @@ RUN npm run build
 
 FROM node:20.19.2-slim AS prod
 
-RUN apt-get update -y && apt-get install -y \
+RUN apt-get update -y && apt-get install -y --no-install-recommends\
     openssl \
     curl
 WORKDIR /app
