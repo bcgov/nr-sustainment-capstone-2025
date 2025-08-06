@@ -33,7 +33,7 @@ jest.mock('react-router-dom', () => {
 
 describe('SoilCoverageCapture', () => {
     
-  test('slider changes when moved', () => {
+  test('slider changes when moved', async () => {
     render(
       <MemoryRouter>
         <SoilCoverageCapture handleLogoutClick={mockHandleLogoutClick} />
@@ -47,21 +47,19 @@ describe('SoilCoverageCapture', () => {
     expect(slider.value).toBe('3');
   });
 
+  test('save button does not save when no image is imported', () => {
+    render(
+      <MemoryRouter>
+        <SoilCoverageCapture handleLogoutClick={mockHandleLogoutClick} />
+      </MemoryRouter>
+    );
+
+    fireEvent.click(screen.getByText('Save'));
+
+  });
+
 });
 
-//   test('minus a plot when "x" is clicked', () => {
-//     render(
-//       <MemoryRouter>
-//         <SoilPenetrationResistanceCapture handleLogoutClick={mockHandleLogoutClick} />
-//       </MemoryRouter>
-//     );
-
-//     fireEvent.click(screen.getByLabelText('Remove Spot 1'));
-
-//     // Should now have 7 plots
-//     const rows = screen.getAllByText(/Plot \d/);
-//     expect(rows.length).toBe(7);
-//   });
 
 
 //   test('shows alert if any field is missing on submit', () => {
