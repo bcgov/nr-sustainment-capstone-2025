@@ -91,6 +91,9 @@ objects:
                 requests:
                   cpu: 50m
                   memory: 175Mi
+          securityContext:
+            capabilities:
+              add: ["NET_BIND_SERVICE"]
   - kind: Route
     apiVersion: route.openshift.io/v1
     metadata:
