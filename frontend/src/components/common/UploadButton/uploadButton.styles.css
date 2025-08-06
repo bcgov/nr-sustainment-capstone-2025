@@ -52,6 +52,18 @@ img.uploadedImg {
         height: 30vh;
         border-radius: 5%;
     }
+
+    button.customUploadButton{
+        margin-top: 3em;
+    }
+
+    button.customUpdateButton {
+        margin-top: 3em;
+    }
+    
+    button.customRemoveButton {
+        margin: 0.25em;
+    }
 }
 
 @media screen and (min-height: 796px) {

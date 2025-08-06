@@ -155,6 +155,7 @@ span{
   border-color: black;
   color: black;
   padding: 4px;
+  margin: 0.25em;
 }
 
 .image-marker__image {
@@ -268,5 +269,24 @@ span{
 
   .margin-div{
     height: 25vh;
+  }
+}
+
+@media (min-height: 668px) {
+  .collapse-footer-open {
+    top: 80%;
+  }
+  
+  .collapse-footer-closed {
+    top: 95%;
+  }
+
+  .base-container {
+    height: 85vh;
+  }
+
+  .tab-container{
+    margin-top: 5vh;
+    height: 85vh;
   }
 }
