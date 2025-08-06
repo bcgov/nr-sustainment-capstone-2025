@@ -6,6 +6,7 @@ export const Carousel = ({userData}: any) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [filterValue, setFilterValue] = useState(1);
+    const screenHeight = window.innerHeight
     const { type } = useOrientation();
 
 
@@ -123,7 +124,31 @@ export const Carousel = ({userData}: any) => {
                     </div>
                     <img style={{width: '3em', height: '3em'}} src={"carousel-right.png"} onClick={onClickRight}/>
                 </div> }
-            </> : 
+            </> : screenHeight >= 700 ? 
+            <>
+                { userNameData && userNameData.length > 0 && 
+                <div className='carousel-container' style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <img style={{width: '3em', height: '3em'}} src={"carousel-left.png"} onClick={onClickLeft}/>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginLeft: '3vw'}}>
+                        <div className='' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                            <img className={'carousel-img'} src={userNameData[index].coverage_picture}/>
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: '1em'}}>
+                                <p>{userNameData[index].createdAt.slice(0,10)}</p>
+                                <p>{userNameData[index].coverage_percentage}%</p>
+                            </div>
+                        </div>
+                        { userNameData.length > 1 &&
+                        <div className='' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                            <img className={'carousel-img'} src={userNameData[secondIndex].coverage_picture}/>
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: '1em'}}>
+                                <p>{userNameData[secondIndex].createdAt.slice(0,10)}</p>
+                                <p>{userNameData[secondIndex].coverage_percentage}%</p>
+                            </div>
+                        </div> }
+                    </div>
+                    <img style={{width: '3em', height: '3em'}} src={"carousel-right.png"} onClick={onClickRight}/>
+                </div> }
+            </> :
             <>
                 { userNameData && userNameData.length > 0 && 
                 <div className='carousel-container' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>

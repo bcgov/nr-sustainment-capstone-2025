@@ -289,4 +289,13 @@ span{
     margin-top: 5vh;
     height: 85vh;
   }
+
+  .carousel-container{
+    margin-top: 10vh;
+  }
+
+  .carousel-img{
+    width: 13em;
+    height: 13em;
+  }
 }
