@@ -22,10 +22,8 @@ RUN npm run build
 FROM caddy:2.10.0-alpine
 RUN apk add --no-cache ca-certificates curl
 
-RUN chmod o+x /usr/bin/caddy
-
 # Copy files and run formatting
-COPY --from=build /app/dist/ /srv
+COPY --from=build /app/dist /srv
 COPY Caddyfile /etc/caddy/Caddyfile
 RUN caddy fmt --overwrite /etc/caddy/Caddyfile
 
