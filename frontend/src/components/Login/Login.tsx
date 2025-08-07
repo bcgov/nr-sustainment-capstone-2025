@@ -9,6 +9,7 @@ import { useState } from 'react';
 function Login({ setIsAuthenticated }: any) {
     const [name, setName] = useState("");
     const viteBackendUrl = window?.config?.VITE_BACKEND_URL || "http://localhost:3000";
+    console.log("VITE_BACKEND_URL: ", viteBackendUrl)
 
     const navigate = useNavigate();
 
