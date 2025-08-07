@@ -29,5 +29,3 @@ RUN caddy fmt --overwrite /etc/caddy/Caddyfile
 
 # Expose the port the app runs on
 EXPOSE 5173 5174
-
-USER 1000
