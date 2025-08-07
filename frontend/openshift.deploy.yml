@@ -53,8 +53,8 @@ objects:
             - name: ${REPO}-${TARGET}-${COMPONENT}
               image: ghcr.io/bcgov/${REPO}/${COMPONENT}:${TAG}
               securityContext:
-              capabilities:
-                add: ["NET_BIND_SERVICE"]
+                capabilities:
+                  add: ["NET_BIND_SERVICE"]
               # securityContext:
               #   runAsUser: 1011540000
               imagePullPolicy: Always
@@ -62,7 +62,7 @@ objects:
                 - name: LOG_LEVEL
                   value: info
                 - name: VITE_BACKEND_URL
-                  value: http://${REPO}-${TARGET}-backend/api
+                  value: http://${REPO}-${TARGET}-backend:80
               ports:
                 - name: http
                   containerPort: 5173
