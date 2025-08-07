@@ -8,6 +8,7 @@ import { useState } from 'react';
 
 function Login({ setIsAuthenticated }: any) {
     const [name, setName] = useState("");
+    const viteBackendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
 
     const navigate = useNavigate();
 
@@ -16,7 +17,7 @@ function Login({ setIsAuthenticated }: any) {
             userName: name
         }
 
-        fetch("http://localhost:3000/api/add-user", {
+        fetch(`${viteBackendUrl}/api/add-user`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
