@@ -104,6 +104,7 @@
 .carousel-container {
   width: 94vw;
   height: 46vh;
+  margin-top: 10vh;
 }
 
 .carousel-img {
@@ -155,6 +156,7 @@ span{
   border-color: black;
   color: black;
   padding: 4px;
+  margin: 0.25em;
 }
 
 .image-marker__image {
@@ -266,7 +268,36 @@ span{
     top: 37vh;
   }
 
+  .carousel-container{
+    margin-top: 0vh;
+  }
+
   .margin-div{
     height: 25vh;
+  }
+}
+
+@media (min-height: 668px) {
+  .collapse-footer-open {
+    top: 80%;
+  }
+  
+  .collapse-footer-closed {
+    top: 95%;
+  }
+
+  .base-container {
+    height: 85vh;
+  }
+
+  .tab-container{
+    margin-top: 5vh;
+    height: 85vh;
+  }
+
+  .carousel-img{
+    width: 14em;
+    height: 14em;
+    margin-left: 10px;
   }
 }
