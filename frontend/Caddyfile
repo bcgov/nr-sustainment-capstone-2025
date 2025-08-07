@@ -45,6 +45,13 @@
 		Cross-Origin-Resource-Policy "cross-origin"
 		Cross-Origin-Opener-Policy "same-origin"
 	}
+
+    handle /env.js {
+        header {
+            Content-Type text/javascript
+        }
+        respond `window.config={"VITE_BACKEND_URL":"{$VITE_BACKEND_URL}"};`
+    }
 }
 :5174 {
 	handle /health {
