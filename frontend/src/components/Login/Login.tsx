@@ -5,7 +5,7 @@ import { Button } from '../common/Button/Button.tsx';
 import InputField from '../common/InputField/InputField.tsx';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { viteBackendUrl } from '../../config';
+import { viteBackendUrl } from '../../config.ts';
 
 function Login({ setIsAuthenticated }: any) {
     const [name, setName] = useState("");

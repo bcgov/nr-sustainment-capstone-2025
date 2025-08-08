@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useOrientation } from 'react-use';
 
-import { viteBackendUrl } from '../../../config';
+import { viteBackendUrl } from '../../../config.ts';
 
 export const Carousel = ({userData}: any) => {
     const [data, setData] = useState(null);

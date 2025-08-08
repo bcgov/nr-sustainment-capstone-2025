@@ -1,1 +1,1 @@
-const viteBackendUrl = window?.config?.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL;
+export const viteBackendUrl:string = window?.config?.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL;
