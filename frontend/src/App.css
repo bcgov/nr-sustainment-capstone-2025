@@ -104,6 +104,7 @@
 .carousel-container {
   width: 94vw;
   height: 46vh;
+  margin-top: 10vh;
 }
 
 .carousel-img {
@@ -267,6 +268,10 @@ span{
     top: 37vh;
   }
 
+  .carousel-container{
+    margin-top: 0vh;
+  }
+
   .margin-div{
     height: 25vh;
   }
@@ -288,5 +293,11 @@ span{
   .tab-container{
     margin-top: 5vh;
     height: 85vh;
+  }
+
+  .carousel-img{
+    width: 14em;
+    height: 14em;
+    margin-left: 10px;
   }
 }

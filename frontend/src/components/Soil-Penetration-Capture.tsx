@@ -37,7 +37,7 @@ function SoilPenetrationResistanceCapture({handleLogoutClick}: any){
                                 <p style={{marginTop: '0.8em'}}>
                                     Your form has been submitted.
                                 </p>
-                                <p>You Scored {score}/100.</p>
+                                <p>You Scored <b>{score}/100</b>.</p>
                             </div>;
 
     function createEmptyEntry() {
