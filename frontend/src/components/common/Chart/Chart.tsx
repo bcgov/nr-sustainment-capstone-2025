@@ -29,7 +29,7 @@ import { Bar } from 'react-chartjs-2';
 import { Select } from '@bcgov/design-system-react-components';
 import { useOrientation } from 'react-use';
 
- import { viteBackendUrl } from '../../../config';
+import { viteBackendUrl } from '../../../config';
 
 export const Chart = ({userData, category}: any) => {
     const { type } = useOrientation();
