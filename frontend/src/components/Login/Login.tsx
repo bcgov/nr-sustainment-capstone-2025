@@ -5,11 +5,10 @@ import { Button } from '../common/Button/Button.tsx';
 import InputField from '../common/InputField/InputField.tsx';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { viteBackendUrl } from '../../config';
 
 function Login({ setIsAuthenticated }: any) {
     const [name, setName] = useState("");
-    const viteBackendUrl = window?.config?.VITE_BACKEND_URL || "http://localhost:3000";
-    console.log("VITE_BACKEND_URL: ", viteBackendUrl)
 
     const navigate = useNavigate();
 

@@ -2,6 +2,8 @@ import { Select } from '@bcgov/design-system-react-components';
 import { useState, useEffect } from 'react';
 import { useOrientation } from 'react-use';
 
+import { viteBackendUrl } from '../../../config';
+
 export const Carousel = ({userData}: any) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -26,7 +28,7 @@ export const Carousel = ({userData}: any) => {
                     date: new Date(dateData, 0, 1)
                 }
 
-                const response = await fetch('http://localhost:3000/api/check-coverage-report', {
+                const response = await fetch(`${viteBackendUrl}/api/check-coverage-report`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

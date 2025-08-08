@@ -14,6 +14,8 @@ import { RadioGroup, Radio } from "@bcgov/design-system-react-components";
 import Modal from './common/Modal/Modal.tsx';
 import { useOrientation } from 'react-use';
 
+import { viteBackendUrl } from '../config.ts';
+
 function OrganicMatterAnalysisCapture({handleLogoutClick}: any) {
     const location = useLocation();
     const navigate = useNavigate();
