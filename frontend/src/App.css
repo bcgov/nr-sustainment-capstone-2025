@@ -41,7 +41,7 @@
 }
 
 .collapse-footer-open {
-  position: absolute;
+  position: fixed;
   top: 80%;
   left: 88%;
   border: none !important;
@@ -50,7 +50,7 @@
 }
 
 .collapse-footer-closed {
-  position: absolute;
+  position: fixed;
   top: 93%;
   left: 88%;
   border: none !important;
