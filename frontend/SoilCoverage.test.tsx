@@ -1,11 +1,8 @@
 /// <reference types="@testing-library/jest-dom" />
-import React from 'react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter} from 'react-router-dom';
 import {describe, expect, test, jest} from '@jest/globals';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import SoilCoverageCapture from './src/components/Soil-Coverage-Capture'; // adjust path if needed
-import SoilCoverageCompare from './src/components/Soil-Coverage-Compare';
-import * as renderer from 'react-test-renderer';
 
 const mockHandleLogoutClick = jest.fn();
 const mockNavigate = jest.fn();
@@ -33,7 +30,7 @@ jest.mock('react-router-dom', () => {
 
 describe('SoilCoverageCapture', () => {
     
-  test('slider changes when moved', async () => {
+  test('slider changes when moved', () => {
     render(
       <MemoryRouter>
         <SoilCoverageCapture handleLogoutClick={mockHandleLogoutClick} />
@@ -47,106 +44,64 @@ describe('SoilCoverageCapture', () => {
     expect(slider.value).toBe('3');
   });
 
-  test('save button does not save when no image is imported', () => {
+
+  test('testing save button renders as disabled', () => {
     render(
       <MemoryRouter>
         <SoilCoverageCapture handleLogoutClick={mockHandleLogoutClick} />
       </MemoryRouter>
     );
 
-    fireEvent.click(screen.getByText('Save'));
+    expect(screen.getByText('Save')).toHaveAttribute('disabled');
+
+  });
+
+
+  test('testing home button is shown to user', () => {
+    render(
+      <MemoryRouter>
+        <SoilCoverageCapture handleLogoutClick={mockHandleLogoutClick} />
+      </MemoryRouter>
+    );
+
+    const homeButton = screen.getByRole('button', { name: 'Home' });
+    expect(homeButton).toBeInTheDocument();
+
+  });
+
+
+  test('testing logout button is shown to user', () => {
+    render(
+      <MemoryRouter>
+        <SoilCoverageCapture handleLogoutClick={mockHandleLogoutClick} />
+      </MemoryRouter>
+    );
+
+    const logoutButton = screen.getByRole('button', { name: 'Logout' });
+    expect(logoutButton).toBeInTheDocument();
+
+  });
+
+
+  test('testing add image button brings up modal', async () => {
+    render(
+      <MemoryRouter>
+        <SoilCoverageCapture handleLogoutClick={mockHandleLogoutClick} />
+      </MemoryRouter>
+    );
+
+    fireEvent.click(screen.getByText('Add Image'));
+    
+    // Wait for the thank-you message (modal opens)
+    await waitFor(() => {
+      expect(screen.getByText('In 10-15 randomly selected areas of the field, take a photo of an approximately 1 ft by 1 ft (30 by 30 cm) square of the soil surface.')).toBeInTheDocument();
+    });
+
+    // Close the modal-
+    const closeButton = screen.getByLabelText('Dismiss');
+    fireEvent.click(closeButton);
+    
 
   });
 
 });
-
-
-
-//   test('shows alert if any field is missing on submit', () => {
-//     window.alert = jest.fn();
-//     render(
-//       <MemoryRouter>
-//         <SoilPenetrationResistanceCapture handleLogoutClick={mockHandleLogoutClick} />
-//       </MemoryRouter>
-//     );
-
-//     fireEvent.click(screen.getByText('Submit'));
-//     expect(window.alert).toHaveBeenCalledWith(expect.stringContaining('Please make sure all values have been filled out'));
-//   });
-
-//   test('checking fetch call is correct', async () => {
-//     render(
-//       <MemoryRouter>
-//         <SoilPenetrationResistanceCapture handleLogoutClick={mockHandleLogoutClick} />
-//       </MemoryRouter>
-//     );
-
-//     // Fill all selects
-//     const selects = screen.getAllByRole('combobox');
-//     selects.forEach(select => {
-//       fireEvent.change(select, { target: { value: 'Some' } });
-//     });
-
-//     // Submit the form
-//     fireEvent.click(screen.getByText('Submit'));
-
-//     // Wait for the fetch to be called
-//     await waitFor(() => {
-//       expect(global.fetch).toHaveBeenCalledWith(
-//         'http://localhost:3000/api/add-soil-penetration-report',
-//         expect.objectContaining({
-//           method: 'POST',
-//           headers: {
-//             'Content-Type': 'application/json',
-//           },
-//           body: expect.any(String),
-//         })
-//       );
-//     });
-//   });
-
-//   test('checking if form properly resets after submit click', async () => {
-//     render(
-//       <MemoryRouter>
-//         <SoilPenetrationResistanceCapture handleLogoutClick={mockHandleLogoutClick} />
-//       </MemoryRouter>
-//     );
-
-//     // Fill all selects
-//     const selects = screen.getAllByRole('combobox');
-//     selects.forEach(select => {
-//       fireEvent.change(select, { target: { value: 'Some' } });
-//     });
-
-//     // Submit the form
-//     fireEvent.click(screen.getByText('Submit'));
-
-//      // Wait for the thank-you message (modal opens)
-//     await waitFor(() => {
-//       expect(screen.getByText('Your form has been submitted. Thank you.')).toBeInTheDocument();
-//     });
-
-//     // Close the modal-
-//     const closeButton = screen.getByLabelText('Dismiss');
-//     fireEvent.click(closeButton);
-
-//     // Check if form was reset
-//     const updatedSelects = screen.getAllByRole('combobox');
-//     updatedSelects.forEach(select => {
-//       expect((select as HTMLSelectElement).value).toBe('');
-//     });
-//   });
-// });
-
-// describe('SoilPenetrationResistanceCompare Snapshot', () => {
-//   test('matches the snapshot', () => {
-//     const tree = renderer
-//       .create(
-//         <MemoryRouter>
-//           <SoilPenetrationResistanceCompare handleLogoutClick={mockHandleLogoutClick} />
-//         </MemoryRouter>
-//       )
-//       .toJSON();
-//     expect(tree).toMatchSnapshot();
-//   });
-// });
