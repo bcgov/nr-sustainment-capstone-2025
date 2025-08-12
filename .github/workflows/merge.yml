@@ -1,37 +1,47 @@
-# name: Merge
+name: Merge
 
-# on:
-#   push:
-#     branches: [main]
-#     paths-ignore:
-#       - '*.md'
-#       - '.github/**'
-#       - '.github/graphics/**'
-#       - '!.github/workflows/**'
-#   workflow_dispatch:
-#     inputs:
-#       pr_no:
-#         description: "PR-numbered container set to deploy"
-#         type: number
-#         required: true
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '*.md'
+      - '.github/**'
+      - '.github/graphics/**'
+      - '!.github/workflows/**'
+  workflow_dispatch:
+    inputs:
+      pr_no:
+        description: "PR-numbered container set to deploy"
+        type: number
+        required: true
 
-# concurrency:
-#   # Do not interrupt previous workflows
-#   group: ${{ github.workflow }}
-#   cancel-in-progress: false
+concurrency:
+  # Do not interrupt previous workflows
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
 
-# jobs:
-#   vars:
-#     name: Set Variables
-#     outputs:
-#       pr: ${{ steps.pr.outputs.pr }}
-#     runs-on: ubuntu-22.04
-#     timeout-minutes: 1
-#     steps:
-#       # Get PR number for squash merges to main
-#       - name: PR Number
-#         id: pr
-#         uses: bcgov-nr/action-get-pr@v0.0.1
+jobs:
+  init:
+    name: Set Variables
+    outputs:
+      pr: ${{ steps.pr.outputs.pr }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 1
+    steps:
+      # Get PR number for squash merges to main
+      - name: PR Number
+        id: pr
+        uses: bcgov-nr/action-get-pr@v0.0.1
+
+  deploys-test:
+    name: TEST Deploys (${{ needs.init.outputs.pr }})
+    needs: [init]
+    secrets: inherit
+    uses: ./.github/workflows/.deploy.yml
+    with:
+      environment: test
+      tag: ${{ needs.init.outputs.pr }}
+      target: test
 
   # deploy:
   #   name: Deploy
