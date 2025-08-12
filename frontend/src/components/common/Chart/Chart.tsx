@@ -609,8 +609,8 @@ export const Chart = ({userData, category}: any) => {
                     {
                         label: (year-1).toString(),
                         data: oneYearRemovedChartData,
-                        borderColor: '#C1272D',
-                        backgroundColor: '#C1272D',
+                        borderColor: '#453746ff',
+                        backgroundColor: '#453746ff',
                     },
                     {
                         label: (year-2).toString(),
@@ -636,8 +636,8 @@ export const Chart = ({userData, category}: any) => {
                     {
                         label: (year-1).toString(),
                         data: oneYearRemovedChartData,
-                        borderColor: '#C1272D',
-                        backgroundColor: '#C1272D',
+                        borderColor: '#453746ff',
+                        backgroundColor: '#453746ff',
                     },
                     {
                         label: (year-2).toString(),
@@ -675,8 +675,8 @@ export const Chart = ({userData, category}: any) => {
                     {
                         label: "February",
                         data: februaryData,
-                        borderColor: '#C1272D',
-                        backgroundColor: '#C1272D',
+                        borderColor: '#453746ff',
+                        backgroundColor: '#453746ff',
                     },
                     {
                         label: "March",
@@ -702,8 +702,8 @@ export const Chart = ({userData, category}: any) => {
                     {
                         label: "May",
                         data: mayData,
-                        borderColor: '#C1272D',
-                        backgroundColor: '#C1272D',
+                        borderColor: '#453746ff',
+                        backgroundColor: '#453746ff',
                     },
                     {
                         label: "June",
@@ -729,8 +729,8 @@ export const Chart = ({userData, category}: any) => {
                     {
                         label: "August",
                         data: augustData,
-                        borderColor: '#C1272D',
-                        backgroundColor: '#C1272D',
+                        borderColor: '#453746ff',
+                        backgroundColor: '#453746ff',
                     },
                     {
                         label: "September",
@@ -756,8 +756,8 @@ export const Chart = ({userData, category}: any) => {
                     {
                         label: "November",
                         data: novemberData,
-                        borderColor: '#C1272D',
-                        backgroundColor: '#C1272D',
+                        borderColor: '#453746ff',
+                        backgroundColor: '#453746ff',
                     },
                     {
                         label: "December",
