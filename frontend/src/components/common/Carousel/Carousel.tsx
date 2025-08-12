@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useOrientation } from 'react-use';
 
+import { viteBackendUrl } from '../../../config.ts';
+
 export const Carousel = ({userData}: any) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -11,7 +13,7 @@ export const Carousel = ({userData}: any) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/check-coverage-report', {
+                const response = await fetch(`${viteBackendUrl}/api/check-coverage-report`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json"

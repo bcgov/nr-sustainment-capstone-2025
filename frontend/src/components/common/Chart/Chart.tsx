@@ -29,6 +29,8 @@ import { Bar } from 'react-chartjs-2';
 import { Select } from '@bcgov/design-system-react-components';
 import { useOrientation } from 'react-use';
 
+import { viteBackendUrl } from '../../../config.ts';
+
 export const Chart = ({userData, category}: any) => {
     const { type } = useOrientation();
     // State holds array initialized as empty
@@ -64,7 +66,7 @@ export const Chart = ({userData, category}: any) => {
     const xAxis = category === "Coverage" ? "Soil Coverage" : category === "Soil-Penetration" ? "Score" : "Colour Score";
     const min = 0;
     const max = category === "Coverage" || category === "Soil-Penetration" ? 100 : 8;
-    const stepSize = category === "Coverage" || category === "Soil-Penetration" ? 25 : 2; 
+    const stepSize = category === "Coverage" || category === "Soil-Penetration" ? 25 : 2;
 
     useEffect(() => {
         const currentDate = new Date().getFullYear();
@@ -295,7 +297,7 @@ export const Chart = ({userData, category}: any) => {
         }
 
         if (category === "Coverage") {
-            fetch('http://localhost:3000/api/check-coverage-report', {
+            fetch(`${viteBackendUrl}/api/check-coverage-report`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -333,7 +335,7 @@ export const Chart = ({userData, category}: any) => {
         }
         else if (category === "OMA-dry") {
             sendData.moistureLevel = 'dry';
-            fetch('http://localhost:3000/api/check-oma-report', {
+            fetch(`${viteBackendUrl}/api/check-oma-report`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -370,7 +372,7 @@ export const Chart = ({userData, category}: any) => {
                 })
         } else if (category === "OMA-wet") {
             sendData.moistureLevel = 'wet';
-            fetch('http://localhost:3000/api/check-oma-report', {
+            fetch(`${viteBackendUrl}/api/check-oma-report`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -407,7 +409,7 @@ export const Chart = ({userData, category}: any) => {
                     setLoading(false);
                 })
         } else if (category === "Soil-Penetration"){
-            fetch('http://localhost:3000/api/check-soil-penetration-report', {
+            fetch(`${viteBackendUrl}/api/check-soil-penetration-report`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
