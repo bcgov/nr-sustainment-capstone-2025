@@ -8,8 +8,8 @@ const port = process.env.PORT || 3000;
 
 const allowedOrigins:( string | RegExp)[] = [
   'http://localhost:5173',
-  'https://soil-assessment-tool-145.apps.silver.devops.gov.bc.ca',
-  'https://nr-sustainment-capstone-2025-145-backend.apps.silver.devops.gov.bc.ca'
+  /^https:\/\/nr-sustainment-capstone-2025-\d+\.apps\.silver\.devops\.gov\.bc\.ca$/,
+  /^https:\/\/soil-assessment-tool-\d+\.apps\.silver\.devops\.gov\.bc\.ca$/,
 ]
 
 const corsOptions = {
