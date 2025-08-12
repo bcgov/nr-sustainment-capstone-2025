@@ -70,7 +70,7 @@ jobs:
           file: backend/openshift.deploy.yml
           overwrite: true
           parameters:
-            -p TAG=${{ inputs.tag }} -p TARGET=${{ inputs.target }}
+            -p TAG=${{ inputs.tag }} -p TARGET=${{ inputs.target }} -p POSTGRES_PASSWORD=${{ inputs.target }}
           verification_path: /api/health
           verification_retry_attempts: "5"
           verification_retry_seconds: "15"
