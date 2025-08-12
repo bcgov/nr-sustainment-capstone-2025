@@ -60,7 +60,7 @@ objects:
                     secretKeyRef:
                       name: ${REPO}-${TARGET}-database
                       key: database-user
-                - name: database-url
+                - name: DATABASE_URL
                   value: postgresql://postgres:${POSTGRES_PASSWORD}@${REPO}-${TARGET}-database:5432/postgres?schema=public
               ports:
                 - containerPort: 3000
