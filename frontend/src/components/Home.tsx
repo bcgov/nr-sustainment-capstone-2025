@@ -22,6 +22,7 @@ function Home({handleLogoutClick}: any) {
         <>
             <Header />
             <LogoutButton handleLogoutClick={handleLogoutClick} />
+            <h2>Select a Category:</h2>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Button size={'lg'} variant={'primary'} disabled={false} text={'Capture Data'} handleClick={handleCaptureDataClick}/>
                 <Button size={'lg'} variant={'primary'} disabled={false} text={'Compare Data'} handleClick={handleCompareDataClick}/>
