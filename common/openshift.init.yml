@@ -60,5 +60,9 @@ objects:
                 matchLabels:
                   environment: dev
                   name: b4cd74
+            - namespaceSelector:
+                matchLabels:
+                  environment: test
+                  name: b4cd74
       policyTypes:
         - Ingress
