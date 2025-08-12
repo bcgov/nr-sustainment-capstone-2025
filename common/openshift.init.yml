@@ -20,6 +20,8 @@ parameters:
   - description: Name of PostgreSQL database host.
     name: POSTGRES_HOST
     required: true
+  - name: ENV
+    required: true
 objects:
   - apiVersion: v1
     kind: Secret
@@ -58,7 +60,7 @@ objects:
         - from:
             - namespaceSelector:
                 matchLabels:
-                  environment: dev
+                  environment: ${ENV}
                   name: b4cd74
       policyTypes:
         - Ingress
