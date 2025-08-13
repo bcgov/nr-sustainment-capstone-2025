@@ -5,6 +5,7 @@ import { Button } from '../common/Button/Button.tsx';
 import InputField from '../common/InputField/InputField.tsx';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { viteBackendUrl } from '../../config.ts';
 
 function Login({ setIsAuthenticated }: any) {
     const [name, setName] = useState("");
@@ -16,7 +17,7 @@ function Login({ setIsAuthenticated }: any) {
             userName: name
         }
 
-        fetch("http://localhost:3000/api/add-user", {
+        fetch(`${viteBackendUrl}/api/add-user`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
