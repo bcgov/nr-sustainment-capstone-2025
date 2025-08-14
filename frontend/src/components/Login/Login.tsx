@@ -42,7 +42,7 @@ function Login({ setIsAuthenticated }: any) {
             <Header />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <InputField className={'login'} label={'First Name:'} type={'text'} name={'name'} value={name} onChange={handleInputChange}/>
-                <Button size={'md'} variant={'primary'} disabled={name == "" ? true : false} text={'Login'} handleClick={handleLoginClick}/>
+                <Button size={'md'} variant={'primary'} disabled={name == "" ? true : false} text={'Log in'} handleClick={handleLoginClick}/>
             </div>
             <Collapsible children={<Footer/>}/>
         </>

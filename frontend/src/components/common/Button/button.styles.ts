@@ -13,11 +13,16 @@ type ButtonProps = {
 const StyledButton = styled.button<ButtonProps>`
   ${typography.toString()}
   width: ${(props) => (props.size === 'sm' || props.size === 'tall' ? '125px' : props.size === 'md' ? '175px' :
-            props.size === 'nav' ? '85px' : props.size === 'save' ? '115px' : props.size === 'home' ? '70px' : '300px')};
-  height: ${(props) => (props.size === 'sm' ? '35px' : props.size === 'md' ? '50px' : props.size === 'nav' || 
-            props.size === 'tall' || props.size === 'save' || props.size === 'home' ? '45px' : '100px')};
-  border: none;
-  border-radius: 8px;
+            props.size === 'link' ? '85px' : props.size === 'save' ? '115px' : props.size === 'home' || props.size === 'nav' ? '80px' : '300px')};
+  height: ${(props) => (props.size === 'sm' ? '35px' : props.size === 'md' ? '50px' : props.size === 'link' || 
+            props.size === 'tall' || props.size === 'save' || props.size === 'home' || props.size === 'nav' ? '45px' : '100px')};
+  border: ${(props) =>
+    props.variant === 'primary'
+      ? 'none'
+      : props.variant === 'secondary'
+        ? '1px solid black'
+        : 'none'};
+  border-radius: 5px;
   padding: 2px;
   margin: ${(props) => (props.size === 'sm' || props.size === 'nav' || props.size === 'save' || props.size === 'home' ? '0 1.5px' : props.size === 'md' ? '0.15em' : props.size === 'tall' ? '1em 1em 0em 1em' : '1em')};
   text-align: center;
@@ -30,17 +35,28 @@ const StyledButton = styled.button<ButtonProps>`
     props.variant === 'primary'
       ? '#003366'
       : props.variant === 'secondary'
-        ? '#DC3545'
+        ? '#ffffff'
         : '#000000'};
   background-color: ${(props) =>
     props.variant === 'primary'
       ? '#003366'
       : props.variant === 'secondary'
-        ? '#DC3545'
+        ? '#ffffff'
         : props.variant === 'tertiary'
-          ? '#198754'
-          : '#000000'};
-  color: #ffffff;
+          ? '#ffffff'
+      : '#000000'};
+  color: ${(props) =>
+  props.variant === 'primary'
+    ? '#ffffff'
+    : props.variant === 'secondary'
+      ? '#000000'
+      : props.variant === 'tertiary'
+      ? '#003366'
+      : '#ffffff'};
+  text-decoration: ${(props) =>
+  props.variant === 'tertiary'
+    ? 'underline'
+    : 'none'};
   &:hover {
     transform: scale(0.98);
   }
