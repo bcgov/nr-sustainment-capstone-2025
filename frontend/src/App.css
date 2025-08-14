@@ -84,6 +84,25 @@
   margin-bottom: 16px;
 }
 
+.backNavButton {
+  position: absolute;
+  left: 2vh;
+  top: 9.2vh;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  &:focus {
+      outline: none;
+  }
+  &:hover {
+      transform: scale(0.9);
+  }
+
+  @media (orientation: landscape) {
+      top: 12.5vh
+  }
+}
+
 .base-container {
   height: 80vh;
 }
@@ -144,7 +163,7 @@ span{
   width: 150px;
   height: 35px;
   color: #ffffff;
-  background-color: #198754;
+  background-color: #003366;
   display: flex;
   align-items: center;
   justify-content: center;
