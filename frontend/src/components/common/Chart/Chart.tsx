@@ -29,6 +29,8 @@ import { Bar } from 'react-chartjs-2';
 import { Select } from '@bcgov/design-system-react-components';
 import { useOrientation } from 'react-use';
 
+import { viteBackendUrl } from '../../../config.ts';
+
 export const Chart = ({userData, category}: any) => {
     const { type } = useOrientation();
     // State holds array initialized as empty
@@ -64,7 +66,7 @@ export const Chart = ({userData, category}: any) => {
     const xAxis = category === "Coverage" ? "Soil Coverage" : category === "Soil-Penetration" ? "Score" : "Colour Score";
     const min = 0;
     const max = category === "Coverage" || category === "Soil-Penetration" ? 100 : 8;
-    const stepSize = category === "Coverage" || category === "Soil-Penetration" ? 25 : 2; 
+    const stepSize = category === "Coverage" || category === "Soil-Penetration" ? 25 : 2;
 
     useEffect(() => {
         const currentDate = new Date().getFullYear();
@@ -295,7 +297,7 @@ export const Chart = ({userData, category}: any) => {
         }
 
         if (category === "Coverage") {
-            fetch('http://localhost:3000/api/check-coverage-report', {
+            fetch(`${viteBackendUrl}/api/check-coverage-report`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -333,7 +335,7 @@ export const Chart = ({userData, category}: any) => {
         }
         else if (category === "OMA-dry") {
             sendData.moistureLevel = 'dry';
-            fetch('http://localhost:3000/api/check-oma-report', {
+            fetch(`${viteBackendUrl}/api/check-oma-report`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -370,7 +372,7 @@ export const Chart = ({userData, category}: any) => {
                 })
         } else if (category === "OMA-wet") {
             sendData.moistureLevel = 'wet';
-            fetch('http://localhost:3000/api/check-oma-report', {
+            fetch(`${viteBackendUrl}/api/check-oma-report`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -407,7 +409,7 @@ export const Chart = ({userData, category}: any) => {
                     setLoading(false);
                 })
         } else if (category === "Soil-Penetration"){
-            fetch('http://localhost:3000/api/check-soil-penetration-report', {
+            fetch(`${viteBackendUrl}/api/check-soil-penetration-report`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -573,11 +575,11 @@ export const Chart = ({userData, category}: any) => {
     return(
         <>
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                {type === 'landscape-primary' ? <Select style={{marginRight: '1em', left: '45%'}} className={'select-font'} items={filter} label="Filter" size='small' defaultSelectedKey={filterValue} onSelectionChange={handleFilter}/> :
-                <Select style={{marginRight: '1em'}} className={'select-font'} items={filter} label="Filter" size='small' defaultSelectedKey={filterValue} onSelectionChange={handleFilter}/> }
-                { filterValue == 1 && <Select className={'select-font'} items={filterWithYearly} label="Filter" size='small' defaultSelectedKey={filterValueYearly} onSelectionChange={handleFilterYearly}/>}
-                { filterValue == 2 && <Select className={'select-font'} items={filterWithQuarterly} label="Filter" size='small' defaultSelectedKey={filterValueQuarterly} onSelectionChange={handleFilterQuarterly}/>}
-                { filterValue == 3 && <Select className={'select-font'} items={filterWithMonthly} label="Filter" size='small' defaultSelectedKey={filterValueMonthly} onSelectionChange={handleFilterMonthly}/>}
+                {type === 'landscape-primary' ? <Select style={{marginRight: '1em', left: '45%'}} className={'select-font'} items={filter} label="Filters:" size='small' defaultSelectedKey={filterValue} onSelectionChange={handleFilter}/> :
+                <Select style={{marginRight: '1em'}} className={'select-font'} items={filter} label="Filters:" size='small' defaultSelectedKey={filterValue} onSelectionChange={handleFilter}/> }
+                { filterValue == 1 && <Select style={{marginTop: '1.75em'}} className={'select-font'} items={filterWithYearly} size='small' defaultSelectedKey={filterValueYearly} onSelectionChange={handleFilterYearly}/>}
+                { filterValue == 2 && <Select style={{marginTop: '1.75em'}} className={'select-font'} items={filterWithQuarterly} size='small' defaultSelectedKey={filterValueQuarterly} onSelectionChange={handleFilterQuarterly}/>}
+                { filterValue == 3 && <Select style={{marginTop: '1.75em'}} className={'select-font'} items={filterWithMonthly} size='small' defaultSelectedKey={filterValueMonthly} onSelectionChange={handleFilterMonthly}/>}
             </div>
 
             {/* Yearly && Current Year */}
@@ -588,8 +590,8 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: year.toString(),
                         data: currentYearChartData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     }]
                 }}
                 options={options}
@@ -603,20 +605,20 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: year.toString(),
                         data: currentYearChartData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     },
                     {
                         label: (year-1).toString(),
                         data: oneYearRemovedChartData,
-                        borderColor: 'rgb(110, 53, 47)',
-                        backgroundColor: 'rgb(110, 53, 47)',
+                        borderColor: '#453746ff',
+                        backgroundColor: '#453746ff',
                     },
                     {
                         label: (year-2).toString(),
                         data: twoYearRemovedChartData,
-                        borderColor: 'rgb(54, 109, 67)',
-                        backgroundColor: 'rgb(54, 109, 67)',
+                        borderColor: '#F2C45F',
+                        backgroundColor: '#F2C45F',
                     }]
                 }}
                 options={options}
@@ -630,32 +632,32 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: year.toString(),
                         data: currentYearChartData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     },
                     {
                         label: (year-1).toString(),
                         data: oneYearRemovedChartData,
-                        borderColor: 'rgb(110, 53, 47)',
-                        backgroundColor: 'rgb(110, 53, 47)',
+                        borderColor: '#453746ff',
+                        backgroundColor: '#453746ff',
                     },
                     {
                         label: (year-2).toString(),
                         data: twoYearRemovedChartData,
-                        borderColor: 'rgb(54, 109, 67)',
-                        backgroundColor: 'rgb(54, 109, 67)',
+                        borderColor: '#F2C45F',
+                        backgroundColor: '#F2C45F',
                     },
                     {
                         label: (year-3).toString(),
                         data: threeYearRemovedChartData,
-                        borderColor: 'rgb(135, 56, 99)',
-                        backgroundColor: 'rgb(135, 56, 99)',
+                        borderColor: '#D46600',
+                        backgroundColor: '#D46600',
                     },
                     {
                         label: (year-4).toString(),
                         data: fourYearRemovedChartData,
-                        borderColor: 'rgb(66, 153, 175)',
-                        backgroundColor: 'rgb(66, 153, 175)',
+                        borderColor: '#800074',
+                        backgroundColor: '#800074',
                     }]
                 }}
                 options={options}
@@ -669,20 +671,20 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: "January",
                         data: januaryData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     },
                     {
                         label: "February",
                         data: februaryData,
-                        borderColor: 'rgb(110, 53, 47)',
-                        backgroundColor: 'rgb(110, 53, 47)',
+                        borderColor: '#453746ff',
+                        backgroundColor: '#453746ff',
                     },
                     {
                         label: "March",
                         data: marchData,
-                        borderColor: 'rgb(54, 109, 67)',
-                        backgroundColor: 'rgb(54, 109, 67)',
+                        borderColor: '#F2C45F',
+                        backgroundColor: '#F2C45F',
                     }]
                 }}
                 options={options}
@@ -696,20 +698,20 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: "April",
                         data: aprilData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     },
                     {
                         label: "May",
                         data: mayData,
-                        borderColor: 'rgb(110, 53, 47)',
-                        backgroundColor: 'rgb(110, 53, 47)',
+                        borderColor: '#453746ff',
+                        backgroundColor: '#453746ff',
                     },
                     {
                         label: "June",
                         data: juneData,
-                        borderColor: 'rgb(54, 109, 67)',
-                        backgroundColor: 'rgb(54, 109, 67)',
+                        borderColor: '#F2C45F',
+                        backgroundColor: '#F2C45F',
                     }]
                 }}
                 options={options}
@@ -723,20 +725,20 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: "July",
                         data: julyData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     },
                     {
                         label: "August",
                         data: augustData,
-                        borderColor: 'rgb(110, 53, 47)',
-                        backgroundColor: 'rgb(110, 53, 47)',
+                        borderColor: '#453746ff',
+                        backgroundColor: '#453746ff',
                     },
                     {
                         label: "September",
                         data: septemberData,
-                        borderColor: 'rgb(54, 109, 67)',
-                        backgroundColor: 'rgb(54, 109, 67)',
+                        borderColor: '#F2C45F',
+                        backgroundColor: '#F2C45F',
                     }]
                 }}
                 options={options}
@@ -750,20 +752,20 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: "October",
                         data: octoberData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     },
                     {
                         label: "November",
                         data: novemberData,
-                        borderColor: 'rgb(110, 53, 47)',
-                        backgroundColor: 'rgb(110, 53, 47)',
+                        borderColor: '#453746ff',
+                        backgroundColor: '#453746ff',
                     },
                     {
                         label: "December",
                         data: decemberData,
-                        borderColor: 'rgb(54, 109, 67)',
-                        backgroundColor: 'rgb(54, 109, 67)',
+                        borderColor: '#F2C45F',
+                        backgroundColor: '#F2C45F',
                     }]
                 }}
                 options={options}
@@ -777,8 +779,8 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: "January",
                         data: januaryData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     }]
                 }}
                 options={options}
@@ -792,8 +794,8 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: "February",
                         data: februaryData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     }]
                 }}
                 options={options}
@@ -807,8 +809,8 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: "March",
                         data: marchData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     }]
                 }}
                 options={options}
@@ -822,8 +824,8 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: "April",
                         data: aprilData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     }]
                 }}
                 options={options}
@@ -837,8 +839,8 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: "May",
                         data: mayData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     }]
                 }}
                 options={options}
@@ -852,8 +854,8 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: "June",
                         data: juneData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     }]
                 }}
                 options={options}
@@ -867,8 +869,8 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: "July",
                         data: julyData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     }]
                 }}
                 options={options}
@@ -882,8 +884,8 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: "August",
                         data: augustData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     }]
                 }}
                 options={options}
@@ -897,8 +899,8 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: "September",
                         data: septemberData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     }]
                 }}
                 options={options}
@@ -912,8 +914,8 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: "October",
                         data: octoberData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     }]
                 }}
                 options={options}
@@ -927,8 +929,8 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: "November",
                         data: novemberData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     }]
                 }}
                 options={options}
@@ -942,8 +944,8 @@ export const Chart = ({userData, category}: any) => {
                     datasets: [{
                         label: "December",
                         data: decemberData,
-                        borderColor: 'rgb(75, 94, 115)',
-                        backgroundColor: 'rgb(75, 94, 115)',
+                        borderColor: '#1A80BB',
+                        backgroundColor: '#1A80BB',
                     }]
                 }}
                 options={options}

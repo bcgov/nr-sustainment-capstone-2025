@@ -6,8 +6,26 @@ var cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
 
+const allowedOrigins:( string | RegExp)[] = [
+  'http://localhost:5173',
+  /^https:\/\/nr-sustainment-capstone-2025-(\d+|test)\.apps\.silver\.devops\.gov\.bc\.ca$/,
+  /^https:\/\/soil-assessment-tool-(\d+|test)\.apps\.silver\.devops\.gov\.bc\.ca$/,
+]
+
 const corsOptions = {
-  origin: 'http://localhost:5173', // Allow requests from this origin
+  origin: (origin: string, callback: any) => {
+    if (!origin) return callback(null, true);
+
+    const isAllowed = allowedOrigins.some(allowedOrigin => 
+      allowedOrigin instanceof RegExp 
+        ? allowedOrigin.test(origin) 
+        : allowedOrigin === origin
+    );
+
+    const error = isAllowed ? null : new Error('Not allowed by CORS');
+
+    callback(error, isAllowed);
+  }, // Allow requests from these origins
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
   credentials: true // Allow cookies and authorization headers
