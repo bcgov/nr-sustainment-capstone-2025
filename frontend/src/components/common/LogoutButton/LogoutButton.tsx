@@ -4,7 +4,7 @@ import "./logoutButton.styles.css"
 function LogoutButton({handleLogoutClick}: any){
     return(
         <StyledButton id='logout' size={'md'} variant='secondary' disabled={false} onClick={handleLogoutClick}>
-            Logout
+            Log out
         </StyledButton>
     )
 }
